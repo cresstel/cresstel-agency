@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Cresstel AI - Strategic Engineering</title>
+    <title>Contact | Cresstel AI - Elite Technical Consultation</title>
+    <meta name="description" content="Schedule a high-end technical consultation with Cresstel AI. Direct access to elite software engineering and predictive analytics solutions.">
     
-    <!-- Fonts: Plus Jakarta Sans & Inter -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        black: '#000000',
-                        shieldBlue: '#172A4A',
-                        silver: '#7E7E7E',
-                        silverLight: '#C0C0C0',
+                        brandBlack: '#000000',
+                        brandBlue: '#172A4A',
+                        brandSilver: '#7E7E7E',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -33,203 +32,373 @@
     </script>
 
     <style>
-        body { background-color: #000000; color: #FFFFFF; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .font-heading { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
+        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); filter: blur(10px); }
+        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+        .aurora { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
         
-        /* Glassmorphism Navbar */
-        .glass { background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(126, 126, 126, 0.1); }
+        /* Calendar & UI Specifics */
+        .calendar-day { transition: all 0.3s ease; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; font-size: 0.85rem; border: 1px solid transparent; }
+        .calendar-day:hover:not(.empty) { background: rgba(255,255,255,0.1); border-color: #7E7E7E; }
+        .calendar-day.selected { background: #FFFFFF; color: #000000; font-weight: bold; }
+        .time-slot { transition: all 0.3s ease; padding: 10px; border: 1px solid rgba(126, 126, 126, 0.2); border-radius: 12px; text-align: center; cursor: pointer; font-size: 0.8rem; }
+        .time-slot:hover { border-color: #FFFFFF; background: rgba(255,255,255,0.05); }
+        .time-slot.selected { background: #FFFFFF; color: #000000; border-color: #FFFFFF; font-weight: 600; }
+        
+        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+        #mobile-menu.active { transform: translateX(0); }
+        .active-link { border-left: 4px solid #FFFFFF; padding-left: 1rem; color: #FFFFFF !important; }
+        
+        input, select { background: transparent !important; border: 1px solid rgba(126, 126, 126, 0.3) !important; color: white !important; outline: none !important; transition: border-color 0.3s; }
+        input:focus, select:focus { border-color: white !important; }
+        option { background: #172A4A; color: white; }
 
-        /* Sophisticated Calendar Container */
-        .calendar-glass-card {
-            background: linear-gradient(145deg, rgba(23, 42, 74, 0.05) 0%, rgba(0, 0, 0, 1) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(126, 126, 126, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: border-color 0.5s ease;
-        }
-        .calendar-glass-card:hover { border-color: rgba(126, 126, 126, 0.4); }
-
-        /* Hide Scrollbars within the widget container */
-        .calendly-inline-widget {
-            overflow: hidden !important;
-        }
-        .calendly-inline-widget iframe {
-            border-radius: 16px;
-        }
-
-        /* Custom Reveal Animation */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Hamburger Animation */
-        .nav-icon div { transition: all 0.3s ease; }
-        .open .line1 { transform: rotate(45deg) translate(5px, 5px); }
-        .open .line2 { opacity: 0; }
-        .open .line3 { transform: rotate(-45deg) translate(7px, -6px); }
-
-        /* WA Button */
-        .btn-wa { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(126, 126, 126, 0.1); }
-        .btn-wa:hover { box-shadow: 0 0 30px rgba(23, 42, 74, 0.4); border-color: #7E7E7E; transform: translateY(-2px); }
+        .wa-glow { box-shadow: 0 0 20px rgba(37, 211, 102, 0.1); animation: wa-pulse 3s infinite; }
+        @keyframes wa-pulse { 0% { box-shadow: 0 0 0px rgba(37, 211, 102, 0); } 50% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.2); } 100% { box-shadow: 0 0 0px rgba(37, 211, 102, 0); } }
     </style>
 </head>
-<body class="bg-black text-white selection:bg-shieldBlue">
+<body class="font-sans antialiased">
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 glass">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-1 group">
-                <span class="font-heading font-bold text-2xl tracking-tight">Cresstel</span>
-                <span class="font-sans font-light text-2xl text-silver group-hover:text-white transition-colors">IA</span>
-            </a>
-            <div class="hidden md:flex items-center space-x-8">
-                <nav class="flex space-x-6 text-sm font-medium tracking-wide">
-                    <a href="index.html" class="hover:text-silver transition-colors" data-i18n="nav-home">Home</a>
-                    <a href="servicios.html" class="hover:text-silver transition-colors" data-i18n="nav-services">Services</a>
-                    <a href="portafolio.html" class="hover:text-silver transition-colors" data-i18n="nav-labs">Cresstel Labs</a>
-                    <a href="contacto.html" class="text-white border-b border-white/40 pb-1" data-i18n="nav-contact">Contact</a>
-                </nav>
-                <button id="lang-toggle" class="border border-silver/30 px-3 py-1 rounded-full text-[10px] font-bold hover:bg-white hover:text-black transition-all duration-300">EN / ES</button>
-            </div>
-            <button id="menu-btn" class="md:hidden flex flex-col space-y-1.5 z-50 nav-icon">
-                <div class="w-6 h-[1px] bg-white line1"></div>
-                <div class="w-6 h-[1px] bg-white line2"></div>
-                <div class="w-6 h-[1px] bg-white line3"></div>
+    <div class="aurora top-[-100px] right-[-100px]"></div>
+    <div class="aurora bottom-[-200px] left-[-100px] opacity-50"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] h-20 border-b border-brandSilver/10 glass-nav flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+            <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-10">
+            <a href="index.html" class="text-xs uppercase tracking-widest font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-home">Home</a>
+            <a href="services.html" class="text-xs uppercase tracking-widest font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-services">Services</a>
+            <a href="portfolio.html" class="text-xs uppercase tracking-widest font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-portfolio">Portfolio</a>
+            <a href="contact.html" class="text-xs uppercase tracking-widest font-bold text-white border-b border-white pb-1" data-i18n="nav-contact">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-6">
+            <button onclick="toggleLanguage()" class="text-[10px] font-bold border border-brandSilver/30 px-2 py-1 rounded hover:bg-white hover:text-black transition-colors duration-300">EN / ES</button>
+            <button id="menu-toggle" class="relative w-8 h-4 flex flex-col justify-between group z-[110]">
+                <span id="bar1" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+                <span id="bar2" class="w-full h-[1px] bg-white transition-all duration-300"></span>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-40 translate-x-full transition-transform duration-500 border-l border-silver/20 flex flex-col justify-center px-12">
-        <div class="flex flex-col space-y-8 text-4xl font-heading font-bold">
-            <a href="index.html" data-i18n="nav-home">Home</a>
-            <a href="servicios.html" data-i18n="nav-services">Services</a>
-            <a href="portafolio.html" data-i18n="nav-labs">Cresstel Labs</a>
-            <a href="contacto.html" data-i18n="nav-contact">Contact</a>
-        </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-12 space-y-8">
+        <a href="index.html" class="text-4xl font-heading font-bold text-brandSilver" data-i18n="nav-home">Home</a>
+        <a href="services.html" class="text-4xl font-heading font-bold text-brandSilver" data-i18n="nav-services">Services</a>
+        <a href="portfolio.html" class="text-4xl font-heading font-bold text-brandSilver" data-i18n="nav-portfolio">Portfolio</a>
+        <a href="contact.html" class="text-4xl font-heading font-bold active-link" data-i18n="nav-contact">Contact</a>
+        <div class="pt-12 border-t border-brandSilver/20"><p class="text-brandSilver text-sm" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p></div>
     </div>
 
-    <!-- Contact Page Content -->
-    <main class="min-h-screen pt-32 pb-20 px-6">
-        <div class="max-w-7xl mx-auto">
+    <!-- Main Contact Section -->
+    <main class="pt-40 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
             
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <!-- Column 1: Info -->
+            <div class="reveal">
+                <h1 class="font-heading font-extrabold text-5xl md:text-7xl tracking-tighter mb-8 leading-tight" data-i18n="hero-title">Let's Build the Future Together.</h1>
+                <p class="text-brandSilver text-lg md:text-xl mb-12 font-light leading-relaxed max-w-lg" data-i18n="hero-subtitle">Optimize your time by scheduling a direct technical briefing with our engineering team.</p>
                 
-                <!-- Column 1: Info & WhatsApp (40%) -->
-                <div class="reveal lg:col-span-5 space-y-10">
-                    <div class="space-y-6">
-                        <span class="text-silver font-bold tracking-[0.3em] text-[10px] uppercase" data-i18n="cont-eyebrow">Strategic Access</span>
-                        <h1 class="font-heading text-5xl md:text-6xl font-extrabold leading-tight tracking-tighter" data-i18n="cont-title">
-                            Let's Build the <br><span class="text-silver">Future Together.</span>
-                        </h1>
-                        <p class="text-silver text-lg font-light leading-relaxed" data-i18n="cont-subtitle">
-                            Direct connection with our core engineering team. No intermediaries, only strategic execution.
-                        </p>
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-6 group">
+                        <div class="w-12 h-12 rounded-full border border-brandSilver/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-brandSilver font-bold mb-1" data-i18n="info-email-label">Official Mail</p>
+                            <a href="mailto:solutions@cresstel.com" class="text-lg font-medium hover:text-brandSilver transition-colors">solutions@cresstel.com</a>
+                        </div>
                     </div>
 
-                    <!-- WhatsApp Button -->
-                    <div class="space-y-4">
-                        <p class="text-white text-xs font-bold uppercase tracking-widest" data-i18n="cont-wa-label">Instant Channel</p>
-                        <a href="https://wa.me/+593984702936?text=Strategic%20Inquiry%20-%20Cresstel%20AI" target="_blank" class="btn-wa flex items-center justify-between p-5 bg-[#050505] rounded-xl group">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-shieldBlue/30 p-3 rounded-lg">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                                </div>
-                                <span class="font-heading font-bold text-lg" data-i18n="cont-wa-btn">WhatsApp Direct</span>
-                            </div>
-                            <svg class="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <div class="flex items-center space-x-6">
+                        <a href="https://wa.me/593984702936" target="_blank" class="wa-glow inline-flex items-center space-x-4 bg-white text-black px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest hover:scale-105 transition-transform">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.412.001 12.049a11.82 11.82 0 001.611 5.973L0 24l6.117-1.605a11.845 11.845 0 005.933 1.598h.005c6.637 0 12.046-5.414 12.049-12.051a11.812 11.812 0 00-3.593-8.517"/></svg>
+                            <span>WhatsApp Premium</span>
                         </a>
                     </div>
-
-                    <div class="pt-6 border-t border-silver/10">
-                        <p class="text-[10px] text-silver uppercase font-bold tracking-widest mb-2" data-i18n="cont-email-tag">Official Inquiry</p>
-                        <a href="mailto:solutions@cresstel.com" class="text-xl font-heading font-medium hover:text-silver transition-colors">solutions@cresstel.ai</a>
-                    </div>
                 </div>
+            </div>
 
-                <!-- Column 2: The Calendly "Glass" Wrapper (60%) -->
-                <div class="reveal delay-200 lg:col-span-7">
-                    <div class="calendar-glass-card p-2 md:p-4">
-                        <!-- Header sutil del widget -->
-                        <div class="flex items-center space-x-2 mb-4 px-4 pt-2">
-                            <div class="w-2 h-2 rounded-full bg-red-500/40"></div>
-                            <div class="w-2 h-2 rounded-full bg-yellow-500/40"></div>
-                            <div class="w-2 h-2 rounded-full bg-green-500/40"></div>
-                            <span class="ml-4 text-[10px] text-silver font-bold uppercase tracking-widest" data-i18n="cont-sched-header">Strategic Booking Interface</span>
+            <!-- Column 2: Scheduler -->
+            <div id="form-container" class="reveal bg-brandBlue border border-brandSilver/20 p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden" style="perspective: 1000px;">
+                <h3 class="font-heading text-2xl font-bold mb-8" data-i18n="form-title">Technical Briefing</h3>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <input type="text" id="client-name" placeholder="Full Name" class="p-4 rounded-xl text-sm w-full" data-i18n-placeholder="form-name">
+                        <input type="email" id="client-email" placeholder="Institutional Email" class="p-4 rounded-xl text-sm w-full" data-i18n-placeholder="form-email">
+                    </div>
+                    
+                    <select id="project-type" class="p-4 rounded-xl text-sm w-full cursor-pointer">
+                        <option value="" disabled selected data-i18n="form-select-label">Select Project Type</option>
+                        <option value="Premium Web Interfaces" data-i18n="form-opt-1">Premium Web Interfaces</option>
+                        <option value="SaaS Systems" data-i18n="form-opt-2">SaaS Systems</option>
+                        <option value="Predictive AI" data-i18n="form-opt-3">Predictive AI Operations</option>
+                    </select>
+
+                    <!-- Native Calendar -->
+                    <div class="mt-8 border-t border-brandSilver/10 pt-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 id="calendar-month" class="text-xs uppercase tracking-widest font-bold">Month 2026</h4>
+                            <div class="flex space-x-2">
+                                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                                <span class="text-[9px] uppercase tracking-tighter text-brandSilver font-bold" data-i18n="cal-live">Live Availability</span>
+                            </div>
                         </div>
 
-                        <!-- Calendly Embedded Widget Corrected -->
-                        <div class="calendly-inline-widget" 
-                             data-url="https://calendly.com/cresstelai?hide_landing_page_details=1&background_color=000000&text_color=ffffff&primary_color=172a4a" 
-                             style="min-width:320px; height:680px; width:100%;">
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-2 text-center mb-8">
+                            <!-- JS Generated -->
                         </div>
-                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-                    </div>
-                </div>
 
+                        <div id="time-container" class="hidden animate-in fade-in duration-500">
+                            <p class="text-[10px] uppercase tracking-widest text-brandSilver mb-4 font-bold" data-i18n="cal-slots">Available Slots</p>
+                            <div class="grid grid-cols-4 gap-3" id="slots-grid">
+                                <div class="time-slot" data-time="09:00">09:00</div>
+                                <div class="time-slot" data-time="11:00">11:00</div>
+                                <div class="time-slot" data-time="14:00">14:00</div>
+                                <div class="time-slot" data-time="16:00">16:00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="sendBooking()" class="w-full mt-10 bg-white text-black py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brandSilver transition-all duration-500" data-i18n="form-btn">Confirm Appointment</button>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="pt-20 pb-10 px-6 border-t border-silver/10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-[10px] text-silver">
-            <p>© 2024 CRESSTEL IA. HIGH PERFORMANCE STANDARDS.</p>
-            <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="index.html" class="hover:text-white transition-colors">Home</a>
-                <a href="servicios.html" class="hover:text-white transition-colors">Services</a>
-                <a href="portafolio.html" class="hover:text-white transition-colors">Cresstel Labs</a>
+    <footer class="bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
+            <div>
+                <a href="index.html" class="flex items-center space-x-1 mb-6">
+                    <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+                    <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+                </a>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">GitHub</a>
+                </div>
             </div>
+            <div class="grid grid-cols-2 gap-8">
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-nav-title">Navigation</h5>
+                    <a href="index.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-home">Home</a>
+                    <a href="services.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-services">Services</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-portfolio">Portfolio</a>
+                    <a href="contact.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-contact">Contact</a>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-labs-title">Labs</h5>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">SoleVanguard</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">ScholarCore</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">Predictive Ops</a>
+                </div>
+            </div>
+            <div>
+                <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-6" data-i18n="footer-legacy-title">The Legacy</h5>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="footer-legacy-desc">Built on over a decade of infrastructure expertise. We lead the evolution from standard code to intelligent, autonomous systems.</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-brandSilver/5">
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
         </div>
     </footer>
 
     <script>
+        // Translations
         const translations = {
-            'en': {
-                'nav-home': 'Home', 'nav-services': 'Services', 'nav-labs': 'Cresstel Labs', 'nav-contact': 'Contact',
-                'cont-eyebrow': 'Strategic Access', 'cont-title': "Let's Build the Future Together.",
-                'cont-subtitle': 'Direct connection with our core engineering team. No intermediaries, only strategic execution.',
-                'cont-wa-label': 'Instant Channel', 'cont-wa-btn': 'WhatsApp Direct',
-                'cont-email-tag': 'Official Inquiry', 'cont-sched-header': 'Strategic Booking Interface'
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-contact": "Contact",
+                "menu-footer": "Make Your Digital Transformation an Evolution",
+                "hero-title": "Let's Build the Future Together.",
+                "hero-subtitle": "Optimize your time by scheduling a direct technical briefing with our engineering team.",
+                "info-email-label": "Official Mail",
+                "form-title": "Technical Briefing",
+                "form-name": "Full Name",
+                "form-email": "Institutional Email",
+                "form-select-label": "Select Project Type",
+                "form-opt-1": "Premium Web Interfaces",
+                "form-opt-2": "SaaS Systems",
+                "form-opt-3": "Predictive AI Operations",
+                "cal-live": "Live Availability",
+                "cal-slots": "Available Slots",
+                "form-btn": "Confirm Appointment",
+                "footer-tagline": "Make Your Digital Transformation an Evolution. High-end software engineering.",
+                "footer-nav-title": "Navigation", "footer-labs-title": "Labs", "footer-legacy-title": "The Legacy",
+                "footer-legacy-desc": "Built on over a decade of infrastructure expertise.",
+                "wa-msg-template": "Hello Cresstel AI, I'm {name}. I'm interested in {type}. I'd like to schedule a briefing on {date} at {time}. My institutional email is: {email}."
             },
-            'es': {
-                'nav-home': 'Inicio', 'nav-services': 'Servicios', 'nav-labs': 'Cresstel Labs', 'nav-contact': 'Contacto',
-                'cont-eyebrow': 'Acceso Estratégico', 'cont-title': "Construyamos el Futuro Juntos.",
-                'cont-subtitle': 'Conexión directa con nuestro equipo central de ingeniería. Sin intermediarios, solo ejecución estratégica.',
-                'cont-wa-label': 'Canal Instantáneo', 'cont-wa-btn': 'WhatsApp Directo',
-                'cont-email-tag': 'Consulta Oficial', 'cont-sched-header': 'Interfaz de Reserva Estratégica'
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Portafolio", "nav-contact": "Contacto",
+                "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "hero-title": "Construyamos el Futuro Juntos.",
+                "hero-subtitle": "Optimiza tu tiempo agendando una sesión técnica directa con nuestro equipo de ingeniería.",
+                "info-email-label": "Correo Oficial",
+                "form-title": "Sesión Técnica",
+                "form-name": "Nombre Completo",
+                "form-email": "Correo Institucional",
+                "form-select-label": "Seleccionar Tipo de Proyecto",
+                "form-opt-1": "Interfaces Web Premium",
+                "form-opt-2": "Sistemas SaaS",
+                "form-opt-3": "Operaciones de IA Predictiva",
+                "cal-live": "Disponibilidad en Vivo",
+                "cal-slots": "Horarios Disponibles",
+                "form-btn": "Confirmar Cita",
+                "footer-tagline": "Haz de tu Transformación Digital una Evolución. Ingeniería de software de alta gama.",
+                "footer-nav-title": "Navegación", "footer-labs-title": "Laboratorios", "footer-legacy-title": "El Legado",
+                "footer-legacy-desc": "Basado en más de una década de experiencia en infraestructura.",
+                "wa-msg-template": "Hola Cresstel AI, soy {name}. Me interesa {type}. Quisiera agendar una sesión el {date} a las {time}. Mi correo institucional es: {email}."
             }
         };
 
-        // Lang Logic
         let currentLang = 'en';
-        document.querySelectorAll('#lang-toggle').forEach(btn => {
-            btn.addEventListener('click', () => {
-                currentLang = currentLang === 'en' ? 'es' : 'en';
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
-                });
-                btn.innerText = currentLang === 'en' ? 'EN / ES' : 'ES / EN';
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
             });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
+            });
+            initCalendar(); // Refresh calendar language
+        }
+
+        // Calendar Logic
+        const monthsEN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthsES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const daysEN = ["S", "M", "T", "W", "T", "F", "S"];
+        const daysES = ["D", "L", "M", "M", "J", "V", "S"];
+
+        function initCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const totalDays = new Date(year, month + 1, 0).getDate();
+            
+            const monthLabel = document.getElementById('calendar-month');
+            monthLabel.innerText = `${currentLang === 'en' ? monthsEN[month] : monthsES[month]} ${year}`;
+            
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            // Day Headers
+            const headers = currentLang === 'en' ? daysEN : daysES;
+            headers.forEach(d => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'text-[9px] font-bold text-brandSilver opacity-50';
+                dayEl.innerText = d;
+                grid.appendChild(dayEl);
+            });
+
+            // Empty slots
+            for(let i=0; i<firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day empty';
+                grid.appendChild(empty);
+            }
+
+            // Actual days
+            for(let d=1; d<=totalDays; d++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.innerText = d;
+                
+                // Weekend check (simplified: Saturdays/Sundays light block)
+                const checkDate = new Date(year, month, d);
+                const dayOfWeek = checkDate.getDay();
+                if(dayOfWeek === 0 || dayOfWeek === 6) {
+                    dayEl.classList.add('opacity-20');
+                    dayEl.style.cursor = 'not-allowed';
+                } else {
+                    dayEl.onclick = () => selectDay(d, dayEl);
+                }
+                grid.appendChild(dayEl);
+            }
+        }
+
+        function selectDay(day, element) {
+            document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDate = `${day} ${currentLang === 'en' ? monthsEN[new Date().getMonth()] : monthsES[new Date().getMonth()]}`;
+            document.getElementById('time-container').classList.remove('hidden');
+        }
+
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.onclick = () => {
+                document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+                slot.classList.add('selected');
+                selectedTime = slot.getAttribute('data-time');
+            };
         });
 
-        // Hamburger Menu
-        const menuBtn = document.getElementById('menu-btn');
+        // Booking Processing
+        function sendBooking() {
+            const name = document.getElementById('client-name').value;
+            const email = document.getElementById('client-email').value;
+            const type = document.getElementById('project-type').value;
+
+            if(!name || !email || !type || !selectedDate || !selectedTime) {
+                alert(currentLang === 'en' ? "Please complete all fields and select a valid date/time." : "Por favor complete todos los campos y seleccione fecha/hora.");
+                return;
+            }
+
+            let template = translations[currentLang]["wa-msg-template"];
+            let message = template
+                .replace("{name}", name)
+                .replace("{type}", type)
+                .replace("{date}", selectedDate)
+                .replace("{time}", selectedTime)
+                .replace("{email}", email);
+
+            const waUrl = `https://wa.me/593984702936?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Inherited Mobile Menu & Animations
+        const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('open');
-            mobileMenu.classList.toggle('translate-x-full');
-        });
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
 
-        // Reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+        menuToggle.onclick = () => {
+            mobileMenu.classList.toggle('active');
+            const isActive = mobileMenu.classList.contains('active');
+            bar1.style.transform = isActive ? 'translateY(7px) rotate(45deg)' : 'translateY(0) rotate(0)';
+            bar2.style.transform = isActive ? 'translateY(-7px) rotate(-45deg)' : 'translateY(0) rotate(0)';
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3D Tilt for Form
+        const container = document.getElementById('form-container');
+        container.onmousemove = (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            container.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+        };
+        container.onmouseleave = () => container.style.transform = `perspective(1000px) rotateY(0) rotateX(0)`;
+
+        window.onload = initCalendar;
     </script>
 </body>
 </html>
