@@ -1,287 +1,389 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Técnico Dinámico -->
-    <title id="meta-title">Cresstel AI | Modelos Predictivos e Ingeniería SaaS Empresarial</title>
-    <meta id="meta-description" name="description" content="Agencia de ingeniería de software avanzada. Especialistas en Modelos Predictivos e infraestructura SaaS de alta gama para optimización empresarial.">
+    <!-- SEO TÉCNICO DINÁMICO -->
+    <title id="meta-title">Cresstel AI | Next-Gen Digital Interfaces & Predictive AI</title>
+    <meta id="meta-description" name="description" content="Evolución digital de alta gama. Ingeniería de software especializada en modelos predictivos y sistemas SaaS transaccionales con más de 12 años de trayectoria real.">
     <link rel="canonical" href="https://cresstel.ai/index.html" />
+    <meta name="robots" content="index, follow">
     
-    <!-- Tipografía Premium -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-
-    <!-- Estructura de Datos JSON-LD (Schema.org) -->
+    <!-- SCHEMA MARKUP (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Cresstel AI",
-      "url": "https://cresstel.ai",
-      "logo": "https://cresstel.ai/assets/logo.png",
-      "description": "Agencia de ingeniería de software especializada en IA predictiva y sistemas SaaS complejos con más de una década de experiencia.",
+      "url": "https://cresstel.ai/index.html",
+      "logo": "https://cresstel.ai/assets/logo-identity.png",
+      "description": "Agencia de ingeniería de software avanzada enfocada en Modelos Predictivos y Sistemas SaaS de alta complejidad.",
+      "slogan": "Make Your Digital Transformation an Evolution",
+      "foundingDate": "2012",
+      "knowsAbout": ["Predictive Modeling", "Enterprise SaaS", "Software Architecture", "Advanced UI/UX"],
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "CL"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Servicios de Ingeniería",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Modelos de IA Predictiva"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Sistemas SaaS Transaccionales"
-            }
-          }
-        ]
       }
     }
     </script>
 
+    <!-- TIPOGRAFÍAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #000000;
-            --block-bg: #172A4A;
-            --border-color: #7E7E7E;
-            --accent-color: #ffffff;
-            --text-main: #f0f0f0;
-            --text-muted: #a0a0a0;
-            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --black: #000000;
+            --brand-blue: #172A4A;
+            --brand-silver: #7E7E7E;
+            --white: #FFFFFF;
+            --font-headings: 'Plus Jakarta Sans', sans-serif;
             --font-body: 'Inter', sans-serif;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--black);
+            color: var(--white);
             font-family: var(--font-body);
-            line-height: 1.6;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Navegación Premium */
+        /* --- AURORA 3D EFFECTS --- */
+        .aurora {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+        .aurora-1 { top: -10%; left: -10%; background: radial-gradient(circle, var(--brand-blue), transparent); }
+        .aurora-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, var(--brand-silver), transparent); }
+
+        /* --- NAVBAR --- */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            top: 0; width: 100%; height: 80px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(126, 126, 126, 0.1);
             z-index: 1000;
-            border-bottom: 1px solid rgba(126, 126, 126, 0.2);
         }
 
-        .logo {
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -1px;
+        .logo { display: flex; align-items: baseline; text-decoration: none; }
+        .logo-cresstel { font-family: var(--font-headings); font-weight: 700; font-size: 1.5rem; color: var(--white); }
+        .logo-ia { font-family: var(--font-body); font-weight: 300; font-size: 1.3rem; color: var(--brand-silver); margin-left: 4px; }
+
+        .nav-actions { display: flex; align-items: center; gap: 2rem; }
+        .lang-toggle {
+            background: none; border: 1px solid var(--brand-silver); color: var(--white);
+            padding: 6px 12px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
+            transition: var(--transition);
         }
+        .lang-toggle:hover { background: var(--white); color: var(--black); }
 
-        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: opacity 0.3s;
+        /* HAMBURGER */
+        .menu-trigger {
+            width: 30px; height: 20px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            cursor: pointer; z-index: 1100;
         }
+        .line { width: 100%; height: 1px; background: var(--white); transition: var(--transition); }
+        .menu-open .line-1 { transform: translateY(9.5px) rotate(45deg); }
+        .menu-open .line-2 { opacity: 0; }
+        .menu-open .line-3 { transform: translateY(-9.5px) rotate(-45deg); }
 
-        .lang-switch {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 5px 12px;
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-weight: 600;
-            transition: all 0.3s;
+        /* OVERLAY MENU */
+        #overlay {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: var(--black); border-left: 1px solid var(--brand-silver);
+            display: flex; flex-direction: column; justify-content: center; padding: 10%;
+            z-index: 1050; transition: var(--transition);
         }
+        #overlay.active { right: 0; }
+        .menu-link {
+            font-family: var(--font-headings); font-size: clamp(2rem, 8vw, 5rem);
+            color: var(--white); text-decoration: none; font-weight: 800;
+            margin: 10px 0; transition: var(--transition); opacity: 0.3;
+        }
+        .menu-link:hover { opacity: 1; transform: translateX(20px); }
 
-        .lang-switch:hover { background: var(--accent-color); color: #000; }
-
-        /* Secciones */
-        section { padding: 100px 8%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
-
-        .hero { text-align: center; }
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 10%;
+        }
         .hero h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
+            font-family: var(--font-headings); font-size: clamp(2.5rem, 6vw, 5.5rem);
+            line-height: 1.1; font-weight: 800; margin-bottom: 2rem;
+            letter-spacing: -2px;
         }
-
-        .history-block {
-            background: var(--block-bg);
-            border: 1px solid var(--border-color);
-            padding: 4rem;
-            margin-top: 4rem;
+        .hero p {
+            max-width: 800px; font-size: 1.2rem; color: var(--brand-silver);
+            margin-bottom: 3rem;
         }
-
-        .grid-labs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+        .cta-group { display: flex; gap: 1.5rem; }
+        .btn {
+            padding: 18px 35px; border-radius: 2px; font-weight: 600;
+            text-decoration: none; font-family: var(--font-headings);
+            text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
+            transition: var(--transition);
         }
+        .btn-primary { background: var(--white); color: var(--black); }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        .btn-secondary { border: 1px solid var(--brand-silver); color: var(--white); }
+        .btn-secondary:hover { background: rgba(126,126,126,0.1); }
 
+        /* --- CONTENT BLOCKS --- */
+        section { padding: 120px 8%; }
+        .section-label { color: var(--brand-silver); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 1rem; display: block; }
+        
+        .intro-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+        }
+        .intro-text h2 { font-family: var(--font-headings); font-size: 3rem; line-height: 1.2; margin-bottom: 2rem; }
+
+        /* CARDS 3D */
+        .cards-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem; margin-top: 4rem; perspective: 1000px;
+        }
         .card {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: var(--brand-blue); border: 1px solid var(--brand-silver);
+            padding: 3rem; height: 450px; display: flex; flex-direction: column;
+            justify-content: space-between; transition: transform 0.1s ease;
+            position: relative; overflow: hidden;
+        }
+        .card h3 { font-family: var(--font-headings); font-size: 2rem; margin-bottom: 1rem; }
+        .card p { color: var(--brand-silver); font-size: 1rem; }
+        .card-shine {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.15) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .card:hover { transform: translateY(-10px); border-color: #fff; }
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(126, 126, 126, 0.1);
+            padding: 60px 8%; text-align: center; color: var(--brand-silver);
+            font-size: 0.9rem;
+        }
 
-        .card h3 { font-family: var(--font-heading); margin-bottom: 1rem; font-size: 1.5rem; }
-
-        /* Animaciones */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Mobile Menu */
-        .hamburger { display: none; cursor: pointer; }
+        /* ANIMATIONS */
+        .reveal { opacity: 0; filter: blur(15px); transform: translateY(40px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; filter: blur(0); transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hamburger { display: block; }
-            .history-block { padding: 2rem; }
+            .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero h1 { font-size: 3rem; }
+            .cta-group { flex-direction: column; width: 100%; }
+            .btn { text-align: center; }
         }
     </style>
 </head>
 <body>
 
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+
     <nav>
-        <div class="logo">CRESSTEL AI</div>
-        <div class="nav-links">
-            <a href="index.html" data-i18n="nav_home">Inicio</a>
-            <a href="services.html" data-i18n="nav_services">Servicios</a>
-            <a href="portfolio.html" data-i18n="nav_portfolio">Cresstel Labs</a>
-            <a href="contact.html" data-i18n="nav_contact">Contacto</a>
-            <button class="lang-switch" onclick="toggleLanguage()">EN / ES</button>
+        <a href="index.html" class="logo">
+            <span class="logo-cresstel">Cresstel</span><span class="logo-ia">IA</span>
+        </a>
+        <div class="nav-actions">
+            <button class="lang-toggle" onclick="toggleLanguage()">EN / ES</button>
+            <div class="menu-trigger" onclick="toggleMenu(this)">
+                <div class="line line-1"></div>
+                <div class="line line-2"></div>
+                <div class="line line-3"></div>
+            </div>
         </div>
-        <div class="hamburger">☰</div>
     </nav>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero reveal">
-            <h1 data-i18n="hero_title">Interfaces Digitales de Alta Gama y Modelos de IA Predictiva para Operaciones Empresariales</h1>
-            <p style="max-width: 700px; margin: 0 auto; color: var(--text-muted);" data-i18n="hero_sub">Ingeniería de software de próxima generación enfocada en la escalabilidad y la automatización inteligente.</p>
-        </section>
+    <aside id="overlay">
+        <a href="index.html" class="menu-link" data-i18n="nav_home">Home</a>
+        <a href="services.html" class="menu-link" data-i18n="nav_services">Services</a>
+        <a href="portfolio.html" class="menu-link" data-i18n="nav_portfolio">Cresstel Labs</a>
+        <a href="contact.html" class="menu-link" data-i18n="nav_contact">Contact</a>
+    </aside>
 
-        <!-- Trayectoria Corporativa -->
-        <section id="about" class="reveal">
-            <div class="history-block">
-                <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;" data-i18n="about_title">Evolución Tecnológica Real</h2>
-                <p data-i18n="about_text">
-                    Contamos con el respaldo de más de una década de experiencia real en el desarrollo de infraestructura tecnológica y arquitectura de sistemas complejos. Cresstel AI ha evolucionado legítimamente desde la consultoría técnica hacia el liderazgo en software inteligente, transformando procesos operativos en activos digitales de alto rendimiento mediante automatización avanzada.
-                </p>
+    <main>
+        <!-- HERO -->
+        <section class="hero reveal">
+            <h1 data-i18n="hero_title">Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations</h1>
+            <p data-i18n="hero_sub">Sistemas escalables de misión crítica que transforman datos operativos en decisiones autónomas. Ingeniería de software diseñada para la era de la automatización inteligente.</p>
+            <div class="cta-group">
+                <a href="portfolio.html" class="btn btn-primary" data-i18n="btn_explore">Explore Labs</a>
+                <a href="contact.html" class="btn btn-secondary" data-i18n="btn_talk">Get in Touch</a>
             </div>
         </section>
 
-        <!-- Cresstel Labs / Productos -->
-        <section id="labs" class="reveal">
-            <h2 style="font-family: var(--font-heading); text-align: center; margin-bottom: 1rem;" data-i18n="labs_title">Cresstel Labs</h2>
-            <div class="grid-labs">
-                <!-- ScholarCore IA -->
-                <div class="card">
-                    <small style="color: var(--border-color); font-weight: bold;">SaaS TRANSACTIONAL</small>
-                    <h3 data-i18n="product_1_title">ScholarCore IA</h3>
-                    <p data-i18n="product_1_desc">Plataforma integral para instituciones educativas que automatiza el ciclo de matrículas y cobros recurrentes. Integra analítica avanzada para el seguimiento conductual y académico de los estudiantes en tiempo real.</p>
+        <!-- VALUE PROP -->
+        <section class="reveal">
+            <div class="intro-grid">
+                <div class="intro-text">
+                    <span class="section-label" data-i18n="label_about">Legacy & Future</span>
+                    <h2 data-i18n="about_title">Evolución, no solo Transformación.</h2>
+                    <p data-i18n="about_desc">Con más de 12 años de trayectoria real en el desarrollo de infraestructuras críticas, en Cresstel AI no construimos sitios web; arquitectamos ecosistemas digitales. Hemos evolucionado desde el desarrollo de sistemas complejos hasta el despliegue de modelos predictivos que optimizan inventarios y demanda en tiempo real.</p>
                 </div>
-                <!-- Cresstel Predictive Analytics -->
-                <div class="card">
-                    <small style="color: var(--border-color); font-weight: bold;">PREDICTIVE ENGINE</small>
-                    <h3 data-i18n="product_2_title">Cresstel Predictive Analytics</h3>
-                    <p data-i18n="product_2_desc">Software de análisis científico desarrollado en Python y Pandas. Optimiza la cadena de suministro mediante la predicción precisa de inventarios y el análisis de tendencias históricas de ventas.</p>
+                <div style="border: 1px solid var(--brand-silver); height: 400px; display: flex; align-items: center; justify-content: center; background: rgba(23, 42, 74, 0.3);">
+                    <div style="text-align: center;">
+                        <span style="display: block; font-size: 4rem; font-weight: 800; color: var(--white);">12+</span>
+                        <span style="color: var(--brand-silver); letter-spacing: 2px;" data-i18n="years_exp">YEARS OF ARCHITECTURE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LABS PREVIEW -->
+        <section class="reveal">
+            <span class="section-label" data-i18n="label_labs">Cresstel Labs</span>
+            <div class="cards-container">
+                <div class="card tilt-card">
+                    <div class="card-shine"></div>
+                    <div>
+                        <span class="section-label">SaaS ENGINE</span>
+                        <h3 data-i18n="card_1_title">ScholarCore IA</h3>
+                        <p data-i18n="card_1_desc">Gestión transaccional avanzada para instituciones educativas. Automatización total de ciclos de pago y análisis conductual mediante datos.</p>
+                    </div>
+                    <a href="portfolio.html" class="btn btn-secondary" style="align-self: flex-start; margin-top: 2rem;" data-i18n="btn_view">View Case</a>
+                </div>
+
+                <div class="card tilt-card">
+                    <div class="card-shine"></div>
+                    <div>
+                        <span class="section-label">OPERATIONS</span>
+                        <h3 data-i18n="card_2_title">Predictive Ops</h3>
+                        <h4 style="color: var(--white); margin-bottom: 1rem;">Inventory & Demand Forecasting</h4>
+                        <p data-i18n="card_2_desc">Modelos matemáticos aplicados a la cadena de suministro. Reducción de quiebres de stock y optimización de capital mediante IA predictiva.</p>
+                    </div>
+                    <a href="services.html" class="btn btn-secondary" style="align-self: flex-start; margin-top: 2rem;" data-i18n="btn_view">View Case</a>
                 </div>
             </div>
         </section>
     </main>
 
+    <footer>
+        <p>© 2026 Cresstel IA. Make Your Digital Transformation an Evolution.</p>
+    </footer>
+
     <script>
-        // Sistema i18n y SEO Dinámico
+        // --- MOTOR DE TRADUCCIÓN (i18n) ---
         const translations = {
-            es: {
-                meta_title: "Cresstel AI | Modelos Predictivos e Ingeniería SaaS Empresarial",
-                meta_desc: "Agencia de ingeniería de software avanzada. Especialistas en Modelos Predictivos e infraestructura SaaS de alta gama para optimización empresarial.",
-                nav_home: "Inicio",
-                nav_services: "Servicios",
-                nav_portfolio: "Cresstel Labs",
-                nav_contact: "Contacto",
-                hero_title: "Interfaces Digitales de Alta Gama y Modelos de IA Predictiva para Operaciones Empresariales",
-                hero_sub: "Ingeniería de software de próxima generación enfocada en la escalabilidad y la automatización inteligente.",
-                about_title: "Evolución Tecnológica Real",
-                about_text: "Contamos con el respaldo de más de una década de experiencia real en el desarrollo de infraestructura tecnológica y arquitectura de sistemas complejos, evolucionando legítimamente para liderar la era del software inteligente y la automatización de procesos.",
-                labs_title: "Cresstel Labs",
-                product_1_title: "ScholarCore IA",
-                product_1_desc: "Plataforma integral para instituciones educativas que automatiza el ciclo de matrículas y cobros gestionados por padres, aplicando analítica para el seguimiento conductual.",
-                product_2_title: "Cresstel Predictive Analytics",
-                product_2_desc: "Software avanzado que utiliza Python y Pandas para la predicción científica de inventarios, optimización de pedidos y análisis de tendencias de ventas."
-            },
             en: {
-                meta_title: "Cresstel AI | Predictive Models & Enterprise SaaS Engineering",
-                meta_desc: "Advanced software engineering agency. Specialists in Predictive Models and high-end SaaS infrastructure for business optimization.",
                 nav_home: "Home",
                 nav_services: "Services",
                 nav_portfolio: "Cresstel Labs",
                 nav_contact: "Contact",
                 hero_title: "Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations",
-                hero_sub: "Next-generation software engineering focused on scalability and intelligent automation.",
-                about_title: "Genuine Technological Evolution",
-                about_text: "Backed by over a decade of real-world expertise in technological infrastructure and complex systems architecture, legitimately evolving to lead the era of intelligent software and process automation.",
-                labs_title: "Cresstel Labs",
-                product_1_title: "ScholarCore AI",
-                product_1_desc: "Transactional SaaS managing automated enrollment and parent-led payments, featuring behavioral and academic tracking analytics.",
-                product_2_title: "Cresstel Predictive Analytics",
-                product_2_desc: "Advanced software utilizing Python and Pandas for scientific inventory forecasting, order optimization, and sales trend analysis."
+                hero_sub: "Mission-critical scalable systems that transform operational data into autonomous decisions. Software engineering designed for the era of intelligent automation.",
+                btn_explore: "Explore Labs",
+                btn_talk: "Get in Touch",
+                label_about: "Legacy & Future",
+                about_title: "Evolution, Not Just Transformation.",
+                about_desc: "With over 12 years of real trajectory in critical infrastructure development, at Cresstel AI we don't build websites; we architect digital ecosystems. We have evolved from complex systems development to deploying predictive models that optimize inventories and demand in real-time.",
+                years_exp: "YEARS OF ARCHITECTURE",
+                label_labs: "Cresstel Labs",
+                card_1_title: "ScholarCore IA",
+                card_1_desc: "Advanced transactional management for educational institutions. Total automation of payment cycles and behavioral analysis through data.",
+                card_2_title: "Predictive Ops",
+                card_2_desc: "Mathematical models applied to the supply chain. Reduction of stockouts and capital optimization through predictive AI.",
+                btn_view: "View Case",
+                meta_title: "Cresstel AI | Next-Gen Digital Interfaces & Predictive AI",
+                meta_desc: "High-end digital evolution. Software engineering specialized in predictive models and transactional SaaS systems with over 12 years of real expertise."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_portfolio: "Cresstel Labs",
+                nav_contact: "Contacto",
+                hero_title: "Interfaces Digitales y Modelos de IA Predictiva para Operaciones Empresariales",
+                hero_sub: "Sistemas escalables de misión crítica que transforman datos operativos en decisiones autónomas. Ingeniería de software diseñada para la era de la automatización inteligente.",
+                btn_explore: "Explorar Labs",
+                btn_talk: "Hablemos",
+                label_about: "Legado y Futuro",
+                about_title: "Evolución, no solo Transformación.",
+                about_desc: "Con más de 12 años de trayectoria real en el desarrollo de infraestructuras críticas, en Cresstel AI no construimos sitios web; arquitectamos ecosistemas digitales. Hemos evolucionado desde sistemas complejos hasta modelos predictivos que optimizan inventarios y demanda en tiempo real.",
+                years_exp: "AÑOS DE ARQUITECTURA",
+                label_labs: "Cresstel Labs",
+                card_1_title: "ScholarCore IA",
+                card_1_desc: "Gestión transaccional avanzada para instituciones educativas. Automatización total de ciclos de pago y análisis conductual mediante datos.",
+                card_2_title: "Operaciones Predictivas",
+                card_2_desc: "Modelos matemáticos aplicados a la cadena de suministro. Reducción de quiebres de stock y optimización de capital mediante IA predictiva.",
+                btn_view: "Ver Caso",
+                meta_title: "Cresstel AI | Interfaces Digitales e IA Predictiva de Vanguardia",
+                meta_desc: "Evolución digital de alta gama. Ingeniería de software especializada en modelos predictivos y sistemas SaaS con 12 años de experiencia real."
             }
         };
 
-        let currentLang = 'es';
+        let currentLang = 'en';
 
         function toggleLanguage() {
-            currentLang = currentLang === 'es' ? 'en' : 'es';
+            currentLang = currentLang === 'en' ? 'es' : 'en';
             document.documentElement.lang = currentLang;
             
-            // Actualizar SEO Meta Tags
-            document.getElementById('meta-title').innerText = translations[currentLang].meta_title;
-            document.getElementById('meta-description').setAttribute('content', translations[currentLang].meta_desc);
-            document.title = translations[currentLang].meta_title;
-
-            // Actualizar Contenido Visual
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 el.innerText = translations[currentLang][key];
             });
+
+            // Actualizar Meta Tags
+            document.title = translations[currentLang].meta_title;
+            document.getElementById('meta-description').setAttribute('content', translations[currentLang].meta_desc);
         }
 
-        // Intersection Observer para animaciones
-        const observerOptions = { threshold: 0.1 };
+        // --- NAVEGACIÓN ---
+        function toggleMenu(trigger) {
+            trigger.classList.toggle('menu-open');
+            document.getElementById('overlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('overlay').classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        // --- EFECTO 3D TILT NATIVO ---
+        const cards = document.querySelectorAll('.tilt-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+            });
+        });
+
+        // --- REVEAL ON SCROLL ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
