@@ -1,331 +1,368 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cresstel AI | Next-Gen Digital Interfaces & Predictive Operations</title>
+    <meta name="description" content="Elite digital transformation through premium frontend architecture and predictive AI models. 12+ years of enterprise-grade infrastructure experience.">
     
-    <!-- SEO TÉCNICO DINÁMICO -->
-    <title id="meta-title">Cresstel AI | Next-Gen Digital Interfaces & Predictive AI</title>
-    <meta id="meta-description" name="description" content="Evolución digital de alta gama. Ingeniería de software especializada en modelos predictivos y sistemas SaaS transaccionales con más de 12 años de trayectoria real.">
-    <link rel="canonical" href="https://cresstel.ai/index.html" />
-    <meta name="robots" content="index, follow">
+    <!-- SEO & Open Graph -->
+    <meta property="og:title" content="Cresstel AI | Make Your Digital Transformation an Evolution">
+    <meta property="og:description" content="High-end SaaS solutions, predictive analytics, and premium web interfaces for global enterprises.">
+    <meta property="og:type" content="website">
     
-    <!-- SCHEMA MARKUP (JSON-LD) -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlack: '#000000',
+                        brandBlue: '#172A4A',
+                        brandSilver: '#7E7E7E',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Cresstel AI",
-      "url": "https://cresstel.ai/index.html",
-      "logo": "https://cresstel.ai/assets/logo-identity.png",
-      "description": "Agencia de ingeniería de software avanzada enfocada en Modelos Predictivos y Sistemas SaaS de alta complejidad.",
-      "slogan": "Make Your Digital Transformation an Evolution",
-      "foundingDate": "2012",
-      "knowsAbout": ["Predictive Modeling", "Enterprise SaaS", "Software Architecture", "Advanced UI/UX"],
+      "image": "https://cresstel.ai/logo.png",
+      "url": "https://cresstel.ai",
+      "telephone": "+1000000000",
       "address": {
         "@type": "PostalAddress",
-        "addressCountry": "CL"
-      }
+        "streetAddress": "Technology District",
+        "addressLocality": "Global Operations",
+        "addressCountry": "US"
+      },
+      "description": "High-end software engineering and predictive AI modeling for enterprise-scale operations.",
+      "founder": "Cresstel Group",
+      "foundingDate": "2012"
     }
     </script>
 
-    <!-- TIPOGRAFÍAS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --black: #000000;
-            --brand-blue: #172A4A;
-            --brand-silver: #7E7E7E;
-            --white: #FFFFFF;
-            --font-headings: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
-        body {
-            background-color: var(--black);
-            color: var(--white);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- AURORA 3D EFFECTS --- */
-        .aurora {
-            position: fixed;
-            width: 60vw;
-            height: 60vw;
-            filter: blur(120px);
-            opacity: 0.15;
-            z-index: -1;
-            pointer-events: none;
-            border-radius: 50%;
-        }
-        .aurora-1 { top: -10%; left: -10%; background: radial-gradient(circle, var(--brand-blue), transparent); }
-        .aurora-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, var(--brand-silver), transparent); }
-
-        /* --- NAVBAR --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%; height: 80px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(126, 126, 126, 0.1);
-            z-index: 1000;
-        }
-
-        .logo { display: flex; align-items: baseline; text-decoration: none; }
-        .logo-cresstel { font-family: var(--font-headings); font-weight: 700; font-size: 1.5rem; color: var(--white); }
-        .logo-ia { font-family: var(--font-body); font-weight: 300; font-size: 1.3rem; color: var(--brand-silver); margin-left: 4px; }
-
-        .nav-actions { display: flex; align-items: center; gap: 2rem; }
-        .lang-toggle {
-            background: none; border: 1px solid var(--brand-silver); color: var(--white);
-            padding: 6px 12px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
-            transition: var(--transition);
-        }
-        .lang-toggle:hover { background: var(--white); color: var(--black); }
-
-        /* HAMBURGER */
-        .menu-trigger {
-            width: 30px; height: 20px;
-            display: flex; flex-direction: column; justify-content: space-between;
-            cursor: pointer; z-index: 1100;
-        }
-        .line { width: 100%; height: 1px; background: var(--white); transition: var(--transition); }
-        .menu-open .line-1 { transform: translateY(9.5px) rotate(45deg); }
-        .menu-open .line-2 { opacity: 0; }
-        .menu-open .line-3 { transform: translateY(-9.5px) rotate(-45deg); }
-
-        /* OVERLAY MENU */
-        #overlay {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: var(--black); border-left: 1px solid var(--brand-silver);
-            display: flex; flex-direction: column; justify-content: center; padding: 10%;
-            z-index: 1050; transition: var(--transition);
-        }
-        #overlay.active { right: 0; }
-        .menu-link {
-            font-family: var(--font-headings); font-size: clamp(2rem, 8vw, 5rem);
-            color: var(--white); text-decoration: none; font-weight: 800;
-            margin: 10px 0; transition: var(--transition); opacity: 0.3;
-        }
-        .menu-link:hover { opacity: 1; transform: translateX(20px); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center; padding: 0 10%;
-        }
-        .hero h1 {
-            font-family: var(--font-headings); font-size: clamp(2.5rem, 6vw, 5.5rem);
-            line-height: 1.1; font-weight: 800; margin-bottom: 2rem;
-            letter-spacing: -2px;
-        }
-        .hero p {
-            max-width: 800px; font-size: 1.2rem; color: var(--brand-silver);
-            margin-bottom: 3rem;
-        }
-        .cta-group { display: flex; gap: 1.5rem; }
-        .btn {
-            padding: 18px 35px; border-radius: 2px; font-weight: 600;
-            text-decoration: none; font-family: var(--font-headings);
-            text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
-            transition: var(--transition);
-        }
-        .btn-primary { background: var(--white); color: var(--black); }
-        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
-        .btn-secondary { border: 1px solid var(--brand-silver); color: var(--white); }
-        .btn-secondary:hover { background: rgba(126,126,126,0.1); }
-
-        /* --- CONTENT BLOCKS --- */
-        section { padding: 120px 8%; }
-        .section-label { color: var(--brand-silver); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 1rem; display: block; }
-        
-        .intro-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
-        }
-        .intro-text h2 { font-family: var(--font-headings); font-size: 3rem; line-height: 1.2; margin-bottom: 2rem; }
-
-        /* CARDS 3D */
-        .cards-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem; margin-top: 4rem; perspective: 1000px;
-        }
-        .card {
-            background: var(--brand-blue); border: 1px solid var(--brand-silver);
-            padding: 3rem; height: 450px; display: flex; flex-direction: column;
-            justify-content: space-between; transition: transform 0.1s ease;
-            position: relative; overflow: hidden;
-        }
-        .card h3 { font-family: var(--font-headings); font-size: 2rem; margin-bottom: 1rem; }
-        .card p { color: var(--brand-silver); font-size: 1rem; }
-        .card-shine {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.15) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid rgba(126, 126, 126, 0.1);
-            padding: 60px 8%; text-align: center; color: var(--brand-silver);
-            font-size: 0.9rem;
-        }
-
-        /* ANIMATIONS */
-        .reveal { opacity: 0; filter: blur(15px); transform: translateY(40px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; filter: blur(0); transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            .intro-grid { grid-template-columns: 1fr; gap: 40px; }
-            .hero h1 { font-size: 3rem; }
-            .cta-group { flex-direction: column; width: 100%; }
-            .btn { text-align: center; }
-        }
+        body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
+        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .bento-card { transition: transform 0.1s ease-out, box-shadow 0.3s ease; perspective: 1000px; transform-style: preserve-3d; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); filter: blur(10px); }
+        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+        .aurora { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
+        .card-reflection { position: absolute; inset: 0; background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+        .bento-card:hover .card-reflection { opacity: 1; }
+        .nav-link-hover { position: relative; }
+        .nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
+        .nav-link-hover:hover::after { width: 100%; }
+        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+        #mobile-menu.active { transform: translateX(0); }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased">
 
-    <div class="aurora aurora-1"></div>
-    <div class="aurora aurora-2"></div>
+    <!-- Aurora Background Effects -->
+    <div class="aurora top-[-200px] left-[-100px] animate-pulse-slow"></div>
+    <div class="aurora bottom-[-200px] right-[-100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
 
-    <nav>
-        <a href="index.html" class="logo">
-            <span class="logo-cresstel">Cresstel</span><span class="logo-ia">IA</span>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] h-20 border-b border-brandSilver/10 glass-nav flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+            <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
         </a>
-        <div class="nav-actions">
-            <button class="lang-toggle" onclick="toggleLanguage()">EN / ES</button>
-            <div class="menu-trigger" onclick="toggleMenu(this)">
-                <div class="line line-1"></div>
-                <div class="line line-2"></div>
-                <div class="line line-3"></div>
-            </div>
+
+        <div class="hidden md:flex items-center space-x-10">
+            <a href="index.html" class="nav-link-hover text-xs uppercase tracking-widest font-medium" data-i18n="nav-home">Home</a>
+            <a href="services.html" class="nav-link-hover text-xs uppercase tracking-widest font-medium" data-i18n="nav-services">Services</a>
+            <a href="portfolio.html" class="nav-link-hover text-xs uppercase tracking-widest font-medium" data-i18n="nav-portfolio">Portfolio</a>
+            <a href="contact.html" class="nav-link-hover text-xs uppercase tracking-widest font-medium" data-i18n="nav-contact">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-6">
+            <button onclick="toggleLanguage()" class="text-[10px] font-bold border border-brandSilver/30 px-2 py-1 rounded hover:bg-white hover:text-black transition-colors duration-300">
+                EN / ES
+            </button>
+            <button id="menu-toggle" class="relative w-8 h-4 flex flex-col justify-between group z-[110]">
+                <span id="bar1" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+                <span id="bar2" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+            </button>
         </div>
     </nav>
 
-    <aside id="overlay">
-        <a href="index.html" class="menu-link" data-i18n="nav_home">Home</a>
-        <a href="services.html" class="menu-link" data-i18n="nav_services">Services</a>
-        <a href="portfolio.html" class="menu-link" data-i18n="nav_portfolio">Cresstel Labs</a>
-        <a href="contact.html" class="menu-link" data-i18n="nav_contact">Contact</a>
-    </aside>
+    <!-- Mobile Overlay Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-12 space-y-8">
+        <a href="index.html" class="text-4xl font-heading font-bold hover:text-brandSilver transition-colors" data-i18n="nav-home">Home</a>
+        <a href="services.html" class="text-4xl font-heading font-bold hover:text-brandSilver transition-colors" data-i18n="nav-services">Services</a>
+        <a href="portfolio.html" class="text-4xl font-heading font-bold hover:text-brandSilver transition-colors" data-i18n="nav-portfolio">Portfolio</a>
+        <a href="contact.html" class="text-4xl font-heading font-bold hover:text-brandSilver transition-colors" data-i18n="nav-contact">Contact</a>
+        <div class="pt-12 border-t border-brandSilver/20">
+            <p class="text-brandSilver text-sm" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
+        </div>
+    </div>
 
-    <main>
-        <!-- HERO -->
-        <section class="hero reveal">
-            <h1 data-i18n="hero_title">Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations</h1>
-            <p data-i18n="hero_sub">Sistemas escalables de misión crítica que transforman datos operativos en decisiones autónomas. Ingeniería de software diseñada para la era de la automatización inteligente.</p>
-            <div class="cta-group">
-                <a href="portfolio.html" class="btn btn-primary" data-i18n="btn_explore">Explore Labs</a>
-                <a href="contact.html" class="btn btn-secondary" data-i18n="btn_talk">Get in Touch</a>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center overflow-hidden">
+        <div class="reveal">
+            <h1 class="font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-none mb-8 max-w-6xl mx-auto" data-i18n="hero-title">
+                Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations
+            </h1>
+            <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero-subtitle">
+                Engineering mission-critical software and high-fidelity interfaces. We optimize complex supply chains and transaction flows with 60fps performance and predictive intelligence.
+            </p>
+            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center">
+                <a href="#services" class="bg-white text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brandSilver transition-all duration-300" data-i18n="hero-cta-1">Explore Solutions</a>
+                <a href="#labs" class="border border-brandSilver/40 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300" data-i18n="hero-cta-2">Cresstel Labs</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- VALUE PROP -->
-        <section class="reveal">
-            <div class="intro-grid">
-                <div class="intro-text">
-                    <span class="section-label" data-i18n="label_about">Legacy & Future</span>
-                    <h2 data-i18n="about_title">Evolución, no solo Transformación.</h2>
-                    <p data-i18n="about_desc">Con más de 12 años de trayectoria real en el desarrollo de infraestructuras críticas, en Cresstel AI no construimos sitios web; arquitectamos ecosistemas digitales. Hemos evolucionado desde el desarrollo de sistemas complejos hasta el despliegue de modelos predictivos que optimizan inventarios y demanda en tiempo real.</p>
+    <!-- Intro / Value Prop -->
+    <section class="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-brandSilver/10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="font-heading text-3xl md:text-5xl font-bold mb-6" data-i18n="intro-title">12 Years of Architectural Excellence.</h2>
+                <p class="text-brandSilver text-lg leading-relaxed mb-8" data-i18n="intro-p1">
+                    Cresstel IA was born from a decade of building high-availability systems. We don't just build websites; we engineer digital ecosystems that evolve with your business.
+                </p>
+                <p class="text-brandSilver text-lg leading-relaxed" data-i18n="intro-p2">
+                    Our focus is the intersection of high-end UI/UX and backend predictive modeling—transforming raw data into operational foresight.
+                </p>
+            </div>
+            <div class="relative reveal h-64 md:h-96 rounded-2xl bg-brandBlue overflow-hidden border border-brandSilver/20 flex items-center justify-center group">
+                <div class="absolute inset-0 bg-gradient-to-tr from-brandBlue to-black opacity-50"></div>
+                <span class="font-heading text-8xl font-black text-white/5 group-hover:text-white/10 transition-all duration-700">2012-2026</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Bento Grid) -->
+    <section id="services" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <h3 class="text-xs uppercase tracking-[0.3em] text-brandSilver mb-12 text-center reveal" data-i18n="services-label">Core Capabilities</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+                <div class="card-reflection"></div>
+                <div class="mb-auto">
+                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
                 </div>
-                <div style="border: 1px solid var(--brand-silver); height: 400px; display: flex; align-items: center; justify-content: center; background: rgba(23, 42, 74, 0.3);">
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 4rem; font-weight: 800; color: var(--white);">12+</span>
-                        <span style="color: var(--brand-silver); letter-spacing: 2px;" data-i18n="years_exp">YEARS OF ARCHITECTURE</span>
-                    </div>
+                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-1-title">Premium Frontend Engineering</h4>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-1-desc">
+                    Ultra-fast, responsive architectures using React and native WebGL. We prioritize motion design and accessibility to define industry-leading user experiences.
+                </p>
+            </div>
+            <!-- Card 2 -->
+            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group md:translate-y-12">
+                <div class="card-reflection"></div>
+                <div class="mb-auto">
+                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
+                </div>
+                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-2-title">Operational SaaS Infrastructure</h4>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-2-desc">
+                    Robust transactional platforms designed for scale. Real-time dashboards, secure payment orchestration, and automated business logic for modern enterprises.
+                </p>
+            </div>
+            <!-- Card 3 -->
+            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+                <div class="card-reflection"></div>
+                <div class="mb-auto">
+                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
+                </div>
+                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-3-title">Predictive Asset Management</h4>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-3-desc">
+                    AI-driven forecasting for inventory and demand. We integrate Python-based models directly into your operations to eliminate inefficiencies before they occur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (Labs) -->
+    <section id="labs" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal">
+            <div>
+                <h3 class="text-xs uppercase tracking-[0.3em] text-brandSilver mb-4" data-i18n="labs-label">Cresstel Labs</h3>
+                <h2 class="font-heading text-4xl md:text-6xl font-bold" data-i18n="labs-title">Selected Deployments.</h2>
+            </div>
+            <p class="text-brandSilver max-w-xs text-sm" data-i18n="labs-subtitle">A glimpse into our high-performance ecosystem and experimental software engineering.</p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- Project 1 -->
+            <div class="bento-card reveal group relative h-[500px] rounded-[2.5rem] overflow-hidden border border-brandSilver/20">
+                <div class="absolute inset-0 bg-gradient-to-r from-brandBlack to-transparent z-10"></div>
+                <div class="absolute inset-0 bg-[#0A0A0A]"></div>
+                <div class="relative z-20 h-full p-12 flex flex-col justify-end items-start">
+                    <span class="text-xs font-bold tracking-widest text-brandSilver mb-4">E-COMMERCE ECOSYSTEM</span>
+                    <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6">SoleVanguard</h4>
+                    <p class="max-w-md text-brandSilver mb-8" data-i18n="project-1-desc">Premium footwear marketplace with real-time stock orchestration and interactive 3D product visualization.</p>
+                    <a href="portfolio.html" class="px-8 py-3 bg-white text-black rounded-full text-xs font-bold uppercase tracking-tighter hover:scale-105 transition-transform" data-i18n="view-project">View Architecture</a>
                 </div>
             </div>
-        </section>
 
-        <!-- LABS PREVIEW -->
-        <section class="reveal">
-            <span class="section-label" data-i18n="label_labs">Cresstel Labs</span>
-            <div class="cards-container">
-                <div class="card tilt-card">
-                    <div class="card-shine"></div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Project 2 -->
+                <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                    <div class="card-reflection"></div>
+                    <h4 class="text-4xl font-heading font-bold">ScholarCore IA</h4>
                     <div>
-                        <span class="section-label">SaaS ENGINE</span>
-                        <h3 data-i18n="card_1_title">ScholarCore IA</h3>
-                        <p data-i18n="card_1_desc">Gestión transaccional avanzada para instituciones educativas. Automatización total de ciclos de pago y análisis conductual mediante datos.</p>
+                        <p class="text-brandSilver mb-6 text-sm" data-i18n="project-2-desc">A comprehensive SaaS for educational administration, managing complex billing cycles and predictive student performance analytics.</p>
+                        <div class="flex space-x-2">
+                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">SaaS</span>
+                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">Fintech</span>
+                        </div>
                     </div>
-                    <a href="portfolio.html" class="btn btn-secondary" style="align-self: flex-start; margin-top: 2rem;" data-i18n="btn_view">View Case</a>
                 </div>
-
-                <div class="card tilt-card">
-                    <div class="card-shine"></div>
+                <!-- Project 3 -->
+                <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                    <div class="card-reflection"></div>
+                    <h4 class="text-4xl font-heading font-bold" data-i18n="project-3-title">Predictive Analytics</h4>
                     <div>
-                        <span class="section-label">OPERATIONS</span>
-                        <h3 data-i18n="card_2_title">Predictive Ops</h3>
-                        <h4 style="color: var(--white); margin-bottom: 1rem;">Inventory & Demand Forecasting</h4>
-                        <p data-i18n="card_2_desc">Modelos matemáticos aplicados a la cadena de suministro. Reducción de quiebres de stock y optimización de capital mediante IA predictiva.</p>
+                        <p class="text-brandSilver mb-6 text-sm" data-i18n="project-3-desc">Supply chain optimization platform using Python/Pandas to forecast demand fluctuations with 98% accuracy for industrial partners.</p>
+                        <div class="flex space-x-2">
+                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">Python</span>
+                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">AI Ops</span>
+                        </div>
                     </div>
-                    <a href="services.html" class="btn btn-secondary" style="align-self: flex-start; margin-top: 2rem;" data-i18n="btn_view">View Case</a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>© 2026 Cresstel IA. Make Your Digital Transformation an Evolution.</p>
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
+            <div>
+                <a href="index.html" class="flex items-center space-x-1 mb-6">
+                    <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+                    <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+                </a>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
+                    Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-nav-title">Navigation</h5>
+                    <a href="index.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-home">Home</a>
+                    <a href="services.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-services">Services</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-portfolio">Portfolio</a>
+                    <a href="contact.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-contact">Contact</a>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-labs-title">Labs</h5>
+                    <a href="#labs" class="text-brandSilver hover:text-white text-sm">SoleVanguard</a>
+                    <a href="#labs" class="text-brandSilver hover:text-white text-sm">ScholarCore</a>
+                    <a href="#labs" class="text-brandSilver hover:text-white text-sm">Predictive Ops</a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-6" data-i18n="footer-legacy-title">The Legacy</h5>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="footer-legacy-desc">
+                    Built on over a decade of infrastructure expertise. We lead the evolution from standard code to intelligent, autonomous systems.
+                </p>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-brandSilver/5">
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
+        </div>
     </footer>
 
     <script>
-        // --- MOTOR DE TRADUCCIÓN (i18n) ---
+        // Internationalization Logic
         const translations = {
             en: {
-                nav_home: "Home",
-                nav_services: "Services",
-                nav_portfolio: "Cresstel Labs",
-                nav_contact: "Contact",
-                hero_title: "Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations",
-                hero_sub: "Mission-critical scalable systems that transform operational data into autonomous decisions. Software engineering designed for the era of intelligent automation.",
-                btn_explore: "Explore Labs",
-                btn_talk: "Get in Touch",
-                label_about: "Legacy & Future",
-                about_title: "Evolution, Not Just Transformation.",
-                about_desc: "With over 12 years of real trajectory in critical infrastructure development, at Cresstel AI we don't build websites; we architect digital ecosystems. We have evolved from complex systems development to deploying predictive models that optimize inventories and demand in real-time.",
-                years_exp: "YEARS OF ARCHITECTURE",
-                label_labs: "Cresstel Labs",
-                card_1_title: "ScholarCore IA",
-                card_1_desc: "Advanced transactional management for educational institutions. Total automation of payment cycles and behavioral analysis through data.",
-                card_2_title: "Predictive Ops",
-                card_2_desc: "Mathematical models applied to the supply chain. Reduction of stockouts and capital optimization through predictive AI.",
-                btn_view: "View Case",
-                meta_title: "Cresstel AI | Next-Gen Digital Interfaces & Predictive AI",
-                meta_desc: "High-end digital evolution. Software engineering specialized in predictive models and transactional SaaS systems with over 12 years of real expertise."
+                "nav-home": "Home",
+                "nav-services": "Services",
+                "nav-portfolio": "Portfolio",
+                "nav-contact": "Contact",
+                "menu-footer": "Make Your Digital Transformation an Evolution",
+                "hero-title": "Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations",
+                "hero-subtitle": "Engineering mission-critical software and high-fidelity interfaces. We optimize complex supply chains and transaction flows with 60fps performance.",
+                "hero-cta-1": "Explore Solutions",
+                "hero-cta-2": "Cresstel Labs",
+                "intro-title": "12 Years of Architectural Excellence.",
+                "intro-p1": "Cresstel IA was born from a decade of building high-availability systems. We don't just build websites; we engineer digital ecosystems.",
+                "intro-p2": "Our focus is the intersection of high-end UI/UX and backend predictive modeling—transforming raw data into operational foresight.",
+                "services-label": "Core Capabilities",
+                "service-1-title": "Premium Frontend Engineering",
+                "service-1-desc": "Ultra-fast, responsive architectures using React and native WebGL. We define industry-leading user experiences.",
+                "service-2-title": "Operational SaaS Infrastructure",
+                "service-2-desc": "Robust transactional platforms designed for scale. Real-time dashboards and automated business logic.",
+                "service-3-title": "Predictive Asset Management",
+                "service-3-desc": "AI-driven forecasting for inventory and demand. We integrate Python-based models directly into your operations.",
+                "labs-label": "Cresstel Labs",
+                "labs-title": "Selected Deployments.",
+                "labs-subtitle": "A glimpse into our high-performance ecosystem and experimental software engineering.",
+                "project-1-desc": "Premium footwear marketplace with real-time stock orchestration and interactive 3D product visualization.",
+                "project-2-desc": "A comprehensive SaaS for educational administration, managing complex billing cycles and predictive performance.",
+                "project-3-title": "Predictive Analytics",
+                "project-3-desc": "Supply chain optimization platform using Python/Pandas to forecast demand fluctuations for industrial partners.",
+                "view-project": "View Architecture",
+                "footer-tagline": "Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.",
+                "footer-nav-title": "Navigation",
+                "footer-labs-title": "Labs",
+                "footer-legacy-title": "The Legacy",
+                "footer-legacy-desc": "Built on over a decade of infrastructure expertise. We lead the evolution from standard code to intelligent systems."
             },
             es: {
-                nav_home: "Inicio",
-                nav_services: "Servicios",
-                nav_portfolio: "Cresstel Labs",
-                nav_contact: "Contacto",
-                hero_title: "Interfaces Digitales y Modelos de IA Predictiva para Operaciones Empresariales",
-                hero_sub: "Sistemas escalables de misión crítica que transforman datos operativos en decisiones autónomas. Ingeniería de software diseñada para la era de la automatización inteligente.",
-                btn_explore: "Explorar Labs",
-                btn_talk: "Hablemos",
-                label_about: "Legado y Futuro",
-                about_title: "Evolución, no solo Transformación.",
-                about_desc: "Con más de 12 años de trayectoria real en el desarrollo de infraestructuras críticas, en Cresstel AI no construimos sitios web; arquitectamos ecosistemas digitales. Hemos evolucionado desde sistemas complejos hasta modelos predictivos que optimizan inventarios y demanda en tiempo real.",
-                years_exp: "AÑOS DE ARQUITECTURA",
-                label_labs: "Cresstel Labs",
-                card_1_title: "ScholarCore IA",
-                card_1_desc: "Gestión transaccional avanzada para instituciones educativas. Automatización total de ciclos de pago y análisis conductual mediante datos.",
-                card_2_title: "Operaciones Predictivas",
-                card_2_desc: "Modelos matemáticos aplicados a la cadena de suministro. Reducción de quiebres de stock y optimización de capital mediante IA predictiva.",
-                btn_view: "Ver Caso",
-                meta_title: "Cresstel AI | Interfaces Digitales e IA Predictiva de Vanguardia",
-                meta_desc: "Evolución digital de alta gama. Ingeniería de software especializada en modelos predictivos y sistemas SaaS con 12 años de experiencia real."
+                "nav-home": "Inicio",
+                "nav-services": "Servicios",
+                "nav-portfolio": "Portafolio",
+                "nav-contact": "Contacto",
+                "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "hero-title": "Interfaces Digitales de Nueva Generación e IA Predictiva para Empresas",
+                "hero-subtitle": "Ingeniería de software de misión crítica e interfaces de alta fidelidad. Optimizamos cadenas de suministro complejas a 60fps.",
+                "hero-cta-1": "Explorar Soluciones",
+                "hero-cta-2": "Cresstel Labs",
+                "intro-title": "12 Años de Excelencia Arquitectónica.",
+                "intro-p1": "Cresstel IA nació de una década construyendo sistemas de alta disponibilidad. No solo creamos sitios; diseñamos ecosistemas digitales.",
+                "intro-p2": "Nos enfocamos en la intersección de UI/UX de alta gama y modelado predictivo—transformando datos en previsión operativa.",
+                "services-label": "Capacidades Core",
+                "service-1-title": "Ingeniería Frontend Premium",
+                "service-1-desc": "Arquitecturas ultra-rápidas usando React y WebGL nativo. Definimos experiencias de usuario líderes en la industria.",
+                "service-2-title": "Infraestructura SaaS Operativa",
+                "service-2-desc": "Plataformas transaccionales robustas diseñadas para escalar. Dashboards en tiempo real y lógica de negocio automatizada.",
+                "service-3-title": "Gestión Predictiva de Activos",
+                "service-3-desc": "Pronóstico de inventario y demanda impulsado por IA. Integramos modelos de Python directamente en su operación.",
+                "labs-label": "Cresstel Labs",
+                "labs-title": "Despliegues Seleccionados.",
+                "labs-subtitle": "Un vistazo a nuestro ecosistema de alto rendimiento e ingeniería de software experimental.",
+                "project-1-desc": "Marketplace de calzado premium con orquestación de stock en tiempo real y visualización 3D interactiva.",
+                "project-2-desc": "SaaS integral para administración educativa, gestionando ciclos de facturación complejos y rendimiento predictivo.",
+                "project-3-title": "Analítica Predictiva",
+                "project-3-desc": "Plataforma de optimización de cadena de suministro usando Python/Pandas para prever fluctuaciones de demanda.",
+                "view-project": "Ver Arquitectura",
+                "footer-tagline": "Haz de tu Transformación Digital una Evolución. Ingeniería de software de alta gama para la próxima era de negocios.",
+                "footer-nav-title": "Navegación",
+                "footer-labs-title": "Laboratorios",
+                "footer-legacy-title": "El Legado",
+                "footer-legacy-desc": "Basado en más de una década de experiencia en infraestructura. Lideramos la evolución del código estándar a sistemas inteligentes."
             }
         };
 
@@ -333,59 +370,80 @@
 
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'es' : 'en';
-            document.documentElement.lang = currentLang;
-            
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                el.innerText = translations[currentLang][key];
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
             });
-
-            // Actualizar Meta Tags
-            document.title = translations[currentLang].meta_title;
-            document.getElementById('meta-description').setAttribute('content', translations[currentLang].meta_desc);
+            document.documentElement.lang = currentLang;
         }
 
-        // --- NAVEGACIÓN ---
-        function toggleMenu(trigger) {
-            trigger.classList.toggle('menu-open');
-            document.getElementById('overlay').classList.toggle('active');
-            document.body.style.overflow = document.getElementById('overlay').classList.contains('active') ? 'hidden' : 'auto';
-        }
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
 
-        // --- EFECTO 3D TILT NATIVO ---
-        const cards = document.querySelectorAll('.tilt-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const isActive = mobileMenu.classList.contains('active');
             
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+            if (isActive) {
+                bar1.style.transform = 'translateY(7px) rotate(45deg)';
+                bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
+                document.body.style.overflow = 'hidden';
+            } else {
+                bar1.style.transform = 'translateY(0) rotate(0)';
+                bar2.style.transform = 'translateY(0) rotate(0)';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                bar1.style.transform = 'translateY(0) rotate(0)';
+                bar2.style.transform = 'translateY(0) rotate(0)';
+                document.body.style.overflow = 'auto';
             });
         });
 
-        // --- REVEAL ON SCROLL ---
+        // Scroll Reveal
+        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3D Tilt Effect for Cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                
+                const dx = x - xc;
+                const dy = y - yc;
+                
+                card.style.transform = `rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+            });
+        });
     </script>
 </body>
 </html>
