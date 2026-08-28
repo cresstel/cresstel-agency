@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cresstel Labs | Portfolio of Elite AI Architectures</title>
+    <meta name="description" content="Explore Cresstel Labs: A portfolio of high-end software blueprints, from premium e-commerce to predictive AI analytics for enterprise operations.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlack: '#000000',
+                        brandBlue: '#172A4A',
+                        brandSilver: '#7E7E7E',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
+        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        
+        /* Animation States */
+        .reveal { 
+            opacity: 0; 
+            filter: blur(15px); 
+            transform: translateY(40px); 
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        .reveal.active { 
+            opacity: 1; 
+            filter: blur(0px); 
+            transform: translateY(0); 
+        }
+
+        /* 3D Tilt Effect */
+        .project-card { 
+            perspective: 1000px; 
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Aurora Background */
+        .aurora { 
+            position: absolute; 
+            width: 700px; 
+            height: 700px; 
+            border-radius: 50%; 
+            background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); 
+            filter: blur(100px); 
+            z-index: -1; 
+            pointer-events: none; 
+        }
+
+        /* Mobile Menu */
+        #mobile-menu { transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1); }
+        #mobile-menu.active { transform: translateX(0); }
+        .active-link { border-left: 4px solid #FFFFFF; padding-left: 1.5rem; color: #FFFFFF !important; }
+
+        .badge {
+            background: rgba(126, 126, 126, 0.1);
+            border: 1px solid rgba(126, 126, 126, 0.3);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Background Elements -->
+    <div class="aurora top-[-200px] left-[-100px]"></div>
+    <div class="aurora bottom-[-200px] right-[-100px]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] h-20 border-b border-brandSilver/10 glass-nav flex items-center px-6 md:px-12 justify-between">
+        <a href="index.html" class="flex items-center space-x-1 group">
+            <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+            <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-10">
+            <a href="index.html" class="text-xs uppercase tracking-[0.2em] font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-home">Home</a>
+            <a href="services.html" class="text-xs uppercase tracking-[0.2em] font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-services">Services</a>
+            <a href="portfolio.html" class="text-xs uppercase tracking-[0.2em] font-bold text-white border-b border-white pb-1" data-i18n="nav-portfolio">Cresstel Labs</a>
+            <a href="contact.html" class="text-xs uppercase tracking-[0.2em] font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-contact">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-6">
+            <button onclick="toggleLanguage()" class="text-[10px] font-bold border border-brandSilver/30 px-3 py-1 rounded hover:bg-white hover:text-black transition-all duration-300">
+                EN / ES
+            </button>
+            <button id="menu-toggle" class="relative w-8 h-4 flex flex-col justify-between group z-[110]">
+                <span id="bar1" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+                <span id="bar2" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Overlay Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-12 space-y-8">
+        <a href="index.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-home">Home</a>
+        <a href="services.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-services">Services</a>
+        <a href="portfolio.html" class="text-4xl font-heading font-bold active-link" data-i18n="nav-portfolio">Cresstel Labs</a>
+        <a href="contact.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-contact">Contact</a>
+        <div class="pt-12 border-t border-brandSilver/20">
+            <p class="text-brandSilver text-sm" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="pt-48 pb-24 px-6 md:px-12 max-w-7xl mx-auto text-center reveal">
+        <h1 class="font-heading font-extrabold text-5xl md:text-8xl tracking-tighter mb-10 leading-none">
+            Cresstel Labs / <span class="text-brandSilver font-light" data-i18n="header-span">Blueprints</span>
+        </h1>
+        <p class="text-brandSilver text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed" data-i18n="header-subtitle">
+            A curated selection of high-end software architectures. These models represent production-ready conceptual foundations, engineered for immediate deployment and enterprise-scale customization.
+        </p>
+    </header>
+
+    <!-- Portfolio Grid -->
+    <section class="py-12 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Project A: SoleVanguard -->
+        <article class="project-card reveal bg-brandBlue border border-brandSilver/20 rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden relative">
+            <div class="z-10">
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="badge">UI/UX</span>
+                    <span class="badge">Tailwind CSS</span>
+                    <span class="badge">Vanilla JS</span>
+                </div>
+                <h3 class="text-3xl font-heading font-bold mb-4">SoleVanguard</h3>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="p1-desc">
+                    Luxury e-commerce architecture for premium footwear. Engineered with a minimalist aesthetic and high-conversion transaction flows, prioritizing visual storytelling and fluid performance.
+                </p>
+            </div>
+            <div class="mt-auto">
+                <a href="contact.html" class="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500" data-i18n="explore-btn">
+                    Explore Blueprint
+                </a>
+            </div>
+            <!-- Decorative Light -->
+            <div class="absolute -right-20 -bottom-20 w-40 h-40 bg-white/5 blur-3xl group-hover:bg-white/10 transition-colors"></div>
+        </article>
+
+        <!-- Project B: ScholarCore IA -->
+        <article class="project-card reveal bg-brandBlue border border-brandSilver/20 rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden relative" style="transition-delay: 100ms;">
+            <div class="z-10">
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="badge">SaaS Architecture</span>
+                    <span class="badge">Transactional</span>
+                    <span class="badge">Analytics</span>
+                </div>
+                <h3 class="text-3xl font-heading font-bold mb-4">ScholarCore IA</h3>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="p2-desc">
+                    Intelligent educational administration SaaS. Not a generic platform, but a transactional engine that automates enrollments and parent-managed billing with integrated predictive analytics for student tracking.
+                </p>
+            </div>
+            <div class="mt-auto">
+                <a href="contact.html" class="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500" data-i18n="explore-btn">
+                    Explore Blueprint
+                </a>
+            </div>
+            <div class="absolute -right-20 -bottom-20 w-40 h-40 bg-white/5 blur-3xl group-hover:bg-white/10 transition-colors"></div>
+        </article>
+
+        <!-- Project C: Predictive Analytics -->
+        <article class="project-card reveal bg-brandBlue border border-brandSilver/20 rounded-[2rem] p-8 flex flex-col justify-between group overflow-hidden relative" style="transition-delay: 200ms;">
+            <div class="z-10">
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="badge">Python</span>
+                    <span class="badge">Pandas</span>
+                    <span class="badge">Data Science</span>
+                </div>
+                <h3 class="text-3xl font-heading font-bold mb-4" data-i18n="p3-title">Cresstel Analytics</h3>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="p3-desc">
+                    Advanced analytical core designed for scientific inventory prediction, automated order optimization, and historical sales trend analysis. Built for high-stake enterprise decision making.
+                </p>
+            </div>
+            <div class="mt-auto">
+                <a href="contact.html" class="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500" data-i18n="explore-btn">
+                    Explore Blueprint
+                </a>
+            </div>
+            <div class="absolute -right-20 -bottom-20 w-40 h-40 bg-white/5 blur-3xl group-hover:bg-white/10 transition-colors"></div>
+        </article>
+
+    </section>
+
+    <!-- Engineering Methodology -->
+    <section class="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-brandSilver/10 mt-24">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <h2 class="font-heading text-4xl font-bold mb-8" data-i18n="method-title">High-Performance Methodology</h2>
+                <p class="text-brandSilver text-lg leading-relaxed mb-6" data-i18n="method-p1">
+                    We build efficient solutions optimized through modern development flows. By integrating advanced AI assistance in local terminals (Claude Code / Cline), we accelerate architecture deployment without sacrificing quality.
+                </p>
+                <p class="text-brandSilver text-lg leading-relaxed" data-i18n="method-p2">
+                    The result is clean, native code that runs at 60fps, ensuring high-fidelity experiences that respect your infrastructure's resources.
+                </p>
+            </div>
+            <div class="bg-brandBlue/30 border border-brandSilver/10 p-10 rounded-[3rem] reveal h-full flex flex-col justify-center">
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-brandSilver">Local LLM Architecture</span>
+                        <span class="text-xs font-bold text-white">OPTIMIZED</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                        <span class="text-xs uppercase tracking-widest text-brandSilver">Rendering Latency</span>
+                        <span class="text-xs font-bold text-white">&lt; 16ms</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs uppercase tracking-widest text-brandSilver">Clean Code Audit</span>
+                        <span class="text-xs font-bold text-white">PASS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-6 md:px-12 reveal">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-heading text-4xl md:text-6xl font-bold mb-8" data-i18n="cta-title">Ready for a Technical Deep Dive?</h2>
+            <p class="text-brandSilver text-lg mb-12" data-i18n="cta-subtitle">Schedule a live technical demonstration of any of our blueprints with our engineering team.</p>
+            <a href="contact.html" class="bg-white text-black px-12 py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-brandSilver transition-all duration-500" data-i18n="cta-button">Request Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
+            <div>
+                <a href="index.html" class="flex items-center space-x-1 mb-6">
+                    <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+                    <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+                </a>
+                <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
+                    Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-nav-title">Navigation</h5>
+                    <a href="index.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-home">Home</a>
+                    <a href="services.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-services">Services</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-portfolio">Cresstel Labs</a>
+                    <a href="contact.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-contact">Contact</a>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-labs-title">Labs</h5>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">SoleVanguard</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">ScholarCore</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">Predictive Ops</a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-6" data-i18n="footer-legacy-title">The Legacy</h5>
+                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="footer-legacy-desc">
+                    Built on over a decade of infrastructure expertise. We lead the evolution from standard code to intelligent, autonomous systems.
+                </p>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-brandSilver/5">
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
+        </div>
+    </footer>
+
+    <script>
+        // Internationalization Data
+        const translations = {
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Cresstel Labs", "nav-contact": "Contact",
+                "menu-footer": "Make Your Digital Transformation an Evolution",
+                "header-span": "Development Models",
+                "header-subtitle": "A curated selection of high-end software architectures. These models represent production-ready conceptual foundations, engineered for immediate deployment and enterprise-scale customization.",
+                "p1-desc": "Luxury e-commerce architecture for premium footwear. Engineered with a minimalist aesthetic and high-conversion transaction flows, prioritizing visual storytelling and fluid performance.",
+                "p2-desc": "Intelligent educational administration SaaS. Not a generic platform, but a transactional engine that automates enrollments and parent-managed billing with integrated predictive analytics.",
+                "p3-title": "Predictive Analytics",
+                "p3-desc": "Advanced analytical core designed for scientific inventory prediction, automated order optimization, and historical sales trend analysis. Built for high-stake enterprise decision making.",
+                "explore-btn": "Explore Blueprint",
+                "method-title": "High-Performance Methodology",
+                "method-p1": "We build efficient solutions optimized through modern development flows. By integrating advanced AI assistance in local terminals, we accelerate architecture deployment.",
+                "method-p2": "The result is clean, native code that runs at 60fps, ensuring high-fidelity experiences that respect your infrastructure's resources.",
+                "cta-title": "Ready for a Technical Deep Dive?",
+                "cta-subtitle": "Schedule a live technical demonstration of any of our blueprints with our engineering team.",
+                "cta-button": "Request Demo",
+                "footer-tagline": "Make Your Digital Transformation an Evolution. High-end software engineering.",
+                "footer-nav-title": "Navigation", "footer-labs-title": "Labs", "footer-legacy-title": "The Legacy",
+                "footer-legacy-desc": "Built on over a decade of infrastructure expertise."
+            },
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Cresstel Labs", "nav-contact": "Contacto",
+                "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "header-span": "Modelos de Desarrollo",
+                "header-subtitle": "Una selección curada de arquitecturas de software de alta gama. Estos modelos representan bases conceptuales listas para producción, diseñadas para despliegue inmediato.",
+                "p1-desc": "Arquitectura de e-commerce de lujo para calzado premium. Diseñado con una estética minimalista y flujos de transacción de alta conversión, priorizando el rendimiento fluido.",
+                "p2-desc": "SaaS de administración educativa inteligente. No es una plataforma genérica, sino un motor transaccional que automatiza inscripciones y cobros con analítica predictiva.",
+                "p3-title": "Analítica Predictiva",
+                "p3-desc": "Núcleo analítico avanzado diseñado para la predicción científica de inventarios, optimización automatizada de pedidos y análisis de tendencias históricas de ventas.",
+                "explore-btn": "Explorar Modelo",
+                "method-title": "Metodología de Alto Rendimiento",
+                "method-p1": "Construimos soluciones eficientes optimizadas mediante flujos de desarrollo modernos. Integrando asistencia de IA avanzada en terminales locales, aceleramos el despliegue.",
+                "method-p2": "El resultado es un código nativo limpio que corre a 60fps, garantizando experiencias de alta fidelidad que respetan los recursos de su infraestructura.",
+                "cta-title": "¿Listo para una Inmersión Técnica?",
+                "cta-subtitle": "Agende una demostración técnica en vivo de cualquiera de nuestros modelos con nuestro equipo de ingeniería.",
+                "cta-button": "Solicitar Demo",
+                "footer-tagline": "Haz de tu Transformación Digital una Evolución. Ingeniería de software de alta gama.",
+                "footer-nav-title": "Navegación", "footer-labs-title": "Laboratorios", "footer-legacy-title": "El Legado",
+                "footer-legacy-desc": "Basado en más de una década de experiencia en infraestructura."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+            });
+            document.documentElement.lang = currentLang;
+        }
+
+        // Navigation Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const isActive = mobileMenu.classList.contains('active');
+            bar1.style.transform = isActive ? 'translateY(7px) rotate(45deg)' : 'translateY(0) rotate(0)';
+            bar2.style.transform = isActive ? 'translateY(-7px) rotate(-45deg)' : 'translateY(0) rotate(0)';
+            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                bar1.style.transform = 'translateY(0) rotate(0)';
+                bar2.style.transform = 'translateY(0) rotate(0)';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3D Tilt Logic
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
+                
+                card.style.transform = `rotateY(${dx / 25}deg) rotateX(${-dy / 25}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+    </script>
+</body>
+</html>
