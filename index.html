@@ -16,28 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS - centralized config -->
+    <script src="tailwind-config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBlack: '#000000',
-                        brandBlue: '#172A4A',
-                        brandSilver: '#7E7E7E',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -62,22 +43,6 @@
 
     <link rel="stylesheet" href="main.css">
 
-    <style>
-        body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
-        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-        .bento-card { transition: transform 0.1s ease-out, box-shadow 0.3s ease; perspective: 1000px; transform-style: preserve-3d; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); filter: blur(10px); }
-        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
-        .aurora { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
-        .card-reflection { position: absolute; inset: 0; background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s; }
-        .bento-card:hover .card-reflection { opacity: 1; }
-        .nav-link-hover { position: relative; }
-        .nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
-        .nav-link-hover:hover::after { width: 100%; }
-        /* Mobile menu off-canvas: disable pointer events when hidden to avoid overlaying nav */
-        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
-        #mobile-menu.active { transform: translateX(0); pointer-events: auto; }
-    </style>
 </head>
 <body class="font-sans antialiased">
 
@@ -378,40 +343,6 @@
 
 
 
-        // Scroll Reveal
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // 3D Tilt Effect for Cards
-        document.querySelectorAll('.bento-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                
-                const dx = x - xc;
-                const dy = y - yc;
-                
-                card.style.transform = `rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
-            });
-        });
     </script>
 <script src="main.js"></script>
 </body>

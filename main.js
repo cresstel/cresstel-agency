@@ -49,4 +49,52 @@ document.addEventListener('DOMContentLoaded', () => {
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => closeMenu());
   });
+
+  // Scroll Reveal (shared)
+  const observerOptions = { threshold: 0.1 };
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, observerOptions);
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // 3D Tilt for .bento-card (shared)
+  document.querySelectorAll('.bento-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xc = rect.width / 2;
+      const yc = rect.height / 2;
+      const dx = x - xc;
+      const dy = y - yc;
+
+      card.style.transform = `rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg) scale3d(1.02, 1.02, 1.02)`;
+      card.style.setProperty('--x', `${x}px`);
+      card.style.setProperty('--y', `${y}px`);
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+    });
+  });
+
+  // 3D Tilt for .project-card (shared)
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xc = rect.width / 2;
+      const yc = rect.height / 2;
+      const dx = x - xc;
+      const dy = y - yc;
+
+      card.style.transform = `rotateY(${dx / 25}deg) rotateX(${-dy / 25}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+    });
+  });
+
 });

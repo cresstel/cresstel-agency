@@ -11,47 +11,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS - centralized config -->
+    <script src="tailwind-config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBlack: '#000000',
-                        brandBlue: '#172A4A',
-                        brandSilver: '#7E7E7E',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
 
     <link rel="stylesheet" href="main.css">
 
     <style>
-        body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
-        .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); filter: blur(10px); }
-        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
-        .aurora { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
-        
-        /* Calendar & UI Specifics */
+        /* Page-specific calendar & UI rules - shared layout/anim are in main.css */
         .calendar-day { transition: all 0.3s ease; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; font-size: 0.85rem; border: 1px solid transparent; }
         .calendar-day:hover:not(.empty) { background: rgba(255,255,255,0.1); border-color: #7E7E7E; }
         .calendar-day.selected { background: #FFFFFF; color: #000000; font-weight: bold; }
         .time-slot { transition: all 0.3s ease; padding: 10px; border: 1px solid rgba(126, 126, 126, 0.2); border-radius: 12px; text-align: center; cursor: pointer; font-size: 0.8rem; }
         .time-slot:hover { border-color: #FFFFFF; background: rgba(255,255,255,0.05); }
         .time-slot.selected { background: #FFFFFF; color: #000000; border-color: #FFFFFF; font-weight: 600; }
-        
-        /* Mobile menu off-canvas: disable pointer events when hidden to avoid overlaying nav */
-        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
-        #mobile-menu.active { transform: translateX(0); pointer-events: auto; }
-        .active-link { border-left: 4px solid #FFFFFF; padding-left: 1rem; color: #FFFFFF !important; }
         
         input, select { background: transparent !important; border: 1px solid rgba(126, 126, 126, 0.3) !important; color: white !important; outline: none !important; transition: border-color 0.3s; }
         input:focus, select:focus { border-color: white !important; }
@@ -372,11 +345,6 @@
             window.open(waUrl, '_blank');
         }
 
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // 3D Tilt for Form
         const container = document.getElementById('form-container');
