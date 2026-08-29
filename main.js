@@ -1,5 +1,5 @@
 // Redesigned shared JS: robust mobile menu + reveal + tilt
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileClose = document.getElementById('mobile-close');
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     previouslyFocused = document.activeElement;
 
     mobileMenu.classList.add('active');
-    menuToggle.classList.add('open');
+    // Do not morph the hamburger into an X to avoid duplicate close icons — keep visual state on the explicit close button
     document.body.classList.add('menu-open');
     menuToggle.setAttribute('aria-expanded', 'true');
 
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeMenu() {
     mobileMenu.classList.remove('active');
-    menuToggle.classList.remove('open');
+    // Do not morph the hamburger into an X; visual close is the #mobile-close inside the menu
     document.body.classList.remove('menu-open');
     menuToggle.setAttribute('aria-expanded', 'false');
 
@@ -97,7 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle.addEventListener('click', (e) => {
     e.preventDefault();
     const isActive = mobileMenu.classList.contains('active');
-    isActive ? closeMenu() : openMenu();
+    if (!isActive) {
+      openMenu();
+    } else {
+      // Menu is already open — do not close via the hamburger toggle.
+      // Move keyboard focus to the in-menu close button for accessibility.
+      const closeBtn = document.getElementById('mobile-close');
+      if (closeBtn) closeBtn.focus();
+      // Also avoid toggling the menu by accident; no further action.
+    }
   });
 
   // Close button inside menu (explicit X)
@@ -134,10 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
           if (entry.isIntersecting) entry.target.classList.add('active');
         });
       }, observerOptions);
-      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+      const revealEls = document.querySelectorAll('.reveal');
+      revealEls.forEach(el => revealObserver.observe(el));
 
       // Tilt for bento-card
-      document.querySelectorAll('.bento-card').forEach(card => {
+      const bentoCards = document.querySelectorAll('.bento-card');
+      let bentoAttached = 0;
+      bentoCards.forEach(card => {
+        if (!card) return;
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -146,15 +158,28 @@ document.addEventListener('DOMContentLoaded', () => {
           const yc = rect.height / 2;
           const dx = x - xc;
           const dy = y - yc;
-          card.style.transform = `rotateY(${dx / 20}deg) rotateX(${-dy / 20}deg) scale3d(1.02, 1.02, 1.02)`;
+          // debug
+          // set CSS variables instead of writing transform directly so other transforms (reveal) are preserved
+          card.style.setProperty('--rotY', `${dx / 20}deg`);
+          card.style.setProperty('--rotX', `${-dy / 20}deg`);
+          card.style.setProperty('--scale', '1.02');
           card.style.setProperty('--x', `${x}px`);
           card.style.setProperty('--y', `${y}px`);
+          card.style.setProperty('--refl', '0.9');
         });
-        card.addEventListener('mouseleave', () => card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`);
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--rotY', '0deg');
+          card.style.setProperty('--rotX', '0deg');
+          card.style.setProperty('--scale', '1');
+          card.style.setProperty('--refl', '0.12');
+        });
+        bentoAttached++;
       });
 
       // Tilt for project-card
-      document.querySelectorAll('.project-card').forEach(card => {
+      const projectCards = document.querySelectorAll('.project-card');
+      let projectAttached = 0;
+      projectCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -163,9 +188,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const yc = rect.height / 2;
           const dx = x - xc;
           const dy = y - yc;
-          card.style.transform = `rotateY(${dx / 25}deg) rotateX(${-dy / 25}deg) scale3d(1.02, 1.02, 1.02)`;
+          card.style.setProperty('--rotY', `${dx / 25}deg`);
+          card.style.setProperty('--rotX', `${-dy / 25}deg`);
+          card.style.setProperty('--scale', '1.02');
         });
-        card.addEventListener('mouseleave', () => card.style.transform = `rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`);
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--rotY', '0deg');
+          card.style.setProperty('--rotX', '0deg');
+          card.style.setProperty('--scale', '1');
+        });
+        projectAttached++;
       });
     } catch (err) {
       // fail gracefully
@@ -173,4 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}

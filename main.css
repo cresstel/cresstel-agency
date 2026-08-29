@@ -1,11 +1,49 @@
+/* Fallback theme variables and essential utilities (for environments where Tailwind CDN may not inject utilities) */
+:root {
+  --brandBlack: #000000;
+  --brandBlue: #172A4A;
+  --brandSilver: #7E7E7E;
+}
+
+html, body { height: 100%; }
+body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.font-heading { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.font-sans { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+/* Ensure bento/project cards have a sensible fallback background and stacking so reflections show */
+.bento-card, .project-card { background: var(--brandBlue); border: 1px solid rgba(255,255,255,0.06); color: #fff; position: relative; overflow: hidden; /* initialize transform CSS variables */ --rotY: 0deg; --rotX: 0deg; --scale: 1; --x: 50%; --y: 50%; --refl: 0.12; }
+.bento-card > *, .project-card > * { position: relative; z-index: 1; }
+
 /* Shared site styles extracted from individual pages */
-body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
 .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.bento-card { transition: transform 0.1s ease-out, box-shadow 0.3s ease; perspective: 1000px; transform-style: preserve-3d; }
-.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); filter: blur(10px); }
-.reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
-.aurora { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
-.card-reflection { position: absolute; inset: 0; background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+.bento-card { transition: transform 0.12s ease, box-shadow 0.3s ease; perspective: 1000px; transform-style: preserve-3d; }
+/* Compose transforms from CSS variables so reveal translate and tilt rotate can co-exist */
+.bento-card, .project-card { transform: translateY(var(--reveal-ty, 0)) rotateY(var(--rotY)) rotateX(var(--rotX)) scale3d(var(--scale), var(--scale), var(--scale)); }
+
+/* Reveal - use CSS variable for translateY so JS can add rotations without being overridden */
+.reveal { --reveal-ty: 30px; opacity: 0; transform: translateY(var(--reveal-ty)); transition: opacity 0.8s cubic-bezier(0.2, 1, 0.3, 1), transform 0.8s cubic-bezier(0.2,1,0.3,1); filter: blur(10px); }
+.reveal.active { --reveal-ty: 0px; opacity: 1; filter: blur(0); }
+
+
+/* Aurora / halo */
+@keyframes pulse-slow { 0% { opacity: 0.8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0.8; transform: scale(1); } }
+.animate-pulse-slow { animation: pulse-slow 8s cubic-bezier(0.4,0,0.6,1) infinite; }
+.aurora { position: fixed; width: 1100px; height: 1100px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 42, 74, 0.95) 0%, rgba(0,0,0,0) 70%); filter: blur(60px); z-index: 0; pointer-events: none; opacity: 0.98; transform-origin: center; }
+
+/* Fallback position utilities for aurora when Tailwind utilities are not present */
+.aurora-top-left { top: -200px; left: -100px; }
+.aurora-top-right { top: -200px; right: -100px; }
+.aurora-bottom-left { bottom: -200px; left: -100px; }
+.aurora-bottom-right { bottom: -200px; right: -100px; }
+.aurora-bottom-offset { bottom: 10%; left: -100px; }
+.aurora-top-small-right { top: -100px; right: -100px; }
+
+/* Card reflection */
+.card-reflection { position: absolute; inset: 0; /* fallback to center if --x/--y not set */
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.22) 0%, transparent 60%); pointer-events: none; opacity: var(--refl, 0.12); transition: opacity 0.12s ease; z-index: 0; }
+.bento-card:hover .card-reflection, .bento-card:focus-within .card-reflection { opacity: 0.9; }
+
+
 .bento-card:hover .card-reflection { opacity: 1; }
 .nav-link-hover { position: relative; }
 .nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
@@ -19,15 +57,28 @@ body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
 #menu-toggle { display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; }
 #menu-toggle span { display: block; width: 18px; background: #fff; transition: transform 0.3s ease, opacity 0.2s ease; }
 #menu-toggle span + span { margin-top: 6px; }
-#menu-toggle.open #bar1 { transform: translateY(6px) rotate(45deg); }
-#menu-toggle.open #bar2 { transform: translateY(-6px) rotate(-45deg); }
 
 /* Mobile menu visible state — higher z so it overlays the nav when open */
-#mobile-menu { transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s; pointer-events: none; opacity: 0; z-index: 120; }
+#mobile-menu { position: fixed; inset: 0; transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s; pointer-events: none; opacity: 0; z-index: 140; }
 #mobile-menu.active { transform: translateX(0); pointer-events: auto; opacity: 1; }
 
+/* Create a solid dark blurred backdrop behind the menu content */
+#mobile-menu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.92); /* almost black */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure menu inner content sits above the dark backdrop */
+#mobile-menu > * { position: relative; z-index: 10; }
+
 /* Close button inside mobile menu */
-#mobile-close { position: absolute; top: 16px; right: 16px; z-index: 160; background: transparent; border: none; padding: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+#mobile-close { position: absolute; top: 16px; right: 16px; z-index: 20; background: transparent; border: none; padding: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 #mobile-close svg { width: 20px; height: 20px; stroke: #fff; }
 
 /* Visible focus styles for accessibility inside the mobile menu (focus trap target elements) */
@@ -37,3 +88,24 @@ body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
 
 /* When menu is open, prevent body scroll (also handled in JS) */
 body.menu-open { overflow: hidden; }
+
+/* Make hamburger inoperative while the menu is open to avoid accidental closes */
+body.menu-open #menu-toggle { pointer-events: none; opacity: 0.9; }
+
+/* Dim and blur the page behind the open mobile menu */
+body.menu-open .aurora { opacity: 0.2; filter: blur(120px); transition: opacity 0.25s ease, filter 0.25s ease; }
+body.menu-open main,
+body.menu-open section,
+body.menu-open header,
+body.menu-open footer,
+body.menu-open .bento-card,
+body.menu-open .project-card,
+body.menu-open .reveal {
+  filter: blur(6px) saturate(0.85);
+  opacity: 0.55;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+/* Ensure mobile menu itself remains sharp */
+#mobile-menu { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
