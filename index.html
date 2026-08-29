@@ -387,8 +387,12 @@
 
         // 2. Open the menu
             function openMenu() {
+                isMenuOpen = true;
                 mobileMenu.classList.add('active'); // show the visual panel
-                menuToggle.classList.add('z-[150]'); 
+                
+                bar2.classList.remove('bg-brandSilver');
+                bar2.classList.add('bg-white'); 
+                
                 bar1.style.transform = 'translateY(7px) rotate(45deg)'; // transform the bars into an X
                 bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
                 document.body.style.overflow = 'hidden'; // block the scroll of the screen
@@ -396,22 +400,26 @@
 
         // 3. Close the menu
             function closeMenu() {
+                isMenuOpen = false;
                 mobileMenu.classList.remove('active'); // hide the visual panel
-                menuToggle.classList.remove('z-[150]');
+                
+                bar2.classList.remove('bg-white');
+                bar2.classList.add('bg-brandSilver');
+                
                 bar1.style.transform = 'translateY(0) rotate(0)'; // reset the bars to their original position
                 bar2.style.transform = 'translateY(0) rotate(0)';
                 document.body.style.overflow = 'auto'; // allow the scroll of the screen
         }
 
         // 4. Control the toggle button click
-            menuToggle.addEventListener('click', () => {
+            menuToggle.addEventListener('click', (e) => {
             // verify if the menu is currently open or closed
-            const isCurrentlyOpen = mobileMenu.classList.contains('active');
+            e.preventDefault();
     
-                if (isCurrentlyOpen) {
-                    closeMenu(); // If it was open, we close it 
+                if (isMenuOpen) {
+                    closeMenu();
                 } else {
-                openMenu();  // If it was closed, we open it
+                    openMenu();
                 }
             });
 
