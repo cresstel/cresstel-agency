@@ -31,6 +31,8 @@
         }
     </script>
 
+    <link rel="stylesheet" href="main.css">
+
     <style>
         body { background-color: #000000; color: #FFFFFF; overflow-x: hidden; }
         .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
@@ -349,63 +351,6 @@
             document.documentElement.lang = currentLang;
         }
 
-        // Mobile Menu Toggle - improved: explicit open/close, overlay click-to-close, Escape key and aria support
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const bar1 = document.getElementById('bar1');
-        const bar2 = document.getElementById('bar2');
-
-        // Accessibility attributes
-        if (menuToggle) {
-            menuToggle.setAttribute('aria-controls', 'mobile-menu');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-
-        function openMenu() {
-            mobileMenu.classList.add('active');
-            menuToggle.classList.add('open');
-            bar1.style.transform = 'translateY(7px) rotate(45deg)';
-            bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
-            document.body.style.overflow = 'hidden';
-            menuToggle.setAttribute('aria-expanded', 'true');
-        }
-
-        function closeMenu() {
-            mobileMenu.classList.remove('active');
-            menuToggle.classList.remove('open');
-            bar1.style.transform = 'translateY(0) rotate(0)';
-            bar2.style.transform = 'translateY(0) rotate(0)';
-            document.body.style.overflow = 'auto';
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-
-        // Toggle handler (safe-guard if elements are missing)
-        if (menuToggle) {
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isActive = mobileMenu.classList.contains('active');
-                isActive ? closeMenu() : openMenu();
-            });
-        }
-
-        // Close when clicking on the overlay (but not on links)
-        if (mobileMenu) {
-            mobileMenu.addEventListener('click', (e) => {
-                if (e.target === mobileMenu) closeMenu();
-            });
-        }
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
-        });
-
-        // Close menu on link click
-        if (mobileMenu) {
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => closeMenu());
-            });
-        }
 
         // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
@@ -437,5 +382,6 @@
             });
         });
     </script>
+<script src="main.js"></script>
 </body>
 </html>
