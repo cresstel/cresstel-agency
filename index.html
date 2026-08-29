@@ -72,8 +72,9 @@
         .nav-link-hover { position: relative; }
         .nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
         .nav-link-hover:hover::after { width: 100%; }
-        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
-        #mobile-menu.active { transform: translateX(0); }
+        /* Mobile menu off-canvas: disable pointer events when hidden to avoid overlaying nav */
+        #mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
+        #mobile-menu.active { transform: translateX(0); pointer-events: auto; }
     </style>
 </head>
 <body class="font-sans antialiased">
@@ -379,57 +380,63 @@
             document.documentElement.lang = currentLang;
         }
 
-        // Mobile Menu Toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const bar1 = document.getElementById('bar1');
-            const bar2 = document.getElementById('bar2');
+        // Mobile Menu Toggle - improved: explicit open/close, overlay click-to-close, Escape key and aria support
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
 
-            let isMenuOpen = false;
-
-        // 2. Open the menu
-            function openMenu() {
-                isMenuOpen = true;
-                mobileMenu.classList.add('active'); // show the visual panel
-                
-                bar2.classList.remove('bg-brandSilver');
-                bar2.classList.add('bg-white'); 
-                
-                bar1.style.transform = 'translateY(7px) rotate(45deg)'; // transform the bars into an X
-                bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
-                document.body.style.overflow = 'hidden'; // block the scroll of the screen
-            }
-
-        // 3. Close the menu
-            function closeMenu() {
-                isMenuOpen = false;
-                mobileMenu.classList.remove('active'); // hide the visual panel
-                
-                bar2.classList.remove('bg-white');
-                bar2.classList.add('bg-brandSilver');
-                
-                bar1.style.transform = 'translateY(0) rotate(0)'; // reset the bars to their original position
-                bar2.style.transform = 'translateY(0) rotate(0)';
-                document.body.style.overflow = 'auto'; // allow the scroll of the screen
+        // Accessibility attributes
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-controls', 'mobile-menu');
+            menuToggle.setAttribute('aria-expanded', 'false');
         }
 
-        // 4. Control the toggle button click
-            menuToggle.addEventListener('click', (e) => {
-            // verify if the menu is currently open or closed
-            e.preventDefault();
-    
-                if (isMenuOpen) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuToggle.classList.add('open');
+            bar1.style.transform = 'translateY(7px) rotate(45deg)';
+            bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
+            document.body.style.overflow = 'hidden';
+            menuToggle.setAttribute('aria-expanded', 'true');
+        }
 
-        // 5. Control links
-            // Function to close the menu when a link is clicked
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMenu);
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuToggle.classList.remove('open');
+            bar1.style.transform = 'translateY(0) rotate(0)';
+            bar2.style.transform = 'translateY(0) rotate(0)';
+            document.body.style.overflow = 'auto';
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        // Toggle handler (safe-guard if elements are missing)
+        if (menuToggle) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = mobileMenu.classList.contains('active');
+                isActive ? closeMenu() : openMenu();
             });
+        }
+
+        // Close when clicking on the overlay (but not on links)
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) closeMenu();
+            });
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
+        });
+
+        // Close menu on link click
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => closeMenu());
+            });
+        }
 
 
         // Scroll Reveal
