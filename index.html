@@ -388,6 +388,7 @@
         // 2. Open the menu
             function openMenu() {
                 mobileMenu.classList.add('active'); // show the visual panel
+                menuToggle.classList.add('z-[150]'); 
                 bar1.style.transform = 'translateY(7px) rotate(45deg)'; // transform the bars into an X
                 bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
                 document.body.style.overflow = 'hidden'; // block the scroll of the screen
@@ -396,6 +397,7 @@
         // 3. Close the menu
             function closeMenu() {
                 mobileMenu.classList.remove('active'); // hide the visual panel
+                menuToggle.classList.remove('z-[150]');
                 bar1.style.transform = 'translateY(0) rotate(0)'; // reset the bars to their original position
                 bar2.style.transform = 'translateY(0) rotate(0)';
                 document.body.style.overflow = 'auto'; // allow the scroll of the screen
