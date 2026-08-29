@@ -335,7 +335,7 @@
                 "nav-services": "Servicios",
                 "nav-portfolio": "Portafolio",
                 "nav-contact": "Contacto",
-                "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "menu-footer": "Make Your Digital Transformation an Evolution",
                 "hero-title": "Interfaces Digitales de Nueva Generación e IA Predictiva para Empresas",
                 "hero-subtitle": "Ingeniería de software de misión crítica e interfaces de alta fidelidad. Optimizamos cadenas de suministro complejas a 60fps.",
                 "hero-cta-1": "Explorar Soluciones",
@@ -380,35 +380,45 @@
         }
 
         // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const bar1 = document.getElementById('bar1');
-        const bar2 = document.getElementById('bar2');
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const bar1 = document.getElementById('bar1');
+            const bar2 = document.getElementById('bar2');
 
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            const isActive = mobileMenu.classList.contains('active');
-            
-            if (isActive) {
-                bar1.style.transform = 'translateY(7px) rotate(45deg)';
+        // 2. Open the menu
+            function openMenu() {
+                mobileMenu.classList.add('active'); // show the visual panel
+                bar1.style.transform = 'translateY(7px) rotate(45deg)'; // transform the bars into an X
                 bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
-                document.body.style.overflow = 'hidden';
-            } else {
-                bar1.style.transform = 'translateY(0) rotate(0)';
-                bar2.style.transform = 'translateY(0) rotate(0)';
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = 'hidden'; // block the scroll of the screen
             }
-        });
 
-        // Close menu on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                bar1.style.transform = 'translateY(0) rotate(0)';
+        // 3. Close the menu
+            function closeMenu() {
+                mobileMenu.classList.remove('active'); // hide the visual panel
+                bar1.style.transform = 'translateY(0) rotate(0)'; // reset the bars to their original position
                 bar2.style.transform = 'translateY(0) rotate(0)';
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = 'auto'; // allow the scroll of the screen
+        }
+
+        // 4. Control the toggle button click
+            menuToggle.addEventListener('click', () => {
+            // verify if the menu is currently open or closed
+            const isCurrentlyOpen = mobileMenu.classList.contains('active');
+    
+                if (isCurrentlyOpen) {
+                    closeMenu(); // If it was open, we close it 
+                } else {
+                openMenu();  // If it was closed, we open it
+                }
             });
-        });
+
+        // 5. Control links
+            // Function to close the menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
 
         // Scroll Reveal
         const observerOptions = { threshold: 0.1 };
