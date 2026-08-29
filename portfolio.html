@@ -68,8 +68,9 @@
         }
 
         /* Mobile Menu */
-        #mobile-menu { transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1); }
-        #mobile-menu.active { transform: translateX(0); }
+        /* Mobile menu off-canvas: disable pointer events when hidden to avoid overlaying nav */
+        #mobile-menu { transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
+        #mobile-menu.active { transform: translateX(0); pointer-events: auto; }
         .active-link { border-left: 4px solid #FFFFFF; padding-left: 1.5rem; color: #FFFFFF !important; }
 
         .badge {
@@ -91,10 +92,10 @@
     <div class="aurora bottom-[-200px] right-[-100px]"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] h-20 border-b border-brandSilver/10 glass-nav flex items-center px-6 md:px-12 justify-between">
-        <a href="index.html" class="flex items-center space-x-1 group">
-            <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
-            <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+    <nav class="fixed top-0 w-full z-[100] h-16 md:h-20 border-b border-brandSilver/10 glass-nav flex items-center px-4 sm:px-6 md:px-12 justify-between">
+        <a href="index.html" class="flex items-center space-x-2 group min-w-0">
+            <span class="font-heading font-bold text-lg sm:text-2xl tracking-tighter truncate">Cresstel</span>
+            <span class="font-sans font-light text-sm sm:text-2xl text-brandSilver tracking-widest uppercase hidden sm:inline">IA</span>
         </a>
 
         <div class="hidden md:flex items-center space-x-10">
@@ -104,27 +105,26 @@
             <a href="contact.html" class="text-xs uppercase tracking-[0.2em] font-medium text-brandSilver hover:text-white transition-colors" data-i18n="nav-contact">Contact</a>
         </div>
 
-        <div class="flex items-center space-x-6">
-            <button onclick="toggleLanguage()" class="text-[10px] font-bold border border-brandSilver/30 px-3 py-1 rounded hover:bg-white hover:text-black transition-all duration-300">
+        <div class="flex items-center space-x-3 sm:space-x-6 min-w-0">
+            <button onclick="toggleLanguage()" class="text-[9px] sm:text-[10px] font-bold border border-brandSilver/30 px-2 sm:px-2 py-0.5 sm:py-1 rounded hover:bg-white hover:text-black transition-colors duration-300">
                 EN / ES
             </button>
-            <button id="menu-toggle" class="relative w-8 h-4 flex flex-col justify-between group z-[110]">
-                <span id="bar1" class="w-full h-[1px] bg-white transition-all duration-300"></span>
-                <span id="bar2" class="w-full h-[1px] bg-white transition-all duration-300"></span>
+            <button id="menu-toggle" type="button" aria-label="Open menu" class="relative w-8 h-6 flex flex-col justify-between group z-[110] p-2 -mr-2">
+                <span id="bar1" class="w-full h-[2px] sm:h-[1px] bg-white transition-all duration-300"></span>
+                <span id="bar2" class="w-full h-[2px] sm:h-[1px] bg-white transition-all duration-300"></span>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-12 space-y-8">
-        <a href="index.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-home">Home</a>
-        <a href="services.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-services">Services</a>
-        <a href="portfolio.html" class="text-4xl font-heading font-bold active-link" data-i18n="nav-portfolio">Cresstel Labs</a>
-        <a href="contact.html" class="text-4xl font-heading font-bold text-brandSilver hover:text-white" data-i18n="nav-contact">Contact</a>
-        <div class="pt-12 border-t border-brandSilver/20">
-            <p class="text-brandSilver text-sm" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
+    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-6 sm:px-12 space-y-6 overflow-y-auto">
+        <a href="index.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-home">Home</a>
+        <a href="services.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-services">Services</a>
+        <a href="portfolio.html" class="text-3xl sm:text-4xl font-heading font-bold active-link text-center" data-i18n="nav-portfolio">Cresstel Labs</a>
+        <a href="contact.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-contact">Contact</a>
+        <div class="pt-8 sm:pt-12 border-t border-brandSilver/20">
+            <p class="text-brandSilver text-sm text-center" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
         </div>
-    </div>
 
     <!-- Header Section -->
     <header class="pt-48 pb-24 px-6 md:px-12 max-w-7xl mx-auto text-center reveal">
@@ -349,29 +349,63 @@
             document.documentElement.lang = currentLang;
         }
 
-        // Navigation Logic
+        // Mobile Menu Toggle - improved: explicit open/close, overlay click-to-close, Escape key and aria support
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const bar1 = document.getElementById('bar1');
         const bar2 = document.getElementById('bar2');
 
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            const isActive = mobileMenu.classList.contains('active');
-            bar1.style.transform = isActive ? 'translateY(7px) rotate(45deg)' : 'translateY(0) rotate(0)';
-            bar2.style.transform = isActive ? 'translateY(-7px) rotate(-45deg)' : 'translateY(0) rotate(0)';
-            document.body.style.overflow = isActive ? 'hidden' : 'auto';
+        // Accessibility attributes
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-controls', 'mobile-menu');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuToggle.classList.add('open');
+            bar1.style.transform = 'translateY(7px) rotate(45deg)';
+            bar2.style.transform = 'translateY(-7px) rotate(-45deg)';
+            document.body.style.overflow = 'hidden';
+            menuToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuToggle.classList.remove('open');
+            bar1.style.transform = 'translateY(0) rotate(0)';
+            bar2.style.transform = 'translateY(0) rotate(0)';
+            document.body.style.overflow = 'auto';
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        // Toggle handler (safe-guard if elements are missing)
+        if (menuToggle) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = mobileMenu.classList.contains('active');
+                isActive ? closeMenu() : openMenu();
+            });
+        }
+
+        // Close when clicking on the overlay (but not on links)
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) closeMenu();
+            });
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
         });
 
         // Close menu on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                bar1.style.transform = 'translateY(0) rotate(0)';
-                bar2.style.transform = 'translateY(0) rotate(0)';
-                document.body.style.overflow = 'auto';
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => closeMenu());
             });
-        });
+        }
 
         // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
