@@ -62,7 +62,7 @@
         </button>
         <a href="index.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver text-center" data-i18n="nav-home"><span class="menu-link-text">Home</span></a>
         <a href="services.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver text-center" data-i18n="nav-services"><span class="menu-link-text">Services</span></a>
-        <a href="portfolio.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver text-center" data-i18n="nav-portfolio"><span class="menu-link-text">Portfolio</span></a>
+        <a href="portfolio.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver text-center" data-i18n="nav-portfolio"><span class="menu-link-text">Labs</span></a>
         <a href="contact.html" class="text-3xl sm:text-4xl font-heading font-bold active-link text-center" data-i18n="nav-contact"><span class="menu-link-text">Contact</span></a>
         <div class="pt-8 sm:pt-12 border-t border-brandSilver/20"><p class="text-brandSilver text-sm text-center" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p></div>
     </div>
@@ -97,7 +97,8 @@
             </div>
 
             <!-- Column 2: Scheduler -->
-            <div id="form-container" class="reveal bg-brandBlue border border-brandSilver/20 p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden" style="perspective: 1000px;">
+            <div id="form-container" class="contact-scheduler reveal p-8 md:p-12 relative overflow-hidden group" style="perspective: 1000px;">
+                <div class="card-reflection"></div>
                 <h3 class="font-heading text-2xl font-bold mb-8" data-i18n="form-title">Technical Briefing</h3>
                 
                 <div class="space-y-6">
@@ -164,7 +165,7 @@
                     <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-nav-title">Navigation</h5>
                     <a href="index.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-home">Home</a>
                     <a href="services.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-services">Services</a>
-                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-portfolio">Portfolio</a>
+                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-portfolio">Labs</a>
                     <a href="contact.html" class="text-brandSilver hover:text-white text-sm" data-i18n="nav-contact">Contact</a>
                 </div>
                 <div class="flex flex-col space-y-4">
@@ -189,7 +190,7 @@
         // Translations
         const translations = {
             en: {
-                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-contact": "Contact",
+                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Labs", "nav-contact": "Contact",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
                 "hero-title": "Let's Build the Future Together.",
                 "hero-subtitle": "Optimize your time by scheduling a direct technical briefing with our engineering team.",
@@ -210,7 +211,7 @@
                 "wa-msg-template": "Hello Cresstel AI, I'm {name}. I'm interested in {type}. I'd like to schedule a briefing on {date} at {time}. My institutional email is: {email}."
             },
             es: {
-                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Portafolio", "nav-contact": "Contacto",
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Labs", "nav-contact": "Contacto",
                 "menu-footer": "Haz de tu Transformación Digital una Evolución",
                 "hero-title": "Construyamos el Futuro Juntos.",
                 "hero-subtitle": "Optimiza tu tiempo agendando una sesión técnica directa con nuestro equipo de ingeniería.",

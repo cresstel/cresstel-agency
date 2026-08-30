@@ -129,6 +129,17 @@ function init() {
   // Close when any menu link is activated
   mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
 
+  function updateCurrentMenuState() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    mobileMenu.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      const isCurrentPage = href === currentPage || (href === 'index.html' && currentPage === '');
+      link.classList.toggle('active-link', isCurrentPage);
+    });
+  }
+
+  updateCurrentMenuState();
+
   // Initialize reveal and tilt behaviors
   initRevealAndTilt();
 
@@ -145,10 +156,9 @@ function init() {
       const revealEls = document.querySelectorAll('.reveal');
       revealEls.forEach(el => revealObserver.observe(el));
 
-      // Tilt for bento-card
-      const bentoCards = document.querySelectorAll('.bento-card');
-      let bentoAttached = 0;
-      bentoCards.forEach(card => {
+      // 3D tilt for interactive rectangular cards and panels
+      const interactiveCards = document.querySelectorAll('.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler');
+      interactiveCards.forEach(card => {
         if (!card) return;
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
@@ -158,46 +168,24 @@ function init() {
           const yc = rect.height / 2;
           const dx = x - xc;
           const dy = y - yc;
-          // debug
-          // set CSS variables instead of writing transform directly so other transforms (reveal) are preserved
-          card.style.setProperty('--rotY', `${dx / 20}deg`);
-          card.style.setProperty('--rotX', `${-dy / 20}deg`);
+          const intensity = card.classList.contains('intro-gradient-panel') ? 12 : 20;
+          const lift = -4; // subtle rise so cards feel tactile without looking exaggerated
+
+          card.style.setProperty('--rotY', `${dx / intensity}deg`);
+          card.style.setProperty('--rotX', `${-dy / intensity}deg`);
           card.style.setProperty('--scale', '1.02');
+          card.style.setProperty('--lift', `${lift}px`);
           card.style.setProperty('--x', `${x}px`);
           card.style.setProperty('--y', `${y}px`);
-          card.style.setProperty('--refl', '0.9');
+          card.style.setProperty('--refl', card.classList.contains('intro-gradient-panel') ? '0.5' : '0.9');
         });
         card.addEventListener('mouseleave', () => {
           card.style.setProperty('--rotY', '0deg');
           card.style.setProperty('--rotX', '0deg');
           card.style.setProperty('--scale', '1');
+          card.style.setProperty('--lift', '0px');
           card.style.setProperty('--refl', '0.12');
         });
-        bentoAttached++;
-      });
-
-      // Tilt for project-card
-      const projectCards = document.querySelectorAll('.project-card');
-      let projectAttached = 0;
-      projectCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const xc = rect.width / 2;
-          const yc = rect.height / 2;
-          const dx = x - xc;
-          const dy = y - yc;
-          card.style.setProperty('--rotY', `${dx / 25}deg`);
-          card.style.setProperty('--rotX', `${-dy / 25}deg`);
-          card.style.setProperty('--scale', '1.02');
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.setProperty('--rotY', '0deg');
-          card.style.setProperty('--rotX', '0deg');
-          card.style.setProperty('--scale', '1');
-        });
-        projectAttached++;
       });
     } catch (err) {
       // fail gracefully

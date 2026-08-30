@@ -13,14 +13,39 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
 .font-sans { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
 
 /* Ensure bento/project cards have a sensible fallback background and stacking so reflections show */
-.bento-card, .project-card { background: var(--brandBlue); border: 1px solid rgba(255,255,255,0.06); color: #fff; position: relative; overflow: hidden; /* initialize transform CSS variables */ --rotY: 0deg; --rotX: 0deg; --scale: 1; --x: 50%; --y: 50%; --refl: 0.12; }
-.bento-card > *, .project-card > * { position: relative; z-index: 1; }
+.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler { background: var(--brandBlue); border: 1px solid rgba(255,255,255,0.06); color: #fff; position: relative; overflow: hidden; /* initialize transform CSS variables */ --rotY: 0deg; --rotX: 0deg; --scale: 1; --x: 50%; --y: 50%; --refl: 0.12; --lift: 0px; }
+.bento-card > *, .project-card > *, .intro-gradient-panel > *, .contact-scheduler > * { position: relative; z-index: 1; }
 
 /* Shared site styles extracted from individual pages */
 .glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-.bento-card { transition: transform 0.12s ease, box-shadow 0.3s ease; perspective: 1000px; transform-style: preserve-3d; }
+.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler { transition: transform 0.12s ease, box-shadow 0.3s ease; perspective: 1200px; transform-style: preserve-3d; will-change: transform; }
 /* Compose transforms from CSS variables so reveal translate and tilt rotate can co-exist */
-.bento-card, .project-card { transform: translateY(var(--reveal-ty, 0)) rotateY(var(--rotY)) rotateX(var(--rotX)) scale3d(var(--scale), var(--scale), var(--scale)); }
+.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler { transform: translateY(calc(var(--reveal-ty, 0px) + var(--lift))) rotateY(var(--rotY)) rotateX(var(--rotX)) scale3d(var(--scale), var(--scale), var(--scale)); }
+
+.bento-card:hover, .project-card:hover, .intro-gradient-panel:hover, .contact-scheduler:hover {
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+}
+
+.contact-scheduler {
+  background: linear-gradient(135deg, rgba(23, 42, 74, 0.96) 0%, rgba(12, 17, 30, 0.98) 42%, rgba(0, 0, 0, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2.5rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 22px 55px rgba(0,0,0,0.24);
+  min-height: 100%;
+}
+
+.contact-scheduler::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 15% 15%, rgba(125,211,252,0.16), transparent 28%),
+              radial-gradient(circle at 85% 85%, rgba(255,255,255,0.08), transparent 32%);
+  pointer-events: none;
+}
+
+.contact-scheduler .card-reflection {
+  opacity: 0.35;
+}
 
 /* Reveal - use CSS variable for translateY so JS can add rotations without being overridden */
 .reveal { --reveal-ty: 30px; opacity: 0; transform: translateY(var(--reveal-ty)); transition: opacity 0.8s cubic-bezier(0.2, 1, 0.3, 1), transform 0.8s cubic-bezier(0.2,1,0.3,1); filter: blur(10px); }
@@ -82,7 +107,8 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
   box-sizing: border-box;
 }
 
-#mobile-menu a:hover {
+#mobile-menu a:hover,
+#mobile-menu a.active-link {
   /* Keep hover frame (but apply gradient to inner text span) */
   text-decoration: none;
   box-shadow: 0 12px 40px rgba(0,0,0,0.55);
@@ -99,7 +125,8 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
   background-clip: initial;
 }
 
-#mobile-menu a:hover .menu-link-text {
+#mobile-menu a:hover .menu-link-text,
+#mobile-menu a.active-link .menu-link-text {
   /* Text gradient: keep the Cresstel Labs palette but on the glyphs themselves */
   background: linear-gradient(90deg, var(--brandBlue) 0%, rgba(23,42,74,1) 50%, #7dd3fc 100%);
   -webkit-background-clip: text;
