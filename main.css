@@ -3,6 +3,8 @@
   --brandBlack: #000000;
   --brandBlue: #172A4A;
   --brandSilver: #7E7E7E;
+  /* Accent used for Cresstel Labs hover states — change if you prefer another hex */
+  --labsAccent: #38bdf8; /* sky-400 / cyan-ish for a premium, soft glow */
 }
 
 html, body { height: 100%; }
@@ -45,10 +47,66 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
 
 
 .bento-card:hover .card-reflection { opacity: 1; }
+
+/* Premium gradient panel used on the index timeline card */
+.intro-gradient-panel {
+  background: linear-gradient(135deg, rgba(23, 42, 74, 0.98) 0%, rgba(9, 15, 28, 0.96) 36%, rgba(0, 0, 0, 1) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 28px 70px rgba(0,0,0,0.38);
+}
+
+.intro-gradient-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(125, 211, 252, 0.22), transparent 35%),
+              radial-gradient(circle at 85% 65%, rgba(255,255,255,0.08), transparent 28%);
+  pointer-events: none;
+}
+
 .nav-link-hover { position: relative; }
 .nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
 .nav-link-hover:hover::after { width: 100%; }
 .active-link { border-left: 4px solid #FFFFFF; padding-left: 1rem; color: #FFFFFF !important; }
+
+/* Hover gradient derived from the Cresstel Labs hero gradient (desktop nav left unchanged) */
+.nav-link-hover {
+  color: #FFFFFF; /* default for desktop nav */
+}
+
+/* Mobile menu links: rectangular, with a left white accent on hover and stronger gradient */
+#mobile-menu a {
+  color: #FFFFFF; /* default */
+  transition: color 0.22s ease, background 0.35s ease, box-shadow 0.35s ease, border-color 0.22s ease;
+  border-radius: 0; /* rectangular */
+  border-left: 6px solid transparent; /* reserve space to avoid shift on hover */
+  box-sizing: border-box;
+}
+
+#mobile-menu a:hover {
+  /* Keep hover frame (but apply gradient to inner text span) */
+  text-decoration: none;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+  /* keep left white accent visible */
+  border-left-color: #ffffff;
+}
+
+/* Text element inside link that receives the gradient on hover */
+#mobile-menu a .menu-link-text {
+  color: #ffffff; /* default */
+  display: inline-block;
+  transition: background 0.35s ease, color 0.22s ease, -webkit-text-fill-color 0.22s ease;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+#mobile-menu a:hover .menu-link-text {
+  /* Text gradient: keep the Cresstel Labs palette but on the glyphs themselves */
+  background: linear-gradient(90deg, var(--brandBlue) 0%, rgba(23,42,74,1) 50%, #7dd3fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* show gradient within text */
+  color: transparent;
+}
 
 /* Small helper to ensure truncated brand on narrow screens */
 .brand-truncate { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -59,7 +117,17 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
 #menu-toggle span + span { margin-top: 6px; }
 
 /* Mobile menu visible state — higher z so it overlays the nav when open */
-#mobile-menu { position: fixed; inset: 0; transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s; pointer-events: none; opacity: 0; z-index: 140; }
+#mobile-menu {
+  position: fixed; inset: 0;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+  pointer-events: none; opacity: 0; z-index: 140;
+  overflow: hidden; /* no page scrollbar during menu open */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  gap: 0;
+}
+#mobile-menu::-webkit-scrollbar { display: none; width: 0; height: 0; }
 #mobile-menu.active { transform: translateX(0); pointer-events: auto; opacity: 1; }
 
 /* Create a solid dark blurred backdrop behind the menu content */
@@ -108,4 +176,48 @@ body.menu-open .reveal {
 
 /* Ensure mobile menu itself remains sharp */
 #mobile-menu { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+/* Large, left-aligned menu items sized to exactly 1/5 of the viewport height
+   Calculated as (100vh - vertical padding) / 5 so five items evenly fill the available area. */
+#mobile-menu {
+  align-items: stretch; /* allow children to expand full width */
+  padding-top: 4.5rem; /* space for close button */
+  padding-bottom: 4.5rem;
+}
+
+/* Compute each item height: subtract top+bottom padding (4.5rem + 4.5rem = 9rem) then divide by 5 */
+#mobile-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* left aligned */
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  padding-left: clamp(1rem, 8vw, 4rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+  /* Fix each item's height to exactly 1/5 of the usable viewport */
+  flex: none;
+  height: calc((100vh - 9rem) / 5);
+  line-height: 1;
+  /* Large responsive type that scales between mobile and small desktop */
+  font-size: clamp(2.2rem, 8.5vw, 4rem); /* ~35px -> 64px */
+  letter-spacing: -0.02em;
+  transition: background 0.35s ease, color 0.22s ease;
+}
+
+/* Keep the close button floating above and not part of the flow so it doesn't compete with link sizing */
+#mobile-close { z-index: 220; }
+
+/* Ensure the final footer text doesn't claim too much space */
+#mobile-menu > .menu-footer, #mobile-menu p { flex: 0 0 auto; padding: 1.5rem clamp(1rem, 8vw, 4rem); color: var(--brandSilver); }
+
+/* Slightly reduce sizes on larger screens to maintain balance */
+@media (min-width: 768px) {
+  #mobile-menu a { font-size: clamp(2.6rem, 6.2vw, 3.6rem); height: calc((100vh - 9rem) / 5); }
+}
+
+@media (min-width: 1024px) {
+  #mobile-menu a { font-size: 2.4rem; height: calc((100vh - 9rem) / 5); }
+}
 
