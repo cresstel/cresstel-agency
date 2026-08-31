@@ -234,9 +234,12 @@ body.menu-open .reveal {
 #mobile-menu .menu-left p { color: rgba(255,255,255,0.92) !important; }
 
 /* Logo displayed in the mobile menu */
-#mobile-menu .mobile-menu-logo { width: 140px; max-width: 48%; height: auto; display: block; margin: 0 auto; }
+#mobile-menu .mobile-menu-logo { width: 180px; max-width: 60%; height: auto; display: block; margin: 0 auto; }
+@media (max-width: 768px) {
+  #mobile-menu .mobile-menu-logo { width: 160px; }
+}
 @media (max-width: 420px) {
-  #mobile-menu .mobile-menu-logo { width: 110px; max-width: 60%; }
+  #mobile-menu .mobile-menu-logo { width: 140px; max-width: 70%; }
 }
 
 
