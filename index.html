@@ -20,6 +20,17 @@
     <script src="tailwind-config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Favicons & PWA manifest (served from project root /assets) -->
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <!-- Optional Microsoft tile (if provided) -->
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="/assets/mstile-150x150.png">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -69,16 +80,44 @@
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] flex flex-col justify-center px-6 sm:px-12 space-y-6 overflow-y-auto">
+    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] px-0 overflow-hidden">
         <button id="mobile-close" aria-label="Close menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
-        <a href="index.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-home"><span class="menu-link-text">Home</span></a>
-        <a href="services.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-services"><span class="menu-link-text">Services</span></a>
-        <a href="portfolio.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-portfolio"><span class="menu-link-text">Labs</span></a>
-        <a href="contact.html" class="text-3xl sm:text-4xl font-heading font-bold hover:text-brandSilver transition-colors text-center" data-i18n="nav-contact"><span class="menu-link-text">Contact</span></a>
-        <div class="pt-8 sm:pt-12 border-t border-brandSilver/20">
-            <p class="text-brandSilver text-sm text-center" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
+
+        <div class="mobile-menu-inner w-full h-full flex">
+            <!-- Left: slogan (50%) -->
+            <div class="menu-left w-1/2 flex items-center justify-center px-6">
+                <div>
+                  <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center">Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.</p>
+                  <div class="w-24 mx-auto border-t border-brandSilver/30"></div>
+                  <p class="mt-4 text-brandSilver text-sm text-center uppercase tracking-widest">Make Your Digital Transformation an Evolution</p>
+                </div>
+            </div>
+
+            <!-- Right: menu (2/3 vertical) + socials (1/3 vertical) -->
+            <div class="menu-right w-1/2 flex flex-col">
+                <div class="menu-right-top flex-2 flex flex-col">
+                    <a href="index.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-home"><span class="menu-link-text">Home</span></a>
+                    <a href="services.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-services"><span class="menu-link-text">Services</span></a>
+                    <a href="portfolio.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-portfolio"><span class="menu-link-text">Labs</span></a>
+                    <a href="contact.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-contact"><span class="menu-link-text">Contact</span></a>
+                </div>
+
+                <div class="menu-right-bottom">
+                    <div class="social-icons flex space-x-6">
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3"></rect><path d="M8.5 11.5v5"></path><path d="M8.5 8.5v.01"></path><path d="M12 16.5v-3a1.8 1.8 0 0 1 3.6 0v3"></path></svg>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter (X)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -17,7 +17,12 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
 .bento-card > *, .project-card > *, .intro-gradient-panel > *, .contact-scheduler > * { position: relative; z-index: 1; }
 
 /* Shared site styles extracted from individual pages */
-.glass-nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.glass-nav {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important; /* override Tailwind border-b when transparency is desired */
+}
 .bento-card, .project-card, .intro-gradient-panel, .contact-scheduler { transition: transform 0.12s ease, box-shadow 0.3s ease; perspective: 1200px; transform-style: preserve-3d; will-change: transform; }
 /* Compose transforms from CSS variables so reveal translate and tilt rotate can co-exist */
 .bento-card, .project-card, .intro-gradient-panel, .contact-scheduler { transform: translateY(calc(var(--reveal-ty, 0px) + var(--lift))) rotateY(var(--rotY)) rotateX(var(--rotX)) scale3d(var(--scale), var(--scale), var(--scale)); }
@@ -88,19 +93,11 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
   pointer-events: none;
 }
 
-.nav-link-hover { position: relative; }
-.nav-link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: #FFFFFF; transition: width 0.3s ease; }
-.nav-link-hover:hover::after { width: 100%; }
 .active-link { border-left: 4px solid #FFFFFF; padding-left: 1rem; color: #FFFFFF !important; }
-
-/* Hover gradient derived from the Cresstel Labs hero gradient (desktop nav left unchanged) */
-.nav-link-hover {
-  color: #FFFFFF; /* default for desktop nav */
-}
 
 /* Mobile menu links: rectangular, with a left white accent on hover and stronger gradient */
 #mobile-menu a {
-  color: #FFFFFF; /* default */
+  color: rgba(255,255,255,0.92); /* slightly warm off-white to reduce harsh contrast */
   transition: color 0.22s ease, background 0.35s ease, box-shadow 0.35s ease, border-color 0.22s ease;
   border-radius: 0; /* rectangular */
   border-left: 6px solid transparent; /* reserve space to avoid shift on hover */
@@ -135,8 +132,6 @@ body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; 
   color: transparent;
 }
 
-/* Small helper to ensure truncated brand on narrow screens */
-.brand-truncate { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Hamburger toggle bars: transform via .open class (no inline styles needed) */
 #menu-toggle { display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; }
@@ -212,26 +207,6 @@ body.menu-open .reveal {
   padding-bottom: 4.5rem;
 }
 
-/* Compute each item height: subtract top+bottom padding (4.5rem + 4.5rem = 9rem) then divide by 5 */
-#mobile-menu a {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* left aligned */
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  font-weight: 800;
-  color: #fff;
-  text-decoration: none;
-  padding-left: clamp(1rem, 8vw, 4rem);
-  padding-right: clamp(1rem, 4vw, 2rem);
-  /* Fix each item's height to exactly 1/5 of the usable viewport */
-  flex: none;
-  height: calc((100vh - 9rem) / 5);
-  line-height: 1;
-  /* Large responsive type that scales between mobile and small desktop */
-  font-size: clamp(2.2rem, 8.5vw, 4rem); /* ~35px -> 64px */
-  letter-spacing: -0.02em;
-  transition: background 0.35s ease, color 0.22s ease;
-}
 
 /* Keep the close button floating above and not part of the flow so it doesn't compete with link sizing */
 #mobile-close { z-index: 220; }
@@ -241,10 +216,44 @@ body.menu-open .reveal {
 
 /* Slightly reduce sizes on larger screens to maintain balance */
 @media (min-width: 768px) {
-  #mobile-menu a { font-size: clamp(2.6rem, 6.2vw, 3.6rem); height: calc((100vh - 9rem) / 5); }
+  #mobile-menu .menu-right-top a.menu-link { font-size: clamp(2.6rem, 6.2vw, 3.6rem); }
 }
 
 @media (min-width: 1024px) {
-  #mobile-menu a { font-size: 2.4rem; height: calc((100vh - 9rem) / 5); }
+  #mobile-menu .menu-right-top a.menu-link { font-size: 2.4rem; }
+}
+
+/* Three-part mobile menu layout: left slogan (50%), right: menu (2/3 vertical) + socials (1/3 vertical) */
+#mobile-menu .mobile-menu-inner { display: flex; width: 100%; height: 100vh; overflow: visible; }
+#mobile-menu .menu-left { width: 50%; display: flex; align-items: center; justify-content: center; padding: clamp(1rem, 6vw, 2rem); }
+#mobile-menu .menu-left > div { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-block: clamp(1.5rem, 6vh, 3rem); }
+/* slogan uses the same site utility classes now; keep only centering fallback */
+#mobile-menu .menu-left .slogan { text-align: center; }
+
+/* Ensure the left-column phrase uses a softened white consistent with the menu links */
+#mobile-menu .menu-left p { color: rgba(255,255,255,0.92) !important; }
+
+#mobile-menu .menu-right { width: 50%; display: flex; flex-direction: column; padding-top: 3.5rem; padding-bottom: 3.5rem; }
+#mobile-menu .menu-right-top { flex: 2; display: flex; flex-direction: column; justify-content: center; gap: clamp(0.4rem, 2vh, 1rem); }
+#mobile-menu .menu-right-top a.menu-link { display: flex; align-items: center; justify-content: flex-start; padding-left: clamp(1rem, 8vw, 4rem); padding-right: clamp(1rem, 4vw, 2rem); text-decoration: none; position: relative; color: rgba(255,255,255,0.92); font-weight: 800; font-size: clamp(1.8rem, 6.2vw, 3rem); border-left: 6px solid transparent; box-sizing: border-box; height: auto !important; min-height: 56px; padding-block: clamp(0.9rem, 2.6vh, 1.2rem); line-height: 1.05; overflow: visible; -webkit-font-smoothing: antialiased; }
+#mobile-menu .menu-right-top a.menu-link .menu-link-text { display: inline-block; }
+
+#mobile-menu .menu-right-top a.menu-link:hover, #mobile-menu .menu-right-top a.menu-link:focus { border-left-color: #ffffff; box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+#mobile-menu .menu-right-top a.menu-link.active-link { border-left-color: #ffffff; color: #ffffff !important; }
+
+#mobile-menu .menu-right-bottom { flex: 1; display: flex; align-items: center; justify-content: center; border-top: 1px solid rgba(255,255,255,0.06); }
+#mobile-menu .social-icons a { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; color: #fff; opacity: 0.95; transition: opacity .2s ease, transform .18s ease; }
+#mobile-menu .social-icons a:hover { opacity: 1; transform: translateY(-3px); }
+#mobile-menu .social-icons svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+/* remove previous underline override */
+
+
+
+
+/* Reduce widths on very small screens so text doesn't feel cramped */
+@media (max-width: 420px) {
+  #mobile-menu .menu-left { display: none; } /* collapse slogan on very small devices to prioritize links */
+  #mobile-menu .menu-right { width: 100%; }
 }
 
