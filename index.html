@@ -128,7 +128,7 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center overflow-hidden">
         <video id="hero-bg-video" autoplay muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0">
-            <source src="assets/smoke.mp4" type="video/mp4">
+            <source src="assets/control.mp4" type="video/mp4">
             <!-- Fallback text -->
         </video>
         <script>
@@ -149,7 +149,7 @@
           // When the video ends, seek to 4s and continue playing so subsequent loops run from 4s
           v.addEventListener('ended', function(){
             try{
-              v.currentTime = 8;
+              v.currentTime = 0;
               var p = v.play();
               if(p && p.catch) p.catch(function(){ /* autoplay blocked or other error */ });
             }catch(e){ /* ignore */ }
@@ -184,7 +184,9 @@
                 </p>
             </div>
             <div class="intro-gradient-panel relative reveal h-64 md:h-96 rounded-2xl overflow-hidden border border-brandSilver/20 flex items-center justify-center group">
-                <div class="absolute inset-0 bg-gradient-to-tr from-brandBlack/40 via-transparent to-brandBlack/80 opacity-90"></div>
+                <div class="absolute inset-0" style="background: rgba(11,11,16,1);"></div>
+                <!-- Card reflection used across bento cards to create the soft highlight and 3D feel -->
+                <div class="card-reflection"></div>
                 <span class="font-heading text-8xl font-black text-white/10 group-hover:text-white/20 transition-all duration-700 relative z-10">2012-2026</span>
             </div>
         </div>
