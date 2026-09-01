@@ -26,9 +26,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/assets/favicon/site.webmanifest">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0b0b10">
     <!-- Optional Microsoft tile (if provided) -->
-    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileColor" content="#0b0b10">
     <meta name="msapplication-TileImage" content="/assets/favicon/android-chrome-192x192.png">
 
     <!-- Structured Data -->
@@ -127,7 +127,37 @@
 
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center overflow-hidden">
-        <div class="reveal">
+        <video id="hero-bg-video" autoplay muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="assets/smoke.mp4" type="video/mp4">
+            <!-- Fallback text -->
+        </video>
+        <script>
+        (function(){
+          var v = document.getElementById('hero-bg-video');
+          if(!v) return;
+ 
+          // Fade-in when the video can play to avoid flash
+          function showVideo(){
+            try{
+              v.classList.add('hero-video-visible');
+            }catch(e){}
+          }
+ 
+          v.addEventListener('canplaythrough', showVideo, { once: true });
+          v.addEventListener('playing', showVideo, { once: true });
+ 
+          // When the video ends, seek to 4s and continue playing so subsequent loops run from 4s
+          v.addEventListener('ended', function(){
+            try{
+              v.currentTime = 8;
+              var p = v.play();
+              if(p && p.catch) p.catch(function(){ /* autoplay blocked or other error */ });
+            }catch(e){ /* ignore */ }
+          }, false);
+        })();
+        </script>
+ 
+        <div class="reveal relative z-20">
             <h1 class="font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-none mb-8 max-w-6xl mx-auto" data-i18n="hero-title">
                 Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations
             </h1>
@@ -154,7 +184,7 @@
                 </p>
             </div>
             <div class="intro-gradient-panel relative reveal h-64 md:h-96 rounded-2xl overflow-hidden border border-brandSilver/20 flex items-center justify-center group">
-                <div class="absolute inset-0 bg-gradient-to-tr from-brandBlue/40 via-transparent to-black/80 opacity-90"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-brandBlack/40 via-transparent to-brandBlack/80 opacity-90"></div>
                 <span class="font-heading text-8xl font-black text-white/10 group-hover:text-white/20 transition-all duration-700 relative z-10">2012-2026</span>
             </div>
         </div>
@@ -165,7 +195,7 @@
         <h3 class="text-xs uppercase tracking-[0.3em] text-brandSilver mb-12 text-center reveal" data-i18n="services-label">Core Capabilities</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Card 1 -->
-            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -176,7 +206,7 @@
                 </p>
             </div>
             <!-- Card 2 -->
-            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -187,7 +217,7 @@
                 </p>
             </div>
             <!-- Card 3 -->
-            <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -213,7 +243,7 @@
         <div class="space-y-6">
             <!-- Project 1 -->
             <div class="bento-card reveal group relative h-[500px] rounded-[2.5rem] overflow-hidden border border-brandSilver/20">
-                <div class="absolute inset-0 bg-gradient-to-r from-brandBlack to-transparent z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-brandBlue to-transparent z-10"></div>
                 <div class="absolute inset-0 bg-[#0A0A0A]"></div>
                 <div class="relative z-20 h-full p-12 flex flex-col justify-end items-start">
                     <span class="text-xs font-bold tracking-widest text-brandSilver mb-4">E-COMMERCE ECOSYSTEM</span>
@@ -225,7 +255,7 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Project 2 -->
-                <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
                     <div class="card-reflection"></div>
                     <h4 class="text-4xl font-heading font-bold">ScholarCore IA</h4>
                     <div>
@@ -237,7 +267,7 @@
                     </div>
                 </div>
                 <!-- Project 3 -->
-                <div class="bento-card reveal bg-brandBlue border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
                     <div class="card-reflection"></div>
                     <h4 class="text-4xl font-heading font-bold" data-i18n="project-3-title">Predictive Analytics</h4>
                     <div>

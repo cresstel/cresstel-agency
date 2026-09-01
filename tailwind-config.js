@@ -4,7 +4,7 @@ window.tailwind.config = {
   theme: {
     extend: {
       colors: {
-        brandBlack: '#000000',
+      brandBlack: '#0b0b10',
         brandBlue: '#172A4A',
         brandSilver: '#7E7E7E',
       },
