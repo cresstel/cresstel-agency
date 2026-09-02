@@ -158,10 +158,17 @@
         </script>
  
         <div class="reveal relative z-20">
-            <h1 class="font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-none mb-8 max-w-6xl mx-auto" data-i18n="hero-title">
-                Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations
-            </h1>
-            <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero-subtitle">
+            <div id="hero-swap" class="hero-swap max-w-6xl mx-auto mb-8 relative">
+                <h1 class="hero-line line-1 font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-[1.08] text-center">
+                    <span class="block">Next-Gen Digital</span>
+                    <span class="block">Interfaces</span>
+                </h1>
+                                <h1 class="hero-line line-2 font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-[1.08] text-center">
+                    <span class="block">Predictive AI for</span>
+                    <span class="block">Enterprise Operations</span>
+                </h1>
+            </div>
+            <p class="hero-subtitle text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero-subtitle">
                 Engineering mission-critical systems and high-fidelity interfaces. We optimize complex supply chains and transactional flows with advanced predictive intelligence.
             </p>
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center">
@@ -170,6 +177,161 @@
             </div>
         </div>
     </section>
+
+    <script>
+    // Scroll-driven heading swap with controlled locking so the second line is readable
+    (function(){
+      var container = document.getElementById('hero-swap');
+      if(!container) return;
+
+      var state = 'first'; // 'first' | 'locked' | 'unlocked'
+      var savedScrollY = 0;
+
+      function setBodyLocked(scrollY){
+        savedScrollY = scrollY || window.scrollY || 0;
+        document.body.style.position = 'fixed';
+        document.body.style.top = (-savedScrollY) + 'px';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+      }
+
+      function clearBodyLocked(){
+        // restore body position and scroll to the saved position
+        document.body.style.position = '';
+        var top = document.body.style.top;
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        try{ window.scrollTo(0, savedScrollY); }catch(e){}
+      }
+
+      function showSecond(){
+        if(state !== 'first') return;
+        container.classList.add('show-second');
+        state = 'locked';
+
+        // lock the document to prevent any native scrolling/momentum from moving the page
+        setBodyLocked(window.scrollY || 0);
+
+        // remove initial interceptors now that second is shown
+        removeInitialInterceptors();
+
+        // add unlock handlers to detect the next clear downward gesture
+        addUnlockHandlers();
+      }
+
+      function showFirst(){
+        if(state === 'first') return;
+        // if we were locked, clear the body lock and restore scroll
+        if(state === 'locked'){
+          clearBodyLocked();
+        }
+        container.classList.remove('show-second');
+        state = 'first';
+
+        // reattach initial interceptors so the flow can repeat
+        addInitialInterceptors();
+      }
+
+      // Initial interceptors: when in 'first' state we must capture first downward gesture and only swap headings
+      function initialWheelHandler(e){
+        var dy = e.deltaY || 0;
+        if(dy > 6 && state === 'first'){
+          if(e.cancelable) e.preventDefault();
+          if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+          showSecond();
+        }
+      }
+      var initialTouchStartY = null;
+      function initialTouchStart(e){ initialTouchStartY = e.touches[0].clientY; }
+      function initialTouchMove(e){
+        if(initialTouchStartY === null) return;
+        var dy = initialTouchStartY - e.touches[0].clientY;
+        if(dy > 10 && state === 'first'){
+          if(e.cancelable) e.preventDefault();
+          showSecond();
+        }
+      }
+
+      function addInitialInterceptors(){
+        window.addEventListener('wheel', initialWheelHandler, { passive: false, capture: true });
+        window.addEventListener('touchstart', initialTouchStart, { passive: true, capture: true });
+        window.addEventListener('touchmove', initialTouchMove, { passive: false, capture: true });
+      }
+      function removeInitialInterceptors(){
+        try{
+          window.removeEventListener('wheel', initialWheelHandler, { passive: false, capture: true });
+          window.removeEventListener('touchstart', initialTouchStart, { passive: true, capture: true });
+          window.removeEventListener('touchmove', initialTouchMove, { passive: false, capture: true });
+        }catch(err){
+          try{ window.removeEventListener('wheel', initialWheelHandler, true); }catch(e){}
+          try{ window.removeEventListener('touchstart', initialTouchStart, true); }catch(e){}
+          try{ window.removeEventListener('touchmove', initialTouchMove, true); }catch(e){}
+        }
+      }
+
+      // Unlock handlers: detect the next clear downward gesture to continue scrolling
+      function addUnlockHandlers(){
+        function onWheelUnlock(e){
+          var dy = e.deltaY || 0;
+          if(state !== 'locked') return;
+          if(dy > 6){
+            // user clearly wants to continue: clear lock and smoothly scroll forward
+            removeUnlockHandlers();
+            state = 'unlocked';
+            clearBodyLocked();
+            // perform a small smooth scroll to continue the motion
+            window.scrollBy({ top: Math.max(dy, window.innerHeight * 0.28), behavior: 'smooth' });
+            // after unlocking, allow normal scroll behavior
+          }
+        }
+        var touchStartY = null;
+        function onTouchStartUnlock(e){ touchStartY = e.touches[0].clientY; }
+        function onTouchMoveUnlock(e){
+          if(touchStartY === null) return;
+          var dy = touchStartY - e.touches[0].clientY;
+          if(dy > 10 && state === 'locked'){
+            removeUnlockHandlers();
+            state = 'unlocked';
+            clearBodyLocked();
+            window.scrollBy({ top: Math.max(dy, window.innerHeight * 0.28), behavior: 'smooth' });
+          }
+        }
+
+        window.addEventListener('wheel', onWheelUnlock, { passive: false });
+        window.addEventListener('touchstart', onTouchStartUnlock, { passive: true });
+        window.addEventListener('touchmove', onTouchMoveUnlock, { passive: false });
+
+        // store so we can remove later
+        container._onWheelUnlock = onWheelUnlock;
+        container._onTouchStartUnlock = onTouchStartUnlock;
+        container._onTouchMoveUnlock = onTouchMoveUnlock;
+      }
+      function removeUnlockHandlers(){
+        if(container._onWheelUnlock) window.removeEventListener('wheel', container._onWheelUnlock);
+        if(container._onTouchStartUnlock) window.removeEventListener('touchstart', container._onTouchStartUnlock);
+        if(container._onTouchMoveUnlock) window.removeEventListener('touchmove', container._onTouchMoveUnlock);
+        delete container._onWheelUnlock; delete container._onTouchStartUnlock; delete container._onTouchMoveUnlock;
+      }
+
+      // Global wheel: detect upward scroll to return to first phrase
+      window.addEventListener('wheel', function(e){
+        if((e.deltaY || 0) < -6){
+          // user scrolled up: show first
+          showFirst();
+        }
+      }, { passive: true });
+
+      // Global touch handlers for upward swipe to show first
+      var globalTouchStart = null;
+      window.addEventListener('touchstart', function(e){ globalTouchStart = e.touches[0].clientY; }, { passive: true });
+      window.addEventListener('touchmove', function(e){ if(globalTouchStart === null) return; var dy = globalTouchStart - e.touches[0].clientY; if(dy < -10) showFirst(); }, { passive: true });
+
+      // Initialize
+      addInitialInterceptors();
+
+    })();
+    </script>
 
     <!-- Intro / Value Prop -->
     <section class="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-brandSilver/10">
