@@ -12,7 +12,13 @@ html { scrollbar-width: none; -ms-overflow-style: none; }
 body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 html, body { height: 100%; }
-body { background-color: var(--brandBlack); color: #FFFFFF; overflow-x: hidden; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+body {
+ background: #000000;
+ background-color: #000000;
+ color: #FFFFFF;
+ overflow-x: hidden;
+ font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
 .font-heading { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
 .font-sans { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
 

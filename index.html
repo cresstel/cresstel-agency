@@ -128,7 +128,7 @@
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center overflow-hidden">
         <video id="hero-bg-video" autoplay muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0">
-            <source src="assets/control.mp4" type="video/mp4">
+            <source src="assets/smoke.mp4" type="video/mp4">
             <!-- Fallback text -->
         </video>
         <script>
@@ -236,22 +236,25 @@
       // Initial interceptors: when in 'first' state we must capture first downward gesture and only swap headings
       function initialWheelHandler(e){
         var dy = e.deltaY || 0;
-        if(dy > 6 && state === 'first'){
+        // The phrase-change trigger should require a deliberate, strong gesture than the normal page scroll.
+        if(dy > 50 && state === 'first'){
           if(e.cancelable) e.preventDefault();
           if(e.stopImmediatePropagation) e.stopImmediatePropagation();
           showSecond();
         }
       }
-      var initialTouchStartY = null;
-      function initialTouchStart(e){ initialTouchStartY = e.touches[0].clientY; }
+
       function initialTouchMove(e){
         if(initialTouchStartY === null) return;
         var dy = initialTouchStartY - e.touches[0].clientY;
-        if(dy > 10 && state === 'first'){
+        // Stronger swipe required to trigger the phrase swap.
+        if(dy > 60 && state === 'first'){
           if(e.cancelable) e.preventDefault();
           showSecond();
         }
       }
+      var initialTouchStartY = null;
+      function initialTouchStart(e){ initialTouchStartY = e.touches[0].clientY; }
 
       function addInitialInterceptors(){
         window.addEventListener('wheel', initialWheelHandler, { passive: false, capture: true });
