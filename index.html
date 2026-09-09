@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cresstel AI | Next-Gen Digital Interfaces & Predictive Operations</title>
-    <meta name="description" content="Elite digital transformation through premium frontend architecture and predictive AI models. 12+ years of enterprise-grade infrastructure experience.">
+    <title id="page-title">Cresstel AI | High-Fidelity Digital Interfaces & Custom AI Solutions</title>
+    <meta id="page-description" name="description" content="Cresstel AI crafts premium web experiences and custom AI solutions, transforming complex digital operations into high-performing transactional flows for scaling businesses.">
     
     <!-- SEO & Open Graph -->
-    <meta property="og:title" content="Cresstel AI | Make Your Digital Transformation an Evolution">
-    <meta property="og:description" content="High-end SaaS solutions, predictive analytics, and premium web interfaces for global enterprises.">
+    <meta id="og-title" property="og:title" content="Cresstel AI | High-Fidelity Digital Interfaces & Custom AI Solutions">
+    <meta id="og-description" property="og:description" content="Premium web experiences and intelligent data models for complex digital operations and scaling businesses.">
     <meta property="og:type" content="website">
     
     <!-- Fonts -->
@@ -62,15 +62,15 @@
     <div class="aurora aurora-bottom-right bottom-[-200px] right-[-100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] h-16 md:h-20 border-b border-brandSilver/10 glass-nav flex items-center px-4 sm:px-6 md:px-12 justify-between">
-        <a href="index.html" class="flex items-center space-x-2 group min-w-0">
-            <img src="/assets/logo.webp" alt="Cresstel logo" class="h-6 md:h-7 w-auto object-contain transition-transform duration-300 hover:scale-105 mr-2" />
+    <nav class="fixed top-0 w-full z-[100] h-16 md:h-20 glass-nav flex items-center px-5 sm:px-8 lg:px-12 justify-between">
+        <a id="site-brand" href="index.html" class="flex items-center space-x-2 group min-w-0">
+            <img src="assets/logo.webp" alt="Cresstel logo" class="h-6 md:h-7 w-auto object-contain transition-transform duration-300 hover:scale-105 mr-2" />
             <span class="font-heading font-bold text-lg sm:text-2xl tracking-tighter truncate">Cresstel</span>
             <span class="font-sans font-light text-sm sm:text-2xl text-brandSilver tracking-widest uppercase hidden sm:inline">IA</span>
         </a>
 
         <div class="flex items-center space-x-3 sm:space-x-6 min-w-0">
-            <button onclick="toggleLanguage()" class="text-[9px] sm:text-[10px] font-bold border border-brandSilver/30 px-2 sm:px-2 py-0.5 sm:py-1 rounded hover:bg-white hover:text-black transition-colors duration-300">
+            <button onclick="toggleLanguage()" class="min-h-10 px-3 text-[9px] sm:text-[10px] font-bold border border-white/20 bg-white/5 rounded-full hover:bg-white hover:text-black transition-colors duration-300">
                 EN / ES
             </button>
             <button id="menu-toggle" type="button" aria-label="Open menu" class="relative w-8 h-6 flex flex-col justify-between group z-[110] p-2 -mr-2">
@@ -125,8 +125,9 @@
         </div>
     </div>
 
+    <main class="scroll-container h-dvh overflow-y-auto scroll-smooth overscroll-y-contain relative z-10">
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 text-center overflow-hidden">
+    <section class="h-dvh min-h-dvh relative flex flex-col justify-start md:justify-center items-center px-5 sm:px-8 pt-28 md:pt-20 pb-16 text-center overflow-hidden">
         <video id="hero-bg-video" autoplay muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0">
             <source src="assets/smoke.mp4" type="video/mp4">
             <!-- Fallback text -->
@@ -157,58 +158,49 @@
         })();
         </script>
  
-        <div class="reveal relative z-20">
-            <div id="hero-swap" class="hero-swap max-w-6xl mx-auto mb-8 relative">
-                <h1 class="hero-line line-1 font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-[1.08] text-center">
-                    <span class="block">Next-Gen Digital</span>
-                    <span class="block">Interfaces</span>
-                </h1>
-                                <h1 class="hero-line line-2 font-heading font-extrabold text-5xl md:text-8xl tracking-tighter leading-[1.08] text-center">
-                    <span class="block">Predictive AI for</span>
-                    <span class="block">Enterprise Operations</span>
-                </h1>
-            </div>
-            <p class="hero-subtitle text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed" data-i18n="hero-subtitle">
-                Engineering mission-critical systems and high-fidelity interfaces. We optimize complex supply chains and transactional flows with advanced predictive intelligence.
-            </p>
-            <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center">
-                <a href="#services" class="bg-white text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brandSilver hover:scale-105 transform-gpu transition-transform duration-300" data-i18n="hero-cta-1">Explore Solutions</a>
-                <a href="#labs" class="border border-brandSilver/40 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300" data-i18n="hero-cta-2">Cresstel Labs</a>
+        <div class="reveal relative z-20 w-full max-w-5xl mx-auto text-center">
+            <h1 class="font-heading font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-[-0.06em] leading-[0.98] text-center max-w-6xl mx-auto mb-6 sm:mb-8" data-i18n="hero-title">
+                High-Fidelity Digital Interfaces &amp; Custom AI Solutions
+            </h1>
+            <h2 class="hero-subtitle text-white/70 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed text-center" data-i18n="hero-subtitle">
+                Crafting premium web experiences and intelligent data models. We transform complex digital operations into high-performing transactional flows for scaling businesses.
+            </h2>
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                <a href="#services" class="inline-flex min-h-12 items-center justify-center bg-white text-black px-7 sm:px-9 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brandSilver hover:scale-[1.02] transform-gpu transition-transform duration-300" data-i18n="hero-cta-1">Explore Solutions</a>
+                <a href="#labs" class="inline-flex min-h-12 items-center justify-center border border-white/25 px-7 sm:px-9 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300" data-i18n="hero-cta-2">Cresstel Labs</a>
             </div>
         </div>
     </section>
-
-    <!-- Hero swap logic moved to main.js (initHeroSwap) -->
-    <!-- See main.js -> initHeroSwap() - comment preserved here so the script remains discoverable -->
 
     <!-- Intro / Value Prop -->
 
     <!-- Fullscreen intro slides: each section fills the viewport and is translatable via data-i18n keys -->
-    <section id="intro-full-1" class="min-h-screen flex items-center justify-center px-6 text-center">
-        <div class="max-w-5xl">
-            <p class="font-heading text-3xl md:text-5xl leading-tight text-white" data-i18n="intro_full_1">We don't design for the masses. We shape the digital future for those who demand authority, depth, and flawless execution.</p>
+    <section id="intro-full-1" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
+        <div class="w-full max-w-4xl">
+            <p class="font-heading text-3xl sm:text-4xl md:text-6xl leading-[1.08] tracking-[-0.04em] text-white" data-i18n="intro_full_1">We don't design for the masses. We shape the digital future for those who demand authority, depth, and flawless execution.</p>
         </div>
     </section>
 
-    <section id="intro-full-2" class="min-h-screen flex items-center justify-center px-6 text-center bg-brandBlack">
-        <div class="max-w-5xl">
-            <p class="font-heading text-3xl md:text-5xl leading-tight text-white font-bold" data-i18n="intro_full_2">12+ Years of Architectural Excellence & High-Availability Systems.</p>
+    <section id="intro-full-2" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center bg-brandBlack">
+        <div class="w-full max-w-4xl">
+            <p class="font-heading text-3xl sm:text-4xl md:text-6xl leading-[1.08] tracking-[-0.04em] text-white font-bold" data-i18n="intro_full_2">12+ Years of Enterprise Architecture Excellence & High-Availability Systems Engineering.</p>
         </div>
     </section>
 
-    <section id="intro-full-3" class="min-h-screen flex items-center justify-center px-6 text-center">
-        <div class="max-w-5xl">
-            <p class="text-brandSilver text-lg md:text-xl leading-relaxed" data-i18n="intro_full_3">Cresstel AI engineers high-fidelity websites, custom e-commerce ecosystems, and advanced UI/UX design. Our core focus bridges premium web development with predictive backend modeling, transforming raw business data into operational foresight.</p>
+    <section id="intro-full-3" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
+        <div class="w-full max-w-4xl">
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.3] tracking-[-0.02em] text-white/80" data-i18n="intro_full_3">Cresstel AI engineers high-fidelity websites, custom e-commerce ecosystems, and advanced UI/UX design. Our core focus bridges premium web development with predictive backend modeling, transforming raw business data into operational foresight.</p>
         </div>
     </section>
 
 
     <!-- Services Section (Bento Grid) -->
-    <section id="services" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
-        <h3 class="text-xs uppercase tracking-[0.3em] text-brandSilver mb-12 text-center reveal" data-i18n="services-label">Core Capabilities</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section id="services" class="h-dvh min-h-dvh py-20 lg:py-24 px-5 sm:px-8 lg:px-12">
+        <div class="w-full max-w-7xl mx-auto">
+        <h3 class="text-xs uppercase tracking-[0.3em] text-white/60 mb-8 lg:mb-12 text-center reveal" data-i18n="services-label">Core Capabilities</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
             <!-- Card 1 -->
-            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -219,7 +211,7 @@
                 </p>
             </div>
             <!-- Card 2 -->
-            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -230,7 +222,7 @@
                 </p>
             </div>
             <!-- Card 3 -->
-            <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-10 rounded-[2rem] relative overflow-hidden h-[450px] flex flex-col justify-end group">
+            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
                 <div class="card-reflection"></div>
                 <div class="mb-auto">
                     <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
@@ -241,11 +233,13 @@
                 </p>
             </div>
         </div>
+        </div>
     </section>
 
     <!-- Portfolio Section (Labs) -->
-    <section id="labs" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal">
+    <section id="labs" class="h-auto min-h-0 py-20 lg:py-24 px-5 sm:px-8 lg:px-12">
+        <div class="w-full max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 lg:mb-12 gap-6 reveal">
             <div>
                 <h3 class="text-xs uppercase tracking-[0.3em] text-brandSilver mb-4" data-i18n="labs-label">Cresstel Labs</h3>
                 <h2 class="font-heading text-4xl md:text-6xl font-bold" data-i18n="labs-title">Selected Deployments.</h2>
@@ -253,12 +247,12 @@
             <p class="text-brandSilver max-w-xs text-sm" data-i18n="labs-subtitle">A glimpse into our high-performance ecosystem and experimental software engineering.</p>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-4 lg:space-y-6">
             <!-- Project 1 -->
-            <div class="bento-card reveal group relative h-[500px] rounded-[2.5rem] overflow-hidden border border-brandSilver/20">
+            <div class="bento-card reveal group relative min-h-[420px] lg:h-[460px] rounded-[2rem] overflow-hidden border border-white/10">
                 <div class="absolute inset-0 bg-gradient-to-r from-brandBlue to-transparent z-10"></div>
                 <div class="absolute inset-0 bg-[#0A0A0A]"></div>
-                <div class="relative z-20 h-full p-12 flex flex-col justify-end items-start">
+                <div class="relative z-20 h-full p-7 sm:p-10 lg:p-12 flex flex-col justify-end items-start">
                     <span class="text-xs font-bold tracking-widest text-brandSilver mb-4">E-COMMERCE ECOSYSTEM</span>
                     <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6">SoleVanguard</h4>
                     <p class="max-w-md text-brandSilver mb-8" data-i18n="project-1-desc">Premium footwear marketplace with real-time stock orchestration and interactive 3D product visualization.</p>
@@ -268,7 +262,7 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Project 2 -->
-                <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] min-h-[380px] lg:h-[420px] flex flex-col justify-between group overflow-hidden">
                     <div class="card-reflection"></div>
                     <h4 class="text-4xl font-heading font-bold">ScholarCore IA</h4>
                     <div>
@@ -280,7 +274,7 @@
                     </div>
                 </div>
                 <!-- Project 3 -->
-                <div class="bento-card reveal bg-brandBlack border border-brandSilver/20 p-12 rounded-[2.5rem] h-[500px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] min-h-[380px] lg:h-[420px] flex flex-col justify-between group overflow-hidden">
                     <div class="card-reflection"></div>
                     <h4 class="text-4xl font-heading font-bold" data-i18n="project-3-title">Predictive Analytics</h4>
                     <div>
@@ -293,16 +287,13 @@
                 </div>
             </div>
         </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
+    <footer class="h-auto min-h-dvh bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
         <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
             <div>
-                <a href="index.html" class="flex items-center space-x-1 mb-6">
-                    <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
-                    <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
-                </a>
                 <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
                     Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.
                 </p>
@@ -337,11 +328,27 @@
             </div>
         </div>
         
+        <div id="footer-logo-target" class="footer-logo-target mx-auto md:mx-0 mb-12" aria-hidden="true">
+            <a href="index.html" class="footer-logo-mark flex items-center space-x-2" aria-label="Return to Cresstel home">
+                <img src="assets/logo.webp" alt="" class="h-7 w-auto object-contain" />
+                <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
+                <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
+            </a>
+        </div>
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-brandSilver/5">
             <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
             <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
         </div>
     </footer>
+    </main>
+
+    <button id="scroll-indicator" type="button" class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 text-white/80 transition-opacity duration-300" aria-label="Scroll down">
+        <span id="scroll-action-label" class="text-[10px] uppercase tracking-[0.25em]">Scroll</span>
+        <svg id="scroll-action-icon" class="h-5 w-5 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"></path>
+        </svg>
+        <span id="scroll-progress" class="text-[9px] font-medium tabular-nums tracking-[0.18em] text-white/65">0%</span>
+    </button>
 
     <script>
         // Internationalization Logic
@@ -351,16 +358,20 @@
                 "nav-services": "Services",
                 "nav-portfolio": "Labs",
                 "nav-contact": "Contact",
+                "page-title": "Cresstel AI | High-Fidelity Digital Interfaces & Custom AI Solutions",
+                "page-description": "Cresstel AI crafts premium web experiences and custom AI solutions, transforming complex digital operations into high-performing transactional flows for scaling businesses.",
+                "og-title": "Cresstel AI | High-Fidelity Digital Interfaces & Custom AI Solutions",
+                "og-description": "Premium web experiences and intelligent data models for complex digital operations and scaling businesses.",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
-                "hero-title": "Next-Gen Digital Interfaces & Predictive AI for Enterprise Operations",
-                "hero-subtitle": "Engineering mission-critical systems and high-fidelity interfaces. We optimize complex supply chains and transactional flows with advanced predictive intelligence.",
+                "hero-title": "High-Fidelity Digital Interfaces & Custom AI Solutions",
+                "hero-subtitle": "Crafting premium web experiences and intelligent data models. We transform complex digital operations into high-performing transactional flows for scaling businesses.",
                 "hero-cta-1": "Explore Solutions",
                 "hero-cta-2": "Cresstel Labs",
                 "intro-title": "12 Years of Architectural Excellence.",
                 "intro-p1": "Cresstel IA was born from a decade of building high-availability systems. We don't just build websites; we engineer digital ecosystems.",
                 "intro-p2": "Our focus is the intersection of high-end UI/UX and backend predictive modeling—transforming raw data into operational foresight.",
                 "intro_full_1": "We don't design for the masses. We shape the digital future for those who demand authority, depth, and flawless execution.",
-                "intro_full_2": "12+ Years of Architectural Excellence & High-Availability Systems.",
+                "intro_full_2": "12+ Years of Enterprise Architecture Excellence & High-Availability Systems Engineering.",
                 "intro_full_3": "Cresstel AI engineers high-fidelity websites, custom e-commerce ecosystems, and advanced UI/UX design. Our core focus bridges premium web development with predictive backend modeling, transforming raw business data into operational foresight.",
                 "services-label": "Core Capabilities",
                 "service-1-title": "Premium Frontend Engineering",
@@ -388,16 +399,20 @@
                 "nav-services": "Servicios",
                 "nav-portfolio": "Labs",
                 "nav-contact": "Contacto",
+                "page-title": "Cresstel AI | Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas",
+                "page-description": "Cresstel AI crea experiencias web premium y soluciones de IA personalizadas, transformando operaciones digitales complejas en flujos transaccionales de alto rendimiento para empresas en crecimiento.",
+                "og-title": "Cresstel AI | Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas",
+                "og-description": "Experiencias web premium y modelos de datos inteligentes para operaciones digitales complejas y empresas en crecimiento.",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
-                "hero-title": "Interfaces Digitales de Nueva Generación e IA Predictiva para Empresas",
-                "hero-subtitle": "Ingeniería de sistemas críticos e interfaces de alta fidelidad. Optimizamos cadenas de suministro complejas y flujos transaccionales con inteligencia predictiva avanzada.",
+                "hero-title": "Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas.",
+                "hero-subtitle": "Creamos experiencias web premium y modelos de datos inteligentes. Optimizamos tus operaciones digitales convirtiéndolas en flujos transaccionales de alto rendimiento para acelerar tu negocio.",
                 "hero-cta-1": "Explorar Soluciones",
                 "hero-cta-2": "Cresstel Labs",
                 "intro-title": "12 Años de Excelencia Arquitectónica.",
                 "intro-p1": "Cresstel IA nació de una década construyendo sistemas de alta disponibilidad. No solo creamos sitios; diseñamos ecosistemas digitales.",
                 "intro-p2": "Nos enfocamos en la intersección de UI/UX de alta gama y modelado predictivo—transformando datos en previsión operativa.",
                 "intro_full_1": "No diseñamos para las masas. Esculpimos el futuro digital para quienes exigen autoridad, profundidad y una ejecución impecable.",
-                "intro_full_2": "Más de 12 años de excelencia arquitectónica y sistemas de alta disponibilidad.",
+                "intro_full_2": "12+ años de excelencia en arquitectura empresarial e ingeniería de sistemas de alta disponibilidad.",
                 "intro_full_3": "Cresstel AI diseña sitios web de alta fidelidad, ecosistemas de comercio electrónico a medida y desarrollo UI/UX premium. Nuestro enfoque principal une la ingeniería web con modelos predictivos, transformando datos brutos en previsión operativa.",
                 "services-label": "Capacidades Core",
                 "service-1-title": "Ingeniería Frontend Premium",
@@ -433,6 +448,10 @@
                 }
             });
             document.documentElement.lang = currentLang;
+            document.title = translations[currentLang]["page-title"];
+            document.getElementById("page-description").setAttribute("content", translations[currentLang]["page-description"]);
+            document.getElementById("og-title").setAttribute("content", translations[currentLang]["og-title"]);
+            document.getElementById("og-description").setAttribute("content", translations[currentLang]["og-description"]);
         }
 
 
