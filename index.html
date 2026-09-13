@@ -14,7 +14,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS - centralized config -->
     <script src="tailwind-config.js"></script>
@@ -60,7 +60,6 @@
     <!-- Aurora Background Effects -->
     <div class="aurora aurora-top-left top-[-200px] left-[-100px] animate-pulse-slow"></div>
     <div class="aurora aurora-bottom-right bottom-[-200px] right-[-100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
-
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-[100] h-16 md:h-20 glass-nav flex items-center px-5 sm:px-8 lg:px-12 justify-between">
         <a id="site-brand" href="index.html" class="flex items-center space-x-2 group min-w-0">
@@ -125,68 +124,60 @@
         </div>
     </div>
 
+    <!-- Main custom scroller: GSAP ScrollTrigger and the progress indicator use this element. -->
     <main class="scroll-container h-dvh overflow-y-auto scroll-smooth overscroll-y-contain relative z-10">
-    <!-- Hero Section -->
-    <section class="h-dvh min-h-dvh relative flex flex-col justify-start md:justify-center items-center px-5 sm:px-8 pt-28 md:pt-20 pb-16 text-center overflow-hidden">
-        <video id="hero-bg-video" autoplay muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0">
-            <source src="assets/smoke.mp4" type="video/mp4">
-            <!-- Fallback text -->
-        </video>
-        <script>
-        (function(){
-          var v = document.getElementById('hero-bg-video');
-          if(!v) return;
- 
-          // Fade-in when the video can play to avoid flash
-          function showVideo(){
-            try{
-              v.classList.add('hero-video-visible');
-            }catch(e){}
-          }
- 
-          v.addEventListener('canplaythrough', showVideo, { once: true });
-          v.addEventListener('playing', showVideo, { once: true });
- 
-          // When the video ends, seek to 4s and continue playing so subsequent loops run from 4s
-          v.addEventListener('ended', function(){
-            try{
-              v.currentTime = 0;
-              var p = v.play();
-              if(p && p.catch) p.catch(function(){ /* autoplay blocked or other error */ });
-            }catch(e){ /* ignore */ }
-          }, false);
-        })();
-        </script>
- 
+    <!-- Shared fixed background: each layer belongs to one screen in the Hero/Intro sequence. -->
+    <div id="intro-background" aria-hidden="true">
+        <canvas id="starfield"></canvas>
+        <div class="intro-bg-layer intro-bg-hero">
+            <img src="assets/images/backg1.webp" alt="" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="intro-bg-layer intro-bg-manifesto">
+            <img src="assets/images/backg2.webp" alt="" loading="lazy" />
+        </div>
+        <div class="intro-bg-layer intro-bg-full-2">
+            <img src="assets/images/backg3.webp" alt="" loading="lazy" />
+        </div>
+        <div class="intro-bg-layer intro-bg-full-3">
+            <img src="assets/images/backg4.webp" alt="" loading="lazy" />
+        </div>
+    </div>
+    <!-- Hero Section: backg1.webp and the first zoom/crossfade stage. -->
+    <section id="hero" class="min-h-dvh h-auto md:h-dvh relative flex flex-col justify-start md:justify-center items-center px-5 sm:px-8 pt-28 md:pt-20 pb-20 text-center overflow-hidden">
         <div class="reveal relative z-20 w-full max-w-5xl mx-auto text-center">
-            <h1 class="font-heading font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-[-0.06em] leading-[0.98] text-center max-w-6xl mx-auto mb-6 sm:mb-8" data-i18n="hero-title">
-                High-Fidelity Digital Interfaces &amp; Custom AI Solutions
+            <h1 class="hero-title mb-6 sm:mb-8">
+                <span data-i18n="hero-title-line-1">HIGH-FIDELITY</span>
+                <span data-i18n="hero-title-line-2">DIGITAL INTERFACES &amp;</span>
+                <span data-i18n="hero-title-line-3">CUSTOM AI SOLUTIONS</span>
             </h1>
-            <h2 class="hero-subtitle text-white/70 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 font-light leading-relaxed text-center" data-i18n="hero-subtitle">
+            <p class="hero-subtitle mb-8 sm:mb-10" data-i18n="hero-subtitle">
                 Crafting premium web experiences and intelligent data models. We transform complex digital operations into high-performing transactional flows for scaling businesses.
-            </h2>
+            </p>
             <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-                <a href="#services" class="inline-flex min-h-12 items-center justify-center bg-white text-black px-7 sm:px-9 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brandSilver hover:scale-[1.02] transform-gpu transition-transform duration-300" data-i18n="hero-cta-1">Explore Solutions</a>
-                <a href="#labs" class="inline-flex min-h-12 items-center justify-center border border-white/25 px-7 sm:px-9 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300" data-i18n="hero-cta-2">Cresstel Labs</a>
+                <a href="#solutions" class="inline-flex min-h-12 items-center justify-center bg-white text-black px-7 sm:px-9 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brandSilver hover:scale-[1.02] transform-gpu transition-transform duration-300" data-i18n="hero-cta-1">Explore Solutions</a>
+                <a href="contact.html" class="inline-flex min-h-12 items-center justify-center px-4 py-3 text-white/70 font-bold text-sm uppercase tracking-widest underline decoration-white/30 underline-offset-8 hover:text-white hover:decoration-white transition-colors duration-300" data-i18n="hero-cta-2">Start a Project</a>
             </div>
         </div>
     </section>
 
-    <!-- Intro / Value Prop -->
+    <!-- Intro / Value Prop: the following three screens keep their text centered; only the background transitions. -->
 
     <!-- Fullscreen intro slides: each section fills the viewport and is translatable via data-i18n keys -->
-    <section id="intro-full-1" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
+    <!-- Manifesto screen: transitions from backg1.webp to backg2.webp. -->
+    <section id="manifesto" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
         <div class="w-full max-w-4xl">
             <p class="font-heading text-3xl sm:text-4xl md:text-6xl leading-[1.08] tracking-[-0.04em] text-white" data-i18n="intro_full_1">We don't design for the masses. We shape the digital future for those who demand authority, depth, and flawless execution.</p>
         </div>
     </section>
 
-    <section id="intro-full-2" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center bg-brandBlack">
+    <!-- Intro screen 2: transitions from backg2.webp to backg3.webp. -->
+    <section id="intro-full-2" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
         <div class="w-full max-w-4xl">
             <p class="font-heading text-3xl sm:text-4xl md:text-6xl leading-[1.08] tracking-[-0.04em] text-white font-bold" data-i18n="intro_full_2">12+ Years of Enterprise Architecture Excellence & High-Availability Systems Engineering.</p>
         </div>
     </section>
 
+    <!-- Intro screen 3: transitions from backg3.webp to backg4.webp. -->
     <section id="intro-full-3" class="h-dvh min-h-dvh flex items-center justify-center px-6 py-20 text-center">
         <div class="w-full max-w-4xl">
             <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.3] tracking-[-0.02em] text-white/80" data-i18n="intro_full_3">Cresstel AI engineers high-fidelity websites, custom e-commerce ecosystems, and advanced UI/UX design. Our core focus bridges premium web development with predictive backend modeling, transforming raw business data into operational foresight.</p>
@@ -194,45 +185,38 @@
     </section>
 
 
-    <!-- Services Section (Bento Grid) -->
-    <section id="services" class="h-dvh min-h-dvh py-20 lg:py-24 px-5 sm:px-8 lg:px-12">
-        <div class="w-full max-w-7xl mx-auto">
-        <h3 class="text-xs uppercase tracking-[0.3em] text-white/60 mb-8 lg:mb-12 text-center reveal" data-i18n="services-label">Core Capabilities</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-            <!-- Card 1 -->
-            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
-                <div class="card-reflection"></div>
-                <div class="mb-auto">
-                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
-                </div>
-                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-1-title">Premium Frontend Engineering</h4>
-                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-1-desc">
-                    Ultra-fast, responsive architectures using React and native WebGL. We prioritize motion design and accessibility to define industry-leading user experiences.
-                </p>
-            </div>
-            <!-- Card 2 -->
-            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
-                <div class="card-reflection"></div>
-                <div class="mb-auto">
-                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
-                </div>
-                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-2-title">Operational SaaS Infrastructure</h4>
-                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-2-desc">
-                    Robust transactional platforms designed for scale. Real-time dashboards, secure payment orchestration, and automated business logic for modern enterprises.
-                </p>
-            </div>
-            <!-- Card 3 -->
-            <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 lg:p-9 rounded-[1.75rem] relative overflow-hidden min-h-[360px] lg:h-[420px] flex flex-col justify-end group">
-                <div class="card-reflection"></div>
-                <div class="mb-auto">
-                    <div class="w-12 h-[1px] bg-white mb-6 group-hover:w-24 transition-all duration-500"></div>
-                </div>
-                <h4 class="font-heading text-2xl font-bold mb-4" data-i18n="service-3-title">Predictive Asset Management</h4>
-                <p class="text-brandSilver text-sm leading-relaxed" data-i18n="service-3-desc">
-                    AI-driven forecasting for inventory and demand. We integrate Python-based models directly into your operations to eliminate inefficiencies before they occur.
-                </p>
-            </div>
+    <!-- Services Section: the skyscraper background carries into this transparent typographic list. -->
+    <section id="solutions" class="services-container min-h-dvh h-auto py-24 lg:py-32 px-5 sm:px-8 lg:px-12">
+        <div class="services-curtain" aria-hidden="true"></div>
+        <div class="services-transition-space">
+            <span class="services-kicker" data-i18n="services-label">[ CAPABILITIES &amp; SYSTEMS ]</span>
         </div>
+
+        <div class="services-list" aria-label="Core services">
+                <article id="service-01" class="service-item is-active reveal" tabindex="0" aria-current="true" data-video="assets/videos/premium-web-design.mp4">
+                    <div class="service-heading-row">
+                        <span class="service-number">01</span>
+                        <h3 class="service-title" data-i18n="service-1-title">DIGITAL EXPERIENCES & UI/UX</h3>
+                    </div>
+                    <p class="sub-services" data-i18n="service-1-subservices">Editorial Layouts · Motion &amp; Scroll Effects · Interactive UI Systems</p>
+                    <div class="service-video-slot" aria-hidden="true"></div>
+                </article>
+                <article id="service-02" class="service-item reveal" tabindex="0" aria-current="false" data-video="assets/videos/ai-implementation.mp4">
+                    <div class="service-heading-row">
+                        <span class="service-number">02</span>
+                        <h3 class="service-title" data-i18n="service-2-title">APPLIED ARTIFICIAL INTELLIGENCE</h3>
+                    </div>
+                    <p class="sub-services" data-i18n="service-2-subservices">API Model Integration · Predictive Inventory &amp; Demand · Automated Workflows</p>
+                    <div class="service-video-slot" aria-hidden="true"></div>
+                </article>
+                <article id="service-03" class="service-item reveal" tabindex="0" aria-current="false" data-video="assets/videos/saas-solutions.mp4">
+                    <div class="service-heading-row">
+                        <span class="service-number">03</span>
+                        <h3 class="service-title" data-i18n="service-3-title">SCALABLE SAAS ARCHITECTURE</h3>
+                    </div>
+                    <p class="sub-services" data-i18n="service-3-subservices">Cloud Infrastructure (AWS/GCP) · Custom Dashboards · API &amp; Backend Integration</p>
+                    <div class="service-video-slot" aria-hidden="true"></div>
+                </article>
         </div>
     </section>
 
@@ -291,7 +275,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="h-auto min-h-dvh bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
+    <footer class="h-auto min-h-dvh bg-brandBlack border-t border-brandSilver/10 pt-24 pb-20 px-6 md:px-12">
         <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
             <div>
                 <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
@@ -342,7 +326,7 @@
     </footer>
     </main>
 
-    <button id="scroll-indicator" type="button" class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 text-white/80 transition-opacity duration-300" aria-label="Scroll down">
+    <button id="scroll-indicator" type="button" class="fixed bottom-6 left-6 z-50 flex flex-col items-center gap-2 text-white/80 transition-opacity duration-300" aria-label="Scroll down">
         <span id="scroll-action-label" class="text-[10px] uppercase tracking-[0.25em]">Scroll</span>
         <svg id="scroll-action-icon" class="h-5 w-5 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M6 9l6 6 6-6"></path>
@@ -364,22 +348,25 @@
                 "og-description": "Premium web experiences and intelligent data models for complex digital operations and scaling businesses.",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
                 "hero-title": "High-Fidelity Digital Interfaces & Custom AI Solutions",
+                "hero-title-line-1": "HIGH-FIDELITY",
+                "hero-title-line-2": "DIGITAL INTERFACES &",
+                "hero-title-line-3": "CUSTOM AI SOLUTIONS",
                 "hero-subtitle": "Crafting premium web experiences and intelligent data models. We transform complex digital operations into high-performing transactional flows for scaling businesses.",
                 "hero-cta-1": "Explore Solutions",
-                "hero-cta-2": "Cresstel Labs",
+                "hero-cta-2": "Start a Project",
                 "intro-title": "12 Years of Architectural Excellence.",
                 "intro-p1": "Cresstel IA was born from a decade of building high-availability systems. We don't just build websites; we engineer digital ecosystems.",
                 "intro-p2": "Our focus is the intersection of high-end UI/UX and backend predictive modeling—transforming raw data into operational foresight.",
                 "intro_full_1": "We don't design for the masses. We shape the digital future for those who demand authority, depth, and flawless execution.",
                 "intro_full_2": "12+ Years of Enterprise Architecture Excellence & High-Availability Systems Engineering.",
                 "intro_full_3": "Cresstel AI engineers high-fidelity websites, custom e-commerce ecosystems, and advanced UI/UX design. Our core focus bridges premium web development with predictive backend modeling, transforming raw business data into operational foresight.",
-                "services-label": "Core Capabilities",
-                "service-1-title": "Premium Frontend Engineering",
-                "service-1-desc": "Ultra-fast, responsive architectures using React and native WebGL. We define industry-leading user experiences.",
-                "service-2-title": "Operational SaaS Infrastructure",
-                "service-2-desc": "Robust transactional platforms designed for scale. Real-time dashboards and automated business logic.",
-                "service-3-title": "Predictive Asset Management",
-                "service-3-desc": "AI-driven forecasting for inventory and demand. We integrate Python-based models directly into your operations.",
+                "services-label": "[ CAPABILITIES & SYSTEMS ]",
+                "service-1-title": "DIGITAL EXPERIENCES & UI/UX",
+                "service-1-subservices": "Editorial Layouts · Motion & Scroll Effects · Interactive UI Systems",
+                "service-2-title": "APPLIED ARTIFICIAL INTELLIGENCE",
+                "service-2-subservices": "API Model Integration · Predictive Inventory & Demand · Automated Workflows",
+                "service-3-title": "SCALABLE SAAS ARCHITECTURE",
+                "service-3-subservices": "Cloud Infrastructure (AWS/GCP) · Custom Dashboards · API & Backend Integration",
                 "labs-label": "Cresstel Labs",
                 "labs-title": "Selected Deployments.",
                 "labs-subtitle": "A glimpse into our high-performance ecosystem and experimental software engineering.",
@@ -405,22 +392,25 @@
                 "og-description": "Experiencias web premium y modelos de datos inteligentes para operaciones digitales complejas y empresas en crecimiento.",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
                 "hero-title": "Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas.",
+                "hero-title-line-1": "INTERFACES DIGITALES",
+                "hero-title-line-2": "DE ALTA FIDELIDAD",
+                "hero-title-line-3": "Y SOLUCIONES DE IA",
                 "hero-subtitle": "Creamos experiencias web premium y modelos de datos inteligentes. Optimizamos tus operaciones digitales convirtiéndolas en flujos transaccionales de alto rendimiento para acelerar tu negocio.",
                 "hero-cta-1": "Explorar Soluciones",
-                "hero-cta-2": "Cresstel Labs",
+                "hero-cta-2": "Iniciar un proyecto",
                 "intro-title": "12 Años de Excelencia Arquitectónica.",
                 "intro-p1": "Cresstel IA nació de una década construyendo sistemas de alta disponibilidad. No solo creamos sitios; diseñamos ecosistemas digitales.",
                 "intro-p2": "Nos enfocamos en la intersección de UI/UX de alta gama y modelado predictivo—transformando datos en previsión operativa.",
                 "intro_full_1": "No diseñamos para las masas. Esculpimos el futuro digital para quienes exigen autoridad, profundidad y una ejecución impecable.",
                 "intro_full_2": "12+ años de excelencia en arquitectura empresarial e ingeniería de sistemas de alta disponibilidad.",
                 "intro_full_3": "Cresstel AI diseña sitios web de alta fidelidad, ecosistemas de comercio electrónico a medida y desarrollo UI/UX premium. Nuestro enfoque principal une la ingeniería web con modelos predictivos, transformando datos brutos en previsión operativa.",
-                "services-label": "Capacidades Core",
-                "service-1-title": "Ingeniería Frontend Premium",
-                "service-1-desc": "Arquitecturas ultra-rápidas usando React y WebGL nativo. Definimos experiencias de usuario líderes en la industria.",
-                "service-2-title": "Infraestructura SaaS Operativa",
-                "service-2-desc": "Plataformas transaccionales robustas diseñadas para escalar. Dashboards en tiempo real y lógica de negocio automatizada.",
-                "service-3-title": "Gestión Predictiva de Activos",
-                "service-3-desc": "Pronóstico de inventario y demanda impulsado por IA. Integramos modelos de Python directamente en su operación.",
+                "services-label": "[ CAPACIDADES Y SISTEMAS ]",
+                "service-1-title": "DISEÑO Y EXPERIENCIA DIGITAL",
+                "service-1-subservices": "Maquetación editorial · Efectos de movimiento y scroll · Sistemas UI interactivos",
+                "service-2-title": "IMPLEMENTACIÓN DE LA IA",
+                "service-2-subservices": "Integración de modelos vía API · Inventario y demanda predictivos · Flujos de trabajo automatizados",
+                "service-3-title": "SOLUCIONES SAAS",
+                "service-3-subservices": "Infraestructura cloud (AWS/GCP) · Dashboards a medida · Integración de API y backend",
                 "labs-label": "Cresstel Labs",
                 "labs-title": "Despliegues Seleccionados.",
                 "labs-subtitle": "Un vistazo a nuestro ecosistema de alto rendimiento e ingeniería de software experimental.",
@@ -457,6 +447,8 @@
 
 
     </script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

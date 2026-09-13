@@ -9,8 +9,8 @@ window.tailwind.config = {
         brandSilver: '#7E7E7E',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Plus Jakarta Sans', 'sans-serif'],
+        sans: ['Open Sans', 'sans-serif'],
+        heading: ['Anton', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',

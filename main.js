@@ -5,6 +5,7 @@ function init() {
   const mobileClose = document.getElementById('mobile-close');
   initScrollIndicator();
   initFooterLogoTransition();
+  initIntroBackground();
 
   let previouslyFocused = null;
   let trapKeydown = null;
@@ -21,6 +22,7 @@ function init() {
     previouslyFocused = document.activeElement;
     mobileMenu.classList.add('active');
     document.body.classList.add('menu-open');
+    document.querySelector('.scroll-container')?.classList.add('menu-scroll-locked');
     menuToggle.setAttribute('aria-expanded', 'true');
     mobileMenu.setAttribute('role', 'dialog');
     mobileMenu.setAttribute('aria-modal', 'true');
@@ -63,6 +65,7 @@ function init() {
   function closeMenu() {
     mobileMenu.classList.remove('active');
     document.body.classList.remove('menu-open');
+    document.querySelector('.scroll-container')?.classList.remove('menu-scroll-locked');
     menuToggle.setAttribute('aria-expanded', 'false');
     mobileMenu.removeAttribute('role');
     mobileMenu.removeAttribute('aria-modal');
@@ -114,6 +117,161 @@ function init() {
   initRevealAndTilt();
 }
 
+// Builds the starfield and binds one scrubbed GSAP timeline to each Hero/Intro transition.
+function initIntroBackground() {
+  const background = document.getElementById('intro-background');
+  const starCanvas = document.getElementById('starfield');
+  const scrollContainer = document.querySelector('.scroll-container');
+  const hero = document.querySelector('#hero');
+  const manifesto = document.querySelector('#manifesto');
+  const introFull2 = document.querySelector('#intro-full-2');
+  const introFull3 = document.querySelector('#intro-full-3');
+  const nextSection = document.querySelector('#solutions');
+  const servicesCurtain = document.querySelector('.services-curtain');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!background || !starCanvas || !scrollContainer || !hero || !manifesto || !introFull2 || !introFull3 || !nextSection || !servicesCurtain || !window.gsap || !window.ScrollTrigger) return;
+
+  // The canvas is decorative only; reduced-motion users keep a static starfield.
+  const context = starCanvas.getContext('2d');
+  const stars = [];
+  const resizeStars = () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    starCanvas.width = Math.floor(width * ratio);
+    starCanvas.height = Math.floor(height * ratio);
+    context?.setTransform(ratio, 0, 0, ratio, 0, 0);
+    stars.length = 0;
+    const count = Math.max(70, Math.min(150, Math.floor((width * height) / 14000)));
+    for (let index = 0; index < count; index += 1) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.35 + 0.35,
+        alpha: Math.random() * 0.45 + 0.55,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.0008 + 0.0002
+      });
+    }
+  };
+
+  const drawStars = (time = 0) => {
+    if (!context) return;
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    stars.forEach((star) => {
+      const twinkle = 0.72 + Math.sin(time * star.speed + star.phase) * 0.28;
+      context.beginPath();
+      context.shadowBlur = star.radius > 1 ? 4 : 2;
+      context.shadowColor = 'rgba(255, 255, 255, 0.8)';
+      context.fillStyle = `rgba(255, 255, 255, ${star.alpha * twinkle})`;
+      context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      context.fill();
+    });
+    context.shadowBlur = 0;
+    if (!prefersReducedMotion) window.requestAnimationFrame(drawStars);
+  };
+
+  resizeStars();
+  drawStars();
+  window.addEventListener('resize', resizeStars, { passive: true });
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  // Tell ScrollTrigger that scrolling happens inside .scroll-container, not window.
+  window.ScrollTrigger.scrollerProxy(scrollContainer, {
+    scrollTop(value) {
+      if (arguments.length) scrollContainer.scrollTop = value;
+      return scrollContainer.scrollTop;
+    },
+    getBoundingClientRect() {
+      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+    }
+  });
+  scrollContainer.addEventListener('scroll', () => window.ScrollTrigger.update(), { passive: true });
+
+  const heroLayer = background.querySelector('.intro-bg-hero');
+  const manifestoLayer = background.querySelector('.intro-bg-manifesto');
+  const introFull2Layer = background.querySelector('.intro-bg-full-2');
+  const introFull3Layer = background.querySelector('.intro-bg-full-3');
+  if (!heroLayer || !manifestoLayer || !introFull2Layer || !introFull3Layer) return;
+
+  background.classList.add('is-active');
+  window.gsap.set([heroLayer, manifestoLayer, introFull2Layer, introFull3Layer], { opacity: 0, scale: 1 });
+  window.gsap.set(heroLayer, { opacity: 1 });
+
+  // Hero -> Manifesto: zoom backg1, then crossfade into backg2.
+  const transition = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: hero,
+      scroller: scrollContainer,
+      start: 'top top',
+      end: () => `+=${hero.offsetHeight}`,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onEnterBack: () => background.classList.add('is-active')
+    }
+  });
+
+  transition.to(heroLayer, { scale: 1.25, duration: 1, ease: 'none' }, 0);
+  transition.to(heroLayer, { opacity: 0, duration: 0.4, ease: 'none' }, 0.6);
+  transition.to(manifestoLayer, { opacity: 1, duration: 0.4, ease: 'none' }, 0.6);
+  transition.to(manifestoLayer, { scale: 1.25, duration: 0.4, ease: 'none' }, 0.6);
+
+  // Manifesto -> Intro 2: crossfade backg2 into backg3 and continue the zoom.
+  const manifestoTransition = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: manifesto,
+      scroller: scrollContainer,
+      start: 'top top',
+      end: () => `+=${manifesto.offsetHeight}`,
+      scrub: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  manifestoTransition.to(manifestoLayer, { opacity: 0, duration: 0.4, ease: 'none' }, 0.6);
+  manifestoTransition.to(introFull2Layer, { opacity: 1, duration: 0.4, ease: 'none' }, 0.6);
+  manifestoTransition.to(introFull2Layer, { scale: 1.25, duration: 0.4, ease: 'none' }, 0.6);
+
+  // Intro 2 -> Intro 3: crossfade backg3 into backg4 and continue the zoom.
+  const introFull2Transition = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: introFull2,
+      scroller: scrollContainer,
+      start: 'top top',
+      end: () => `+=${introFull2.offsetHeight}`,
+      scrub: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  introFull2Transition.to(introFull2Layer, { opacity: 0, duration: 0.4, ease: 'none' }, 0.6);
+  introFull2Transition.to(introFull3Layer, { opacity: 1, duration: 0.4, ease: 'none' }, 0.6);
+  introFull2Transition.to(introFull3Layer, { scale: 1.25, duration: 0.4, ease: 'none' }, 0.6);
+
+  // The curved curtain rises during the approach to Services and masks the previous scene.
+  window.gsap.set(servicesCurtain, { yPercent: 100, scaleY: 1.08 });
+  window.gsap.timeline({
+    scrollTrigger: {
+      trigger: nextSection,
+      scroller: scrollContainer,
+      start: 'top bottom',
+      end: 'top top',
+      scrub: 1,
+      invalidateOnRefresh: true
+    }
+  }).to(servicesCurtain, { yPercent: 0, scaleY: 1, ease: 'none' });
+
+  window.ScrollTrigger.create({
+    trigger: nextSection,
+    scroller: scrollContainer,
+    start: 'top top',
+    onEnter: () => background.classList.remove('is-active'),
+    onLeaveBack: () => background.classList.add('is-active')
+  });
+
+  window.ScrollTrigger.refresh();
+}
+
 function initRevealAndTilt() {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -122,6 +280,60 @@ function initRevealAndTilt() {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+  const serviceItems = document.querySelectorAll('.service-item');
+  const fitHeroTitle = () => {
+    const hero = document.querySelector('.hero-title');
+    if (!hero) return;
+
+    const parent = hero.parentElement;
+    if (!parent) return;
+
+    hero.querySelectorAll('span').forEach((line) => {
+      line.style.setProperty('--hero-line-scale-x', '1');
+      line.style.width = 'max-content';
+      const availableWidth = parent.clientWidth;
+      const requiredWidth = line.getBoundingClientRect().width;
+      const scale = requiredWidth ? Math.min(1, availableWidth / requiredWidth) : 1;
+      line.style.setProperty('--hero-line-scale-x', scale.toFixed(4));
+    });
+  };
+
+  fitHeroTitle();
+  window.addEventListener('resize', fitHeroTitle, { passive: true });
+  document.fonts?.ready.then(fitHeroTitle);
+
+  const fitServiceTitles = () => {
+    document.querySelectorAll('.service-title').forEach((title) => {
+      const parent = title.parentElement;
+      if (!parent) return;
+
+      title.style.width = 'max-content';
+      title.style.setProperty('--title-scale-x', '1');
+      const leftInset = parseFloat(window.getComputedStyle(parent).paddingLeft) || 0;
+      const availableWidth = Math.max(0, parent.clientWidth - leftInset - 30);
+      const requiredWidth = title.getBoundingClientRect().width;
+      const scale = requiredWidth ? Math.min(1, availableWidth / requiredWidth) : 1;
+      title.style.setProperty('--title-scale-x', scale.toFixed(4));
+    });
+  };
+
+  fitServiceTitles();
+  window.addEventListener('resize', fitServiceTitles, { passive: true });
+  document.fonts?.ready.then(fitServiceTitles);
+
+  serviceItems.forEach((item) => {
+    const activate = () => {
+      serviceItems.forEach((service) => {
+        const active = service === item;
+        service.classList.toggle('is-active', active);
+        service.setAttribute('aria-current', active ? 'true' : 'false');
+      });
+    };
+    item.addEventListener('mouseenter', activate);
+    item.addEventListener('focus', activate);
+    item.addEventListener('click', activate);
+  });
 
   document.querySelectorAll('.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler').forEach((card) => {
     card.addEventListener('mousemove', (event) => {
