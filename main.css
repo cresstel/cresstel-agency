@@ -324,13 +324,23 @@ body.font-sans h1.hero-title span:last-child {
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
-    text-align: left;
+    text-align: right;
+  }
+
+  #hero h1.hero-title span {
+    margin-left: auto;
   }
 
   #hero h2 {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: right;
+  }
+
+  #hero .hero-subtitle {
+    margin-left: auto;
+    margin-right: 0;
     text-align: right;
   }
 
@@ -347,6 +357,11 @@ body.font-sans h1.hero-title span:last-child {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+  }
+
+  #hero h1.hero-title span {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-title {
@@ -994,5 +1009,57 @@ body.menu-open .reveal {
   /* Footer-only image treatment. This does not affect the Hero or Intro backgrounds. */
   footer {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Keep the Hero self-contained on short and narrow viewports. */
+#hero {
+  height: auto;
+  min-height: 100dvh;
+  padding-top: max(5.5rem, calc(4.5rem + env(safe-area-inset-top)));
+  padding-bottom: max(5rem, calc(4rem + env(safe-area-inset-bottom)));
+}
+
+.hero-title {
+  font-size: clamp(6.5rem, 5.6vw, 8rem);
+  letter-spacing: -0.025em;
+  transform: none;
+}
+
+.hero-title:hover,
+.hero-title:focus-visible {
+  transform: none;
+}
+
+.hero-subtitle {
+  width: min(100%, 42rem);
+  font-size: clamp(1.125rem, 1.35vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+@media (max-width: 767px) {
+  #hero {
+    justify-content: flex-start;
+    padding-top: max(6.25rem, calc(5.25rem + env(safe-area-inset-top)));
+    padding-bottom: max(5.5rem, calc(4.5rem + env(safe-area-inset-bottom)));
+  }
+
+  #hero .reveal {
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 8.2vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .hero-subtitle {
+    width: min(100%, 36rem);
+    font-size: clamp(0.88rem, 3.6vw, 1.05rem);
+  }
+
+  #hero > .reveal > .flex {
+    gap: 0.75rem;
   }
 }
