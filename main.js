@@ -6,6 +6,8 @@ function init() {
   initScrollIndicator();
   initFooterLogoTransition();
   initIntroBackground();
+  // The Labs trigger uses the custom scroller proxy configured above.
+  initLabsTimeline();
 
   let previouslyFocused = null;
   let trapKeydown = null;
@@ -115,6 +117,49 @@ function init() {
   });
 
   initRevealAndTilt();
+}
+
+function initLabsTimeline() {
+  const labs = document.getElementById('labs');
+  const section = labs?.querySelector('.labs-scroll-section');
+  const card = labs?.querySelector('.labs-card');
+  const content = labs?.querySelector('.labs-content');
+  const scrollContainer = document.querySelector('.scroll-container');
+
+  if (!labs || !section || !card || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  const timeline = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      scroller: scrollContainer,
+      start: 'top top',
+      end: '+=150%',
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      scrub: true,
+      invalidateOnRefresh: true
+    }
+  });
+
+  timeline
+    .to(card, {
+      width: () => `${scrollContainer.clientWidth}px`,
+      height: () => `${scrollContainer.clientHeight}px`,
+      borderWidth: 0,
+      duration: 1,
+      ease: 'none'
+    }, 0)
+    .to({}, { duration: 0.55, ease: 'none' });
+
+  window.ScrollTrigger.refresh();
+  const refreshLabs = () => window.ScrollTrigger.refresh();
+  window.addEventListener('resize', refreshLabs, { passive: true });
+  labs._labsTimelineCleanup = () => {
+    window.removeEventListener('resize', refreshLabs);
+    timeline.kill();
+  };
 }
 
 // Builds the starfield and binds one scrubbed GSAP timeline to each Hero/Intro transition.
