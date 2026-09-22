@@ -6,6 +6,8 @@ function init() {
   initScrollIndicator();
   initFooterLogoTransition();
   initIntroBackground();
+  initCtaAnimation();
+  initFooterBackgroundAnimation();
   // The Labs trigger uses the custom scroller proxy configured above.
   initLabsTimeline();
 
@@ -119,25 +121,74 @@ function init() {
   initRevealAndTilt();
 }
 
+function initCtaAnimation() {
+  const cta = document.querySelector('.cta-section');
+  const background = cta?.querySelector('.cta-bg-wrapper');
+  const building = cta?.querySelector('.cta-building-img');
+  const content = cta?.querySelector('.cta-content');
+  const scrollContainer = document.querySelector('.scroll-container');
+
+  if (!cta || !background || !building || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  window.gsap.set(building, { yPercent: 100 });
+
+  const timeline = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: cta,
+      scroller: scrollContainer,
+      start: 'top bottom',
+      end: 'top top',
+      scrub: true,
+      invalidateOnRefresh: true
+    }
+  });
+
+  timeline
+    .to(building, { yPercent: 0, ease: 'none', duration: 1 }, 0);
+}
+
+function initFooterBackgroundAnimation() {
+  const footer = document.querySelector('footer');
+  const background = footer?.querySelector('.footer-bg-image');
+  const scrollContainer = document.querySelector('.scroll-container');
+
+  if (!footer || !background || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  window.gsap.set(background, { opacity: 0.18 });
+
+  window.gsap.to(background, {
+    opacity: 1,
+    ease: 'power1.out',
+    scrollTrigger: {
+      trigger: footer,
+      scroller: scrollContainer,
+      start: 'top 85%',
+      end: 'top 35%',
+      scrub: 0.8,
+      invalidateOnRefresh: true
+    }
+  });
+}
+
 function initLabsTimeline() {
   const labs = document.getElementById('labs');
+  const track = labs?.querySelector('.labs-scroll-track');
   const section = labs?.querySelector('.labs-scroll-section');
   const card = labs?.querySelector('.labs-card');
   const content = labs?.querySelector('.labs-content');
   const scrollContainer = document.querySelector('.scroll-container');
 
-  if (!labs || !section || !card || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+  if (!labs || !track || !section || !card || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
 
   window.gsap.registerPlugin(window.ScrollTrigger);
   const timeline = window.gsap.timeline({
     scrollTrigger: {
-      trigger: section,
+      trigger: track,
       scroller: scrollContainer,
       start: 'top top',
-      end: '+=150%',
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
+      end: () => `+=${Math.round(scrollContainer.clientHeight * 2)}`,
       scrub: true,
       invalidateOnRefresh: true
     }
@@ -151,7 +202,7 @@ function initLabsTimeline() {
       duration: 1,
       ease: 'none'
     }, 0)
-    .to({}, { duration: 0.55, ease: 'none' });
+    .to({}, { duration: 1, ease: 'none' }, 1);
 
   window.ScrollTrigger.refresh();
   const refreshLabs = () => window.ScrollTrigger.refresh();
@@ -447,7 +498,9 @@ function initFooterLogoTransition() {
 
   const updateLogoVisibility = () => {
     const maxScroll = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight);
-    const isFooterVisible = scrollContainer.scrollTop >= maxScroll - 1;
+    const scrollProgress = (scrollContainer.scrollTop / maxScroll) * 100;
+    const isFooterVisible =
+      scrollContainer.scrollTop >= maxScroll - 4 || scrollProgress >= 99.5;
 
     if (!isFooterVisible) {
       siteBrand.classList.remove('footer-logo-fade-out');
@@ -461,6 +514,9 @@ function initFooterLogoTransition() {
 
   scrollContainer.addEventListener('scroll', updateLogoVisibility, { passive: true });
   window.addEventListener('resize', updateLogoVisibility);
+  const resizeObserver = new ResizeObserver(updateLogoVisibility);
+  resizeObserver.observe(scrollContainer);
+  resizeObserver.observe(document.body);
   updateLogoVisibility();
 }
 

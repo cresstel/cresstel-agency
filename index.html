@@ -125,7 +125,7 @@
     </div>
 
     <!-- Main custom scroller: GSAP ScrollTrigger and the progress indicator use this element. -->
-    <main class="scroll-container h-dvh overflow-y-auto scroll-smooth overscroll-y-contain relative z-10">
+    <main class="scroll-container h-dvh overflow-y-auto overscroll-y-contain relative z-10">
     <!-- Shared fixed background: each layer belongs to one screen in the Hero/Intro sequence. -->
     <div id="intro-background" aria-hidden="true">
         <canvas id="starfield"></canvas>
@@ -223,23 +223,24 @@
     <!-- Portfolio Section (Labs) -->
     <section id="labs" class="labs-section h-auto min-h-0">
         <div class="w-full max-w-7xl mx-auto">
-        <div class="labs-scroll-section" aria-labelledby="labs-title">
-            <div class="labs-card">
-                <img class="labs-bg-image" src="assets/images/backg6.webp" alt="" />
-                <div class="labs-content">
-                    <h2 id="labs-title" class="labs-title" data-i18n="labs-title">[ ENTER THE LABS ]</h2>
-                    <p class="labs-subtitle" data-i18n="labs-subtitle">Selected Deployments &amp; Experimental Systems.</p>
+        <div class="labs-scroll-track">
+            <div class="labs-scroll-section" aria-labelledby="labs-title">
+                <div class="labs-card">
+                    <img class="labs-bg-image" src="assets/images/backg6.webp" alt="" />
+                    <div class="labs-content">
+                        <h2 id="labs-title" class="labs-title" data-i18n="labs-title">[ ENTER THE LABS ]</h2>
+                        <p class="labs-subtitle" data-i18n="labs-subtitle">Selected Deployments &amp; Experimental Systems.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="labs-projects-spacer" aria-hidden="true"></div>
-
-        <div class="space-y-4 lg:space-y-6">
+        <div class="labs-projects">
             <!-- Project 1 -->
-            <div class="bento-card reveal group relative min-h-[420px] lg:h-[460px] rounded-[2rem] overflow-hidden border border-white/10">
-                <div class="absolute inset-0 bg-gradient-to-r from-brandBlue to-transparent z-10"></div>
-                <div class="absolute inset-0 bg-[#0A0A0A]"></div>
+            <div class="bento-card labs-project-card reveal group relative rounded-[2rem] overflow-hidden border border-white/10">
+                <div class="card-reflection"></div>
+                <div class="labs-project-overlay absolute inset-0 bg-gradient-to-r from-brandBlue to-transparent"></div>
+                <div class="labs-project-overlay absolute inset-0 bg-[#0A0A0A]"></div>
                 <div class="relative z-20 h-full p-7 sm:p-10 lg:p-12 flex flex-col justify-end items-start">
                     <span class="text-xs font-bold tracking-widest text-brandSilver mb-4">E-COMMERCE ECOSYSTEM</span>
                     <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6">SoleVanguard</h4>
@@ -248,11 +249,11 @@
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="labs-projects-secondary">
                 <!-- Project 2 -->
-                <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] min-h-[380px] lg:h-[420px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card labs-project-card labs-project-card--left-center reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] flex flex-col justify-center items-start text-left group overflow-hidden">
                     <div class="card-reflection"></div>
-                    <h4 class="text-4xl font-heading font-bold">ScholarCore IA</h4>
+                    <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6">ScholarCore IA</h4>
                     <div>
                         <p class="text-brandSilver mb-6 text-sm" data-i18n="project-2-desc">A comprehensive SaaS for educational administration, managing complex billing cycles and predictive student performance analytics.</p>
                         <div class="flex space-x-2">
@@ -262,9 +263,9 @@
                     </div>
                 </div>
                 <!-- Project 3 -->
-                <div class="bento-card reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] min-h-[380px] lg:h-[420px] flex flex-col justify-between group overflow-hidden">
+                <div class="bento-card labs-project-card labs-project-card--left-center reveal bg-brandBlack border border-white/10 p-7 sm:p-10 rounded-[2rem] flex flex-col justify-center items-start text-left group overflow-hidden">
                     <div class="card-reflection"></div>
-                    <h4 class="text-4xl font-heading font-bold" data-i18n="project-3-title">Predictive Analytics</h4>
+                    <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6" data-i18n="project-3-title">Predictive Analytics</h4>
                     <div>
                         <p class="text-brandSilver mb-6 text-sm" data-i18n="project-3-desc">Supply chain optimization platform using Python/Pandas to forecast demand fluctuations with 98% accuracy for industrial partners.</p>
                         <div class="flex space-x-2">
@@ -278,8 +279,24 @@
         </div>
     </section>
 
+    <!-- CTA -->
+    <section class="cta-section" aria-labelledby="cta-title">
+        <div class="cta-bg-wrapper" aria-hidden="true">
+            <img class="cta-building-img" src="assets/images/backg7.webp" alt="" />
+            <div class="cta-bg-overlay"></div>
+        </div>
+        <div class="cta-content">
+            <h2 id="cta-title" class="cta-title">WHAT ARE WE<br />BUILDING NEXT?</h2>
+            <a class="cta-button" href="contact.html">READY TO START!</a>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="h-auto min-h-dvh flex flex-col bg-brandBlack border-t border-brandSilver/10 pt-24 pb-20 px-6 md:px-12">
+        <div class="footer-bg-wrapper" aria-hidden="true">
+            <img class="footer-bg-image" src="assets/images/backg8.webp" alt="" />
+            <div class="footer-bg-overlay"></div>
+        </div>
         <div class="max-w-7xl mx-auto w-full grid md:grid-cols-3 gap-16 mb-24">
             <div>
                 <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
