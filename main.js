@@ -1,4 +1,23 @@
 // Shared interactions: mobile menu, reveal effects, card tilt, and scroll progress.
+
+/**
+ * Returns the normalized scroll position used by the indicator and Footer logo.
+ * Keeping this calculation in one place prevents visual state drift at the end
+ * of the custom scroller, where fractional pixels and scroll-snap can differ.
+ */
+function getScrollMetrics(scrollContainer) {
+  const maxScroll = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight);
+  const ratio = Math.min(1, Math.max(0, scrollContainer.scrollTop / maxScroll));
+  return {
+    maxScroll,
+    percentage: Math.round(ratio * 100),
+    ratio
+  };
+}
+
+/**
+ * Initializes navigation, page-level interactions, and the shared scroll systems.
+ */
 function init() {
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -22,6 +41,7 @@ function init() {
   menuToggle.setAttribute('aria-controls', 'mobile-menu');
   menuToggle.setAttribute('aria-expanded', 'false');
 
+  // Opens the accessible mobile dialog and traps keyboard focus inside it.
   function openMenu() {
     previouslyFocused = document.activeElement;
     mobileMenu.classList.add('active');
@@ -66,6 +86,7 @@ function init() {
     mobileMenu.addEventListener('keydown', trapKeydown);
   }
 
+  // Closes the mobile dialog, removes the focus trap, and restores focus.
   function closeMenu() {
     mobileMenu.classList.remove('active');
     document.body.classList.remove('menu-open');
@@ -123,12 +144,10 @@ function init() {
 
 function initCtaAnimation() {
   const cta = document.querySelector('.cta-section');
-  const background = cta?.querySelector('.cta-bg-wrapper');
   const building = cta?.querySelector('.cta-building-img');
-  const content = cta?.querySelector('.cta-content');
   const scrollContainer = document.querySelector('.scroll-container');
 
-  if (!cta || !background || !building || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+  if (!cta || !building || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
 
   window.gsap.registerPlugin(window.ScrollTrigger);
   window.gsap.set(building, { yPercent: 100 });
@@ -148,6 +167,9 @@ function initCtaAnimation() {
     .to(building, { yPercent: 0, ease: 'none', duration: 1 }, 0);
 }
 
+/**
+ * Fades the Footer image into view as the Footer approaches the viewport.
+ */
 function initFooterBackgroundAnimation() {
   const footer = document.querySelector('footer');
   const background = footer?.querySelector('.footer-bg-image');
@@ -172,15 +194,17 @@ function initFooterBackgroundAnimation() {
   });
 }
 
+/**
+ * Expands the Labs card while the sticky Labs track is scrubbed by scrolling.
+ */
 function initLabsTimeline() {
   const labs = document.getElementById('labs');
   const track = labs?.querySelector('.labs-scroll-track');
-  const section = labs?.querySelector('.labs-scroll-section');
   const card = labs?.querySelector('.labs-card');
   const content = labs?.querySelector('.labs-content');
   const scrollContainer = document.querySelector('.scroll-container');
 
-  if (!labs || !track || !section || !card || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
+  if (!labs || !track || !card || !content || !scrollContainer || !window.gsap || !window.ScrollTrigger) return;
 
   window.gsap.registerPlugin(window.ScrollTrigger);
   const timeline = window.gsap.timeline({
@@ -213,7 +237,10 @@ function initLabsTimeline() {
   };
 }
 
-// Builds the starfield and binds one scrubbed GSAP timeline to each Hero/Intro transition.
+/**
+ * Builds the starfield, configures the custom scroller proxy, and binds the
+ * scrubbed background transitions for Hero, Intro, and Services.
+ */
 function initIntroBackground() {
   const background = document.getElementById('intro-background');
   const starCanvas = document.getElementById('starfield');
@@ -231,6 +258,7 @@ function initIntroBackground() {
   // The canvas is decorative only; reduced-motion users keep a static starfield.
   const context = starCanvas.getContext('2d');
   const stars = [];
+  // Resizes the canvas for the current viewport and regenerates its stars.
   const resizeStars = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -252,6 +280,7 @@ function initIntroBackground() {
     }
   };
 
+  // Draws the stars and applies a subtle twinkle when motion is allowed.
   const drawStars = (time = 0) => {
     if (!context) return;
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -368,7 +397,12 @@ function initIntroBackground() {
   window.ScrollTrigger.refresh();
 }
 
+/**
+ * Reveals content, fits oversized typography, activates Services items, and
+ * applies the shared pointer tilt/reflection interaction to cards.
+ */
 function initRevealAndTilt() {
+  // Adds the active class once content enters the viewport.
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) entry.target.classList.add('active');
@@ -378,6 +412,7 @@ function initRevealAndTilt() {
   document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
   const serviceItems = document.querySelectorAll('.service-item');
+  // Fits each Hero line to its available width without changing its font size.
   const fitHeroTitle = () => {
     const hero = document.querySelector('.hero-title');
     if (!hero) return;
@@ -399,6 +434,7 @@ function initRevealAndTilt() {
   window.addEventListener('resize', fitHeroTitle, { passive: true });
   document.fonts?.ready.then(fitHeroTitle);
 
+  // Fits Services headings to their row while preserving the oversized display style.
   const fitServiceTitles = () => {
     document.querySelectorAll('.service-title').forEach((title) => {
       const parent = title.parentElement;
@@ -419,6 +455,7 @@ function initRevealAndTilt() {
   document.fonts?.ready.then(fitServiceTitles);
 
   serviceItems.forEach((item) => {
+    // Makes the hovered or focused service the active item for visual emphasis.
     const activate = () => {
       serviceItems.forEach((service) => {
         const active = service === item;
@@ -432,6 +469,7 @@ function initRevealAndTilt() {
   });
 
   document.querySelectorAll('.bento-card, .project-card, .intro-gradient-panel, .contact-scheduler').forEach((card) => {
+    // Updates the shared CSS variables that drive pointer tilt and reflection.
     card.addEventListener('mousemove', (event) => {
       const rect = card.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -447,6 +485,7 @@ function initRevealAndTilt() {
       card.style.setProperty('--refl', card.classList.contains('intro-gradient-panel') ? '0.5' : '0.9');
     });
 
+    // Restores the card to its neutral state when the pointer leaves.
     card.addEventListener('mouseleave', () => {
       card.style.setProperty('--rotY', '0deg');
       card.style.setProperty('--rotX', '0deg');
@@ -457,6 +496,9 @@ function initRevealAndTilt() {
   });
 }
 
+/**
+ * Updates the fixed scroll control and returns the user to the top at the end.
+ */
 function initScrollIndicator() {
   const scrollContainer = document.querySelector('.scroll-container');
   const indicator = document.getElementById('scroll-indicator');
@@ -466,8 +508,7 @@ function initScrollIndicator() {
   if (!scrollContainer || !indicator || !actionLabel || !actionIcon || !progress) return;
 
   const updateIndicator = () => {
-    const maxScroll = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight);
-    const percentage = Math.min(100, Math.max(0, Math.round((scrollContainer.scrollTop / maxScroll) * 100)));
+    const { percentage } = getScrollMetrics(scrollContainer);
     const atEnd = percentage >= 100;
     progress.textContent = `${percentage}%`;
     actionLabel.textContent = atEnd ? 'To top' : 'Scroll';
@@ -484,6 +525,9 @@ function initScrollIndicator() {
   updateIndicator();
 }
 
+/**
+ * Crossfades the fixed navigation logo with the logo rendered inside the Footer.
+ */
 function initFooterLogoTransition() {
   const siteBrand = document.getElementById('site-brand');
   const footerLogoTarget = document.getElementById('footer-logo-target');
@@ -497,10 +541,9 @@ function initFooterLogoTransition() {
   });
 
   const updateLogoVisibility = () => {
-    const maxScroll = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight);
-    const scrollProgress = (scrollContainer.scrollTop / maxScroll) * 100;
+    const { maxScroll, ratio } = getScrollMetrics(scrollContainer);
     const isFooterVisible =
-      scrollContainer.scrollTop >= maxScroll - 4 || scrollProgress >= 99.5;
+      scrollContainer.scrollTop >= maxScroll - 4 || ratio >= 0.995;
 
     if (!isFooterVisible) {
       siteBrand.classList.remove('footer-logo-fade-out');
