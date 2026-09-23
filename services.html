@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS - centralized config -->
     <script src="tailwind-config.js"></script>
@@ -36,7 +36,7 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-[100] h-16 md:h-20 border-b border-brandSilver/10 glass-nav flex items-center px-4 sm:px-6 md:px-12 justify-between">
-        <a href="index.html" class="flex items-center space-x-2 group min-w-0">
+        <a id="site-brand" href="index.html" class="flex items-center space-x-2 group min-w-0">
             <img src="/assets/logo.webp" alt="Cresstel logo" class="h-6 md:h-7 w-auto object-contain transition-transform duration-300 hover:scale-105 mr-2" />
             <span class="font-heading font-bold text-lg sm:text-2xl tracking-tighter truncate">Cresstel</span>
             <span class="font-sans font-light text-sm sm:text-2xl text-brandSilver tracking-widest uppercase hidden sm:inline">IA</span>
@@ -54,8 +54,8 @@
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] px-0 overflow-hidden">
-        <button id="mobile-close" aria-label="Close menu">
+    <div id="legacy-mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] px-0 overflow-hidden" aria-hidden="true">
+        <button id="legacy-mobile-close" aria-label="Close menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
 
@@ -66,9 +66,9 @@
                   <a href="/index.html" class="inline-block mb-6">
                     <img src="assets/logo.webp" alt="Cresstel" class="mobile-menu-logo" />
                   </a>
-                  <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center">Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.</p>
+                  <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center" data-i18n="menu-description">Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.</p>
                   <div class="w-24 mx-auto border-t border-brandSilver/30"></div>
-                  <p class="mt-4 text-brandSilver text-sm text-center uppercase tracking-widest">Make Your Digital Transformation an Evolution</p>
+                  <p class="mt-4 text-brandSilver text-sm text-center uppercase tracking-widest" data-i18n="menu-footer">Make Your Digital Transformation an Evolution</p>
                 </div>
             </div>
 
@@ -95,6 +95,25 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="menu-overlay" aria-hidden="true">
+        <div class="menu-container">
+            <aside class="menu-preview-panel" aria-hidden="true"><div class="preview-image-wrapper"><img class="preview-img" src="assets/images/backg1.webp" alt="" /><span class="preview-index">01 / 04</span></div></aside>
+            <section class="menu-content-panel" aria-label="Site navigation">
+                <button id="mobile-close" class="close-btn" type="button" aria-label="Close menu"><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+                <div class="menu-navigation-grid">
+                    <nav aria-label="Main navigation"><span class="menu-label">Discover Pages</span>
+                        <a class="menu-link" href="index.html" data-preview="assets/images/backg1.webp" data-i18n="nav-home"><span class="menu-link-number">01</span><span class="menu-link-text">Home</span></a>
+                        <a class="menu-link" href="services.html" data-preview="assets/backgrounds/solutions-abyssal.svg" data-i18n="nav-services"><span class="menu-link-number">02</span><span class="menu-link-text">Services</span></a>
+                        <a class="menu-link" href="portfolio.html" data-preview="assets/images/backg6.webp" data-i18n="nav-portfolio"><span class="menu-link-number">03</span><span class="menu-link-text">Labs</span></a>
+                        <a class="menu-link" href="contact.html" data-preview="assets/images/backg7.webp" data-i18n="nav-contact"><span class="menu-link-number">04</span><span class="menu-link-text">Contact</span></a>
+                    </nav>
+                    <nav class="menu-expertise" aria-label="Expertise"><span class="menu-label">[ EXPERTISE ]</span><a href="services.html">Applied AI</a><a href="services.html">SaaS Architecture</a><a href="portfolio.html">Digital Experiences</a><a href="contact.html">System Status</a></nav>
+                </div>
+                <footer class="menu-footer"><div class="menu-contact-block"><span class="menu-footer-label">Contact Us</span><div class="menu-contact"><a href="mailto:sales@cresstel.com">sales@cresstel.com</a><a href="tel:+593984702936">+593 984702936</a></div></div><div class="menu-social-block"><span class="menu-footer-label">Stay Connected</span><div class="menu-socials"><a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10v6M8 7.5v.01M12 16v-3.1a2 2 0 0 1 4 0V16M12 10v6"></path></svg></a><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="17.5" cy="6.5" r=".6"></circle></svg></a><a href="https://twitter.com" target="_blank" rel="noopener" aria-label="X / Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4l14 16M19 4L5 20"></path></svg></a><a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-2.7 16.56c.43.08.58-.19.58-.41v-1.5c-2.36.51-2.86-1.14-2.86-1.14-.39-.98-.95-1.24-.95-1.24-.77-.53.06-.52.06-.52.85.06 1.3.87 1.3.87.76 1.3 1.99.92 2.48.7.08-.55.3-.92.54-1.13-1.89-.21-3.88-.95-3.88-4.2 0-.93.33-1.68.87-2.27-.09-.21-.38-1.08.08-2.25 0 0 .71-.23 2.34.87a8.1 8.1 0 0 1 4.26 0c1.63-1.1 2.34-.87 2.34-.87.46 1.17.17 2.04.08 2.25.54.59.58.8.58 1.61v2.39c0 .22.15.49.59.41A8.5 8.5 0 0 0 12 3.5Z"></path></svg></a></div></div><a class="menu-legal" href="#">Policies and Terms</a></footer>
+            </section>
         </div>
     </div>
 
@@ -140,10 +159,10 @@
                 </div>
                 <ul class="text-[11px] text-brandSilver space-y-2 z-10 font-medium">
                     <li class="flex items-center">
-                        <span class="w-1.5 h-1.5 bg-white rounded-full mr-3"></span> DATA INTEGRITY
+                        <span class="w-1.5 h-1.5 bg-white rounded-full mr-3"></span> <span data-i18n="data-integrity">DATA INTEGRITY</span>
                     </li>
                     <li class="flex items-center">
-                        <span class="w-1.5 h-1.5 bg-white rounded-full mr-3"></span> RESOURCE CONSOLIDATION
+                        <span class="w-1.5 h-1.5 bg-white rounded-full mr-3"></span> <span data-i18n="resource-consolidation">RESOURCE CONSOLIDATION</span>
                     </li>
                 </ul>
             </div>
@@ -188,10 +207,10 @@
                 With 12+ years in system architecture, we guarantee clean, secure, and ultra-high-performance code. Every line we write is designed to protect your business's technological future.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="flex flex-col"><span class="text-2xl font-bold">12+</span><span class="text-[10px] text-brandSilver uppercase tracking-widest">Years Exp</span></div>
-                <div class="flex flex-col"><span class="text-2xl font-bold">99.9%</span><span class="text-[10px] text-brandSilver uppercase tracking-widest">Uptime Architecture</span></div>
-                <div class="flex flex-col"><span class="text-2xl font-bold">UX/UI</span><span class="text-[10px] text-brandSilver uppercase tracking-widest">Interfaces</span></div>
-                <div class="flex flex-col"><span class="text-2xl font-bold">Clean</span><span class="text-[10px] text-brandSilver uppercase tracking-widest">Native Code</span></div>
+                <div class="flex flex-col"><span class="text-2xl font-bold">12+</span><span class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="metric-years">Years Exp</span></div>
+                <div class="flex flex-col"><span class="text-2xl font-bold">99.9%</span><span class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="metric-uptime">Uptime Architecture</span></div>
+                <div class="flex flex-col"><span class="text-2xl font-bold">UX/UI</span><span class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="metric-interfaces">Interfaces</span></div>
+                <div class="flex flex-col"><span class="text-2xl font-bold">Clean</span><span class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="metric-native-code">Native Code</span></div>
             </div>
         </div>
     </section>
@@ -205,21 +224,21 @@
         </div>
     </section>
 
-    <!-- Footer (Heredado) -->
-    <footer class="bg-brandBlack border-t border-brandSilver/10 pt-24 pb-12 px-6 md:px-12">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 mb-24">
+    <!-- Footer -->
+    <footer class="h-auto min-h-dvh flex flex-col bg-brandBlack border-t border-brandSilver/10 pt-24 pb-20 px-6 md:px-12">
+        <div class="footer-bg-wrapper" aria-hidden="true">
+            <img class="footer-bg-image" src="assets/images/backg8.webp" alt="" />
+            <div class="footer-bg-overlay"></div>
+        </div>
+        <div class="max-w-7xl mx-auto w-full grid md:grid-cols-3 gap-16 mb-24">
             <div>
-                <a href="index.html" class="flex items-center space-x-1 mb-6">
-                    <span class="font-heading font-bold text-2xl tracking-tighter">Cresstel</span>
-                    <span class="font-sans font-light text-2xl text-brandSilver tracking-widest uppercase">IA</span>
-                </a>
                 <p class="text-brandSilver text-sm leading-relaxed mb-8" data-i18n="footer-tagline">
                     Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.
                 </p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">LinkedIn</a>
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">Twitter</a>
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">GitHub</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-linkedin">LinkedIn</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-twitter">Twitter</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-github">GitHub</a>
                 </div>
             </div>
             
@@ -233,9 +252,9 @@
                 </div>
                 <div class="flex flex-col space-y-4">
                     <h5 class="text-[10px] uppercase tracking-widest font-bold text-white mb-2" data-i18n="footer-labs-title">Labs</h5>
-                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">SoleVanguard</a>
-                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">ScholarCore</a>
-                    <a href="portfolio.html" class="text-brandSilver hover:text-white text-sm">Predictive Ops</a>
+                    <a href="portfolio.html#labs" class="text-brandSilver hover:text-white text-sm">SoleVanguard</a>
+                    <a href="portfolio.html#labs" class="text-brandSilver hover:text-white text-sm">ScholarCore</a>
+                    <a href="portfolio.html#labs" class="text-brandSilver hover:text-white text-sm">Predictive Ops</a>
                 </div>
             </div>
 
@@ -247,9 +266,16 @@
             </div>
         </div>
         
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-brandSilver/5">
-            <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
-            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
+        <div id="footer-logo-target" class="footer-logo-target mx-auto mb-12" aria-hidden="true">
+            <a href="index.html" class="footer-logo-mark flex items-center space-x-2" aria-label="Return to Cresstel home">
+                <img src="assets/logo.webp" alt="" class="footer-logo-image w-auto object-contain" />
+                <span class="footer-logo-name font-heading font-bold tracking-tighter">Cresstel</span>
+                <span class="footer-logo-suffix font-sans font-light text-brandSilver tracking-widest uppercase">IA</span>
+            </a>
+        </div>
+        <div class="max-w-7xl mx-auto w-full mt-auto flex flex-col justify-center items-center text-center pt-12">
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="copyright">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0" data-i18n="designed-for">Designed for Performance</p>
         </div>
     </footer>
 
@@ -259,6 +285,7 @@
             en: {
                 "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Labs", "nav-contact": "Contact",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
+                "menu-description": "Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.",
                 "page-title": "Our Capabilities",
                 "page-subtitle": "We engineer high-fidelity digital systems that redefine operational efficiency. From elite frontend architecture to advanced predictive intelligence.",
                 "s1-label": "Frontend Engineering",
@@ -272,6 +299,8 @@
                 "s3-desc": "Python and Pandas-driven analytical models for real-world supply chain optimization, inventory forecasting, and scientific trend analysis.",
                 "s3-warning-title": "The Cresstel Standard:",
                 "s3-warning-desc": "We strictly develop high-value predictive software. We do NOT build basic chatbots or generic AI assistants.",
+                "data-integrity": "DATA INTEGRITY",
+                "resource-consolidation": "RESOURCE CONSOLIDATION",
                 "tech-title": "Engineering Without Compromise.",
                 "tech-desc": "With 12+ years in system architecture, we guarantee clean, secure, and ultra-high-performance code.",
                 "cta-title": "Ready to Evolve Your Infrastructure?",
@@ -279,11 +308,16 @@
                 "cta-button": "Book Appointment",
                 "footer-tagline": "Make Your Digital Transformation an Evolution. High-end software engineering.",
                 "footer-nav-title": "Navigation", "footer-labs-title": "Labs", "footer-legacy-title": "The Legacy",
-                "footer-legacy-desc": "Built on over a decade of infrastructure expertise."
+                "footer-legacy-desc": "Built on over a decade of infrastructure expertise.",
+                "social-linkedin": "LinkedIn", "social-twitter": "Twitter", "social-github": "GitHub",
+                "copyright": "© 2026 Cresstel IA. All Rights Reserved.", "designed-for": "Designed for Performance",
+                "metric-years": "Years Exp", "metric-uptime": "Uptime Architecture",
+                "metric-interfaces": "Interfaces", "metric-native-code": "Native Code"
             },
             es: {
                 "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Labs", "nav-contact": "Contacto",
                 "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "menu-description": "Conecta la visión de tu negocio con diseño web de alta fidelidad, arquitectura de software a medida e inteligencia predictiva.",
                 "page-title": "Nuestras Capacidades",
                 "page-subtitle": "Diseñamos sistemas digitales de alta fidelidad que redefinen la eficiencia operativa. Desde arquitectura frontend de élite hasta inteligencia predictiva avanzada.",
                 "s1-label": "Ingeniería Frontend",
@@ -297,6 +331,8 @@
                 "s3-desc": "Modelos analíticos basados en Python y Pandas para optimización de suministros, pronóstico de inventarios y análisis científico.",
                 "s3-warning-title": "El Estándar Cresstel:",
                 "s3-warning-desc": "Desarrollamos estrictamente software predictivo de alto valor. NO creamos chatbots básicos ni asistentes genéricos.",
+                "data-integrity": "INTEGRIDAD DE DATOS",
+                "resource-consolidation": "CONSOLIDACIÓN DE RECURSOS",
                 "tech-title": "Ingeniería Sin Compromisos.",
                 "tech-desc": "Con más de 12 años en arquitectura de sistemas, garantizamos código limpio, seguro y de altísimo rendimiento.",
                 "cta-title": "¿Listo para evolucionar tu infraestructura?",
@@ -304,7 +340,11 @@
                 "cta-button": "Agendar Cita",
                 "footer-tagline": "Haz de tu Transformación Digital una Evolución. Ingeniería de software de alta gama.",
                 "footer-nav-title": "Navegación", "footer-labs-title": "Laboratorios", "footer-legacy-title": "El Legado",
-                "footer-legacy-desc": "Basado en más de una década de experiencia en infraestructura."
+                "footer-legacy-desc": "Basado en más de una década de experiencia en infraestructura.",
+                "social-linkedin": "LinkedIn", "social-twitter": "Twitter", "social-github": "GitHub",
+                "copyright": "© 2026 Cresstel IA. Todos los derechos reservados.", "designed-for": "Diseñado para el rendimiento",
+                "metric-years": "Años de experiencia", "metric-uptime": "Arquitectura de disponibilidad",
+                "metric-interfaces": "Interfaces", "metric-native-code": "Código nativo"
             }
         };
 

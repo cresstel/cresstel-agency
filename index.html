@@ -14,7 +14,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS - centralized config -->
     <script src="tailwind-config.js"></script>
@@ -79,48 +79,55 @@
         </div>
     </nav>
 
-    <!-- Mobile Overlay Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-brandBlack z-[105] px-0 overflow-hidden">
-        <button id="mobile-close" aria-label="Close menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-
-        <div class="mobile-menu-inner w-full h-full flex">
-            <!-- Left: slogan (50%) -->
-            <div class="menu-left w-1/2 flex items-center justify-center px-6">
-                <div class="w-full text-center">
-                  <a href="/index.html" class="inline-block mb-6">
-                    <img src="assets/logo.webp" alt="Cresstel" class="mobile-menu-logo" />
-                  </a>
-                  <p class="text-brandSilver text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center">Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.</p>
-                  <div class="w-24 mx-auto border-t border-brandSilver/30"></div>
-                  <p class="mt-4 text-brandSilver text-sm text-center uppercase tracking-widest">Make Your Digital Transformation an Evolution</p>
+    <!-- Fullscreen editorial navigation overlay -->
+    <div id="mobile-menu" class="menu-overlay" aria-hidden="true">
+        <div class="menu-container">
+            <aside class="menu-preview-panel" aria-hidden="true">
+                <div class="preview-image-wrapper">
+                    <img class="preview-img" src="assets/images/backg1.webp" alt="" />
+                    <span class="preview-index">01 / 04</span>
                 </div>
-            </div>
-
-            <!-- Right: menu (2/3 vertical) + socials (1/3 vertical) -->
-            <div class="menu-right w-1/2 flex flex-col">
-                <div class="menu-right-top flex-2 flex flex-col">
-                    <a href="index.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-home"><span class="menu-link-text">Home</span></a>
-                    <a href="services.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-services"><span class="menu-link-text">Services</span></a>
-                    <a href="portfolio.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-portfolio"><span class="menu-link-text">Labs</span></a>
-                    <a href="contact.html" class="menu-link text-3xl font-heading font-bold transition-colors" data-i18n="nav-contact"><span class="menu-link-text">Contact</span></a>
+            </aside>
+            <section class="menu-content-panel" aria-label="Site navigation">
+                <button id="mobile-close" class="close-btn" type="button" aria-label="Close menu">
+                    <span aria-hidden="true"></span><span aria-hidden="true"></span>
+                </button>
+                <div class="menu-navigation-grid">
+                    <nav aria-label="Main navigation">
+                        <span class="menu-label">Discover Pages</span>
+                        <a class="menu-link" href="index.html" data-preview="assets/images/backg1.webp" data-i18n="nav-home"><span class="menu-link-number">01</span><span class="menu-link-text">Home</span></a>
+                        <a class="menu-link" href="services.html" data-preview="assets/backgrounds/solutions-abyssal.svg" data-i18n="nav-services"><span class="menu-link-number">02</span><span class="menu-link-text">Services</span></a>
+                        <a class="menu-link" href="portfolio.html" data-preview="assets/images/backg6.webp" data-i18n="nav-portfolio"><span class="menu-link-number">03</span><span class="menu-link-text">Labs</span></a>
+                        <a class="menu-link" href="contact.html" data-preview="assets/images/backg7.webp" data-i18n="nav-contact"><span class="menu-link-number">04</span><span class="menu-link-text">Contact</span></a>
+                    </nav>
+                    <nav class="menu-expertise" aria-label="Expertise">
+                        <span class="menu-label">[ EXPERTISE ]</span>
+                        <a href="services.html">Applied AI</a>
+                        <a href="services.html">SaaS Architecture</a>
+                        <a href="portfolio.html">Digital Experiences</a>
+                        <a href="contact.html">System Status</a>
+                    </nav>
                 </div>
-
-                <div class="menu-right-bottom">
-                    <div class="social-icons flex space-x-6">
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3"></rect><path d="M8.5 11.5v5"></path><path d="M8.5 8.5v.01"></path><path d="M12 16.5v-3a1.8 1.8 0 0 1 3.6 0v3"></path></svg>
-                        </a>
-                        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg>
-                        </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter (X)">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
-                        </a>
+                <footer class="menu-footer">
+                    <div class="menu-contact-block">
+                        <span class="menu-footer-label">Contact Us</span>
+                        <div class="menu-contact">
+                        <a href="mailto:sales@cresstel.com">sales@cresstel.com</a>
+                        <a href="https://wa.me/593984702936" target="_blank" rel="noopener" aria-label="WhatsApp">+593 984702936</a>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div class="menu-social-block">
+                        <span class="menu-footer-label">Stay Connected</span>
+                        <div class="menu-socials">
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10v6M8 7.5v.01M12 16v-3.1a2 2 0 0 1 4 0V16M12 10v6"></path></svg></a>
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="17.5" cy="6.5" r=".6"></circle></svg></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="X / Twitter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4l14 16M19 4L5 20"></path></svg></a>
+                        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-2.7 16.56c.43.08.58-.19.58-.41v-1.5c-2.36.51-2.86-1.14-2.86-1.14-.39-.98-.95-1.24-.95-1.24-.77-.53.06-.52.06-.52.85.06 1.3.87 1.3.87.76 1.3 1.99.92 2.48.7.08-.55.3-.92.54-1.13-1.89-.21-3.88-.95-3.88-4.2 0-.93.33-1.68.87-2.27-.09-.21-.38-1.08.08-2.25 0 0 .71-.23 2.34.87a8.1 8.1 0 0 1 4.26 0c1.63-1.1 2.34-.87 2.34-.87.46 1.17.17 2.04.08 2.25.54.59.87 1.34.87 2.27 0 3.26-1.99 3.99-3.89 4.2.31.27.58.8.58 1.61v2.39c0 .22.15.49.59.41A8.5 8.5 0 0 0 12 3.5Z"></path></svg></a>
+                        </div>
+                    </div>
+                    <a class="menu-legal" href="#">Policies and Terms</a>
+                </footer>
+            </section>
         </div>
     </div>
 
@@ -242,7 +249,7 @@
                 <div class="labs-project-overlay absolute inset-0 bg-gradient-to-r from-brandBlue to-transparent"></div>
                 <div class="labs-project-overlay absolute inset-0 bg-[#0A0A0A]"></div>
                 <div class="relative z-20 h-full p-7 sm:p-10 lg:p-12 flex flex-col justify-end items-start">
-                    <span class="text-xs font-bold tracking-widest text-brandSilver mb-4">E-COMMERCE ECOSYSTEM</span>
+                    <span class="text-xs font-bold tracking-widest text-brandSilver mb-4" data-i18n="project-1-label">E-COMMERCE ECOSYSTEM</span>
                     <h4 class="text-4xl md:text-6xl font-heading font-bold mb-6">SoleVanguard</h4>
                     <p class="max-w-md text-brandSilver mb-8" data-i18n="project-1-desc">Premium footwear marketplace with real-time stock orchestration and interactive 3D product visualization.</p>
                     <a href="portfolio.html" class="px-8 py-3 bg-white text-black rounded-full text-xs font-bold uppercase tracking-tighter hover:scale-105 transition-transform" data-i18n="view-project">View Architecture</a>
@@ -258,7 +265,7 @@
                         <p class="text-brandSilver mb-6 text-sm" data-i18n="project-2-desc">A comprehensive SaaS for educational administration, managing complex billing cycles and predictive student performance analytics.</p>
                         <div class="flex space-x-2">
                             <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">SaaS</span>
-                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase">Fintech</span>
+                            <span class="text-[10px] border border-brandSilver/30 px-3 py-1 rounded-full uppercase" data-i18n="project-2-tag">Fintech</span>
                         </div>
                     </div>
                 </div>
@@ -286,8 +293,8 @@
             <div class="cta-bg-overlay"></div>
         </div>
         <div class="cta-content">
-            <h2 id="cta-title" class="cta-title">WHAT ARE WE<br />BUILDING NEXT?</h2>
-            <a class="cta-button" href="contact.html">READY TO START!</a>
+            <h2 id="cta-title" class="cta-title" data-i18n="cta-title">WHAT ARE WE<br />BUILDING NEXT?</h2>
+                <a class="cta-button" href="contact.html" data-i18n="cta-button">READY TO START!</a>
         </div>
     </section>
 
@@ -303,9 +310,9 @@
                     Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.
                 </p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">LinkedIn</a>
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">Twitter</a>
-                    <a href="#" class="text-brandSilver hover:text-white transition-colors">GitHub</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-linkedin">LinkedIn</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-twitter">Twitter</a>
+                    <a href="#" class="text-brandSilver hover:text-white transition-colors" data-i18n="social-github">GitHub</a>
                 </div>
             </div>
             
@@ -341,8 +348,8 @@
             </a>
         </div>
         <div class="max-w-7xl mx-auto w-full mt-auto flex flex-col justify-center items-center text-center pt-12">
-            <p class="text-[10px] text-brandSilver uppercase tracking-widest">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
-            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0">Designed for Performance</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest" data-i18n="copyright">&copy; 2026 Cresstel IA. All Rights Reserved.</p>
+            <p class="text-[10px] text-brandSilver uppercase tracking-widest mt-4 md:mt-0" data-i18n="designed-for">Designed for Performance</p>
         </div>
     </footer>
     </main>
@@ -368,6 +375,7 @@
                 "og-title": "Cresstel AI | High-Fidelity Digital Interfaces & Custom AI Solutions",
                 "og-description": "Premium web experiences and intelligent data models for complex digital operations and scaling businesses.",
                 "menu-footer": "Make Your Digital Transformation an Evolution",
+                "menu-description": "Seamlessly connect your business vision to high-fidelity web design, custom software architecture, and predictive intelligence.",
                 "hero-title": "High-Fidelity Digital Interfaces & Custom AI Solutions",
                 "hero-title-line-1": "HIGH-FIDELITY",
                 "hero-title-line-2": "DIGITAL INTERFACES &",
@@ -391,11 +399,20 @@
                 "labs-label": "[ ENTER THE LABS ]",
                 "labs-title": "[ ENTER THE LABS ]",
                 "labs-subtitle": "Selected Deployments & Experimental Systems.",
+                "project-1-label": "E-COMMERCE ECOSYSTEM",
                 "project-1-desc": "Premium footwear marketplace with real-time stock orchestration and interactive 3D product visualization.",
                 "project-2-desc": "A comprehensive SaaS for educational administration, managing complex billing cycles and predictive performance.",
                 "project-3-title": "Predictive Analytics",
                 "project-3-desc": "Supply chain optimization platform using Python/Pandas to forecast demand fluctuations for industrial partners.",
                 "view-project": "View Architecture",
+                "project-2-tag": "Fintech",
+                "cta-title": "WHAT ARE WE BUILDING NEXT?",
+                "cta-button": "READY TO START!",
+                "social-linkedin": "LinkedIn",
+                "social-twitter": "Twitter",
+                "social-github": "GitHub",
+                "copyright": "© 2026 Cresstel IA. All Rights Reserved.",
+                "designed-for": "Designed for Performance",
                 "footer-tagline": "Make Your Digital Transformation an Evolution. High-end software engineering for the next era of business.",
                 "footer-nav-title": "Navigation",
                 "footer-labs-title": "Labs",
@@ -411,7 +428,8 @@
                 "page-description": "Cresstel AI crea experiencias web premium y soluciones de IA personalizadas, transformando operaciones digitales complejas en flujos transaccionales de alto rendimiento para empresas en crecimiento.",
                 "og-title": "Cresstel AI | Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas",
                 "og-description": "Experiencias web premium y modelos de datos inteligentes para operaciones digitales complejas y empresas en crecimiento.",
-                "menu-footer": "Make Your Digital Transformation an Evolution",
+                "menu-footer": "Haz de tu Transformación Digital una Evolución",
+                "menu-description": "Conecta la visión de tu negocio con diseño web de alta fidelidad, arquitectura de software a medida e inteligencia predictiva.",
                 "hero-title": "Interfaces Digitales de Alta Fidelidad y Soluciones de IA Personalizadas.",
                 "hero-title-line-1": "INTERFACES DIGITALES",
                 "hero-title-line-2": "DE ALTA FIDELIDAD",
@@ -433,13 +451,22 @@
                 "service-3-title": "SOLUCIONES SAAS",
                 "service-3-subservices": "Infraestructura cloud (AWS/GCP) · Dashboards a medida · Integración de API y backend",
                 "labs-label": "[ ENTER THE LABS ]",
-                "labs-title": "[ ENTER THE LABS ]",
-                "labs-subtitle": "Selected Deployments & Experimental Systems.",
+                "labs-title": "[ ENTRA A LOS LABORATORIOS ]",
+                "labs-subtitle": "Despliegues seleccionados y sistemas experimentales.",
+                "project-1-label": "ECOSISTEMA DE COMERCIO ELECTRÓNICO",
                 "project-1-desc": "Marketplace de calzado premium con orquestación de stock en tiempo real y visualización 3D interactiva.",
                 "project-2-desc": "SaaS integral para administración educativa, gestionando ciclos de facturación complejos y rendimiento predictivo.",
                 "project-3-title": "Analítica Predictiva",
                 "project-3-desc": "Plataforma de optimización de cadena de suministro usando Python/Pandas para prever fluctuaciones de demanda.",
+                "project-2-tag": "Fintech",
                 "view-project": "Ver Arquitectura",
+                "cta-title": "¿QUÉ CONSTRUIREMOS A CONTINUACIÓN?",
+                "cta-button": "¡EMPECEMOS!",
+                "social-linkedin": "LinkedIn",
+                "social-twitter": "Twitter",
+                "social-github": "GitHub",
+                "copyright": "© 2026 Cresstel IA. Todos los derechos reservados.",
+                "designed-for": "Diseñado para el rendimiento",
                 "footer-tagline": "Haz de tu Transformación Digital una Evolución. Ingeniería de software de alta gama para la próxima era de negocios.",
                 "footer-nav-title": "Navegación",
                 "footer-labs-title": "Laboratorios",
@@ -463,6 +490,8 @@
             document.getElementById("page-description").setAttribute("content", translations[currentLang]["page-description"]);
             document.getElementById("og-title").setAttribute("content", translations[currentLang]["og-title"]);
             document.getElementById("og-description").setAttribute("content", translations[currentLang]["og-description"]);
+            window.dispatchEvent(new Event('services:refit'));
+            window.dispatchEvent(new Event('language:changed'));
         }
 
 

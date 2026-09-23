@@ -6,8 +6,16 @@
  * of the custom scroller, where fractional pixels and scroll-snap can differ.
  */
 function getScrollMetrics(scrollContainer) {
-  const maxScroll = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight);
-  const ratio = Math.min(1, Math.max(0, scrollContainer.scrollTop / maxScroll));
+  const isWindowScroller = scrollContainer === window;
+  const scrollHeight = isWindowScroller
+    ? document.documentElement.scrollHeight
+    : scrollContainer.scrollHeight;
+  const viewportHeight = isWindowScroller
+    ? window.innerHeight
+    : scrollContainer.clientHeight;
+  const scrollTop = isWindowScroller ? window.scrollY : scrollContainer.scrollTop;
+  const maxScroll = Math.max(1, scrollHeight - viewportHeight);
+  const ratio = Math.min(1, Math.max(0, scrollTop / maxScroll));
   return {
     maxScroll,
     percentage: Math.round(ratio * 100),
@@ -45,6 +53,7 @@ function init() {
   function openMenu() {
     previouslyFocused = document.activeElement;
     mobileMenu.classList.add('active');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     document.body.classList.add('menu-open');
     document.querySelector('.scroll-container')?.classList.add('menu-scroll-locked');
     menuToggle.setAttribute('aria-expanded', 'true');
@@ -89,6 +98,7 @@ function init() {
   // Closes the mobile dialog, removes the focus trap, and restores focus.
   function closeMenu() {
     mobileMenu.classList.remove('active');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('menu-open');
     document.querySelector('.scroll-container')?.classList.remove('menu-scroll-locked');
     menuToggle.setAttribute('aria-expanded', 'false');
@@ -130,13 +140,62 @@ function init() {
   });
 
   mobileMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', (event) => {
+      if (link.getAttribute('aria-disabled') === 'true') {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      closeMenu();
+    });
+  });
+
+  const previewImage = mobileMenu.querySelector('.preview-img');
+  const previewIndex = mobileMenu.querySelector('.preview-index');
+  const previewLinks = mobileMenu.querySelectorAll('.menu-navigation-grid nav:first-of-type .menu-link[data-preview]');
+  previewLinks.forEach((link) => {
+    const updatePreview = () => {
+      if (!previewImage) return;
+      const source = link.getAttribute('data-preview');
+      if (!source || previewImage.getAttribute('src') === source) return;
+      previewImage.style.opacity = '0';
+      previewImage.style.transform = 'scale(1.06)';
+      window.setTimeout(() => {
+        previewImage.setAttribute('src', source);
+        previewImage.style.opacity = '1';
+        previewImage.style.transform = 'scale(1.02)';
+      }, 180);
+      if (previewIndex) {
+        const number = link.querySelector('.menu-link-number')?.textContent?.replace(/\D/g, '') || '01';
+        previewIndex.textContent = `${number.padStart(2, '0')} / 04`;
+      }
+    };
+    link.addEventListener('mouseenter', updatePreview);
+    link.addEventListener('focus', updatePreview);
   });
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  mobileMenu.querySelectorAll('a[href]').forEach((link) => {
+  const mainLinks = mobileMenu.querySelectorAll('.menu-navigation-grid nav:first-of-type .menu-link');
+  mainLinks.forEach((link) => {
     const href = link.getAttribute('href');
-    link.classList.toggle('active-link', href === currentPage || (href === 'index.html' && currentPage === ''));
+    const isCurrentPage = href === currentPage || (href === 'index.html' && currentPage === '');
+    link.classList.toggle('active-link', isCurrentPage);
+    if (isCurrentPage) {
+      link.dataset.currentHref = href;
+      link.removeAttribute('href');
+      link.setAttribute('aria-current', 'page');
+      link.setAttribute('aria-disabled', 'true');
+      link.setAttribute('tabindex', '-1');
+    } else {
+      const originalHref = link.dataset.currentHref;
+      if (originalHref) {
+        link.setAttribute('href', originalHref);
+        delete link.dataset.currentHref;
+      }
+      link.removeAttribute('aria-current');
+      link.removeAttribute('aria-disabled');
+      link.removeAttribute('tabindex');
+    }
   });
 
   initRevealAndTilt();
@@ -424,15 +483,25 @@ function initRevealAndTilt() {
       line.style.setProperty('--hero-line-scale-x', '1');
       line.style.width = 'max-content';
       const availableWidth = parent.clientWidth;
-      const requiredWidth = line.getBoundingClientRect().width;
+      // scrollWidth measures the untransformed line, even while the previous
+      // scaleX transition is still settling after a language change.
+      const requiredWidth = line.scrollWidth;
       const scale = requiredWidth ? Math.min(1, availableWidth / requiredWidth) : 1;
       line.style.setProperty('--hero-line-scale-x', scale.toFixed(4));
     });
   };
 
-  fitHeroTitle();
-  window.addEventListener('resize', fitHeroTitle, { passive: true });
-  document.fonts?.ready.then(fitHeroTitle);
+  let heroFitFrame = 0;
+  const scheduleHeroLayoutRefresh = () => {
+    window.cancelAnimationFrame(heroFitFrame);
+    heroFitFrame = window.requestAnimationFrame(fitHeroTitle);
+  };
+
+  scheduleHeroLayoutRefresh();
+  window.addEventListener('resize', scheduleHeroLayoutRefresh, { passive: true });
+  window.addEventListener('load', scheduleHeroLayoutRefresh, { once: true });
+  window.addEventListener('language:changed', scheduleHeroLayoutRefresh);
+  document.fonts?.ready.then(scheduleHeroLayoutRefresh);
 
   // Fits Services headings to their row while preserving the oversized display style.
   const fitServiceTitles = () => {
@@ -444,15 +513,36 @@ function initRevealAndTilt() {
       title.style.setProperty('--title-scale-x', '1');
       const leftInset = parseFloat(window.getComputedStyle(parent).paddingLeft) || 0;
       const availableWidth = Math.max(0, parent.clientWidth - leftInset - 30);
-      const requiredWidth = title.getBoundingClientRect().width;
+      // scrollWidth is the untransformed layout width, so CSS transitions cannot
+      // feed a stale scaled value back into the next measurement.
+      const requiredWidth = title.scrollWidth;
       const scale = requiredWidth ? Math.min(1, availableWidth / requiredWidth) : 1;
       title.style.setProperty('--title-scale-x', scale.toFixed(4));
     });
   };
 
-  fitServiceTitles();
-  window.addEventListener('resize', fitServiceTitles, { passive: true });
-  document.fonts?.ready.then(fitServiceTitles);
+  let serviceFitFrame = 0;
+  const scheduleServiceLayoutRefresh = () => {
+    window.cancelAnimationFrame(serviceFitFrame);
+    serviceFitFrame = window.requestAnimationFrame(() => {
+      fitServiceTitles();
+      window.ScrollTrigger?.refresh();
+    });
+  };
+
+  scheduleServiceLayoutRefresh();
+  window.addEventListener('resize', scheduleServiceLayoutRefresh, { passive: true });
+  window.addEventListener('load', scheduleServiceLayoutRefresh, { once: true });
+  window.addEventListener('services:refit', scheduleServiceLayoutRefresh);
+  document.fonts?.ready.then(scheduleServiceLayoutRefresh);
+
+  // Refit when a late-loading font or translated label changes the measured width.
+  const servicesContainer = document.querySelector('.services-container');
+  if (servicesContainer && 'ResizeObserver' in window) {
+    const servicesResizeObserver = new ResizeObserver(scheduleServiceLayoutRefresh);
+    servicesResizeObserver.observe(servicesContainer);
+    document.querySelectorAll('.service-title').forEach((title) => servicesResizeObserver.observe(title));
+  }
 
   serviceItems.forEach((item) => {
     // Makes the hovered or focused service the active item for visual emphasis.
@@ -531,19 +621,24 @@ function initScrollIndicator() {
 function initFooterLogoTransition() {
   const siteBrand = document.getElementById('site-brand');
   const footerLogoTarget = document.getElementById('footer-logo-target');
-  const scrollContainer = document.querySelector('.scroll-container');
-  if (!siteBrand || !footerLogoTarget || !scrollContainer) return;
+  const scrollContainer = document.querySelector('.scroll-container') || window;
+  if (!siteBrand || !footerLogoTarget) return;
 
   const footerLogoLink = footerLogoTarget.querySelector('a');
   footerLogoLink?.addEventListener('click', (event) => {
     event.preventDefault();
-    scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    if (scrollContainer === window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 
   const updateLogoVisibility = () => {
     const { maxScroll, ratio } = getScrollMetrics(scrollContainer);
+    const scrollTop = scrollContainer === window ? window.scrollY : scrollContainer.scrollTop;
     const isFooterVisible =
-      scrollContainer.scrollTop >= maxScroll - 4 || ratio >= 0.995;
+      scrollTop >= maxScroll - 4 || ratio >= 0.995;
 
     if (!isFooterVisible) {
       siteBrand.classList.remove('footer-logo-fade-out');
@@ -557,9 +652,11 @@ function initFooterLogoTransition() {
 
   scrollContainer.addEventListener('scroll', updateLogoVisibility, { passive: true });
   window.addEventListener('resize', updateLogoVisibility);
-  const resizeObserver = new ResizeObserver(updateLogoVisibility);
-  resizeObserver.observe(scrollContainer);
-  resizeObserver.observe(document.body);
+  if (scrollContainer !== window) {
+    const resizeObserver = new ResizeObserver(updateLogoVisibility);
+    resizeObserver.observe(scrollContainer);
+    resizeObserver.observe(document.body);
+  }
   updateLogoVisibility();
 }
 
